@@ -1,0 +1,102 @@
+type Query {
+    # Ordinary user login
+    login(mobile: String!, password: String!): LoginResponse
+    # Query the currently logged in user information
+    findCurrentUserInfo: UserInfoResult
+}
+
+type Mutation {
+    # Ordinary user registration
+    register(registerUserInput: RegisterUserInput): UserModuleCommonResult
+    # Create user
+    createUser(createUserInput: CreateUserInput): UserModuleCommonResult
+    # Update current login user information
+    updateCurrentUserInfo(updateCurrentUserInput: UpdateCurrentUserInput): UserModuleCommonResult
+}
+
+input RegisterUserInput {
+    nickname: String!
+    mobile: String!
+    password: String!
+    verificationCode:Int!
+}
+
+input CreateUserInput {
+    nickname: String!
+    mobile: String!
+    password: String!
+}
+
+input UpdateUserInput {
+    email: String
+    mobile: String
+    password: String
+    # Information item value key-value pair, key is the ID of the user information item (userInfo.id), and value is the value of the information item (userInfo.value)
+    infoKVs: [UpdateInfoKV]
+    # An array of role ID objects owned, each item must contain the role ID (before) before the update, and the role ID (after) after the update
+    roleIds: [RoleOrOrganizationIdData]
+    # An array of organization ID objects, each of which must contain the organization ID (before) before the update, and the organization ID (after) after the update
+    organizationIds: [RoleOrOrganizationIdData]
+}
+
+input UpdateCurrentUserInput {
+    email: String
+    mobile: String
+    password: String
+    # Information item value key-value pair, key is the ID of the user information item (userInfo.id), and value is the value of the information item (userInfo.value)
+    infoKVs: [UpdateInfoKV]
+}
+
+input RegisterOrCreateInfoKV {
+    # Information item ID
+    key: Int
+    # Information item value
+    value: String
+}
+
+input UpdateInfoKV {
+    # ID of the item value(userInfo.id)
+    key: Int
+    # Information item value(userInfo.value)
+    value: String
+    # Information item ID(infoItem.id)
+    relationId: Int
+}
+
+input RoleOrOrganizationIdData {
+    # Update previous ID
+    before: Int
+    # Updated ID
+    after: Int
+}
+
+type LoginResponse {
+    code: Int
+    message: String
+    data: AccessToken
+}
+
+type AccessToken {
+    accessToken: String
+    expiresIn: Int
+}
+
+type UserInfoResult {
+    code: Int
+    message: String
+    data: UserInfoData
+}
+
+type UsersInfoResult {
+    code: Int
+    message: String
+    data: [UserInfoData]
+}
+
+type UserInfoData {
+    userId: String
+    nickname: String
+    mobile: String
+    status: Int
+    updateTime: Int
+}
