@@ -1,0 +1,65 @@
+type Query {
+    # Ordinary user login
+    loginByMobile(mobile: String!, verificationCode: String!): LoginResponse
+    sendLoginVerificationCode(mobile: String!): UserModuleCommonResult
+    sendRegisterVerificationCode(mobile: String!): UserModuleCommonResult
+    # Query the currently logged in user information
+    findCurrentUserInfo: UserInfoResult
+}
+
+type Mutation {
+    # Ordinary user registration
+    registerByMobile(registerUserInput: RegisterUserByMobileInput): UserModuleCommonResult
+    # Update current login user information
+    updateCurrentUserInfo(updateCurrentUserInput: UpdateCurrentUserInput): UserModuleCommonResult
+}
+
+input RegisterUserByMobileInput {
+    mobile: String!
+    password: String!
+    nickname: String!
+    verificationCode: String!
+}
+
+input CreateUserInput {
+    nickname: String!
+    mobile: String!
+    password: String!
+}
+
+input UpdateCurrentUserInput {
+    nickname: String!
+    password: String!
+}
+
+type LoginResponse {
+    code: Int
+    message: String
+    data: AccessToken
+}
+
+type AccessToken {
+    accessToken: String
+    expiresIn: Int
+}
+
+type UserInfoResult {
+    code: Int
+    message: String
+    data: UserInfoData
+}
+
+type UsersInfoResult {
+    code: Int
+    message: String
+    data: [UserInfoData]
+}
+
+type UserInfoData {
+    userId: String
+    mobile: String
+    nickname: String
+    status: Int
+    createTime: Int
+    updateTime: Int
+}
