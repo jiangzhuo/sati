@@ -22,7 +22,9 @@ export class AuthService implements OnModuleInit {
         /**
          * whitelist
          */
-        if (req.body && ['IntrospectionQuery', 'loginByMobile', 'adminLogin', 'registerByMobile'].includes(req.body.operationName)) {
+        const whiteList = ['IntrospectionQuery', 'loginBySMSCode', 'loginByMobileAndPassword', 'sendRegisterVerificationCode', 'sendLoginVerificationCode', 'registerBySMSCode']
+        console.log(req.body)
+        if (req.body && whiteList.includes(req.body.operationName)) {
             return;
         }
 

@@ -1,6 +1,7 @@
 type Query {
     # Ordinary user login
-    loginByMobile(mobile: String!, verificationCode: String!): LoginResponse
+    loginBySMSCode(mobile: String!, verificationCode: String!): LoginResponse
+    loginByMobileAndPassword(mobile: String!, password: String!): LoginResponse
     sendLoginVerificationCode(mobile: String!): UserModuleCommonResult
     sendRegisterVerificationCode(mobile: String!): UserModuleCommonResult
     # Query the currently logged in user information
@@ -9,16 +10,15 @@ type Query {
 
 type Mutation {
     # Ordinary user registration
-    registerByMobile(registerUserInput: RegisterUserByMobileInput): UserModuleCommonResult
+    registerBySMSCode(registerUserInput: RegisterUserBySMSCodeInput, verificationCode: String!): UserModuleCommonResult
     # Update current login user information
     updateCurrentUserInfo(updateCurrentUserInput: UpdateCurrentUserInput): UserModuleCommonResult
 }
 
-input RegisterUserByMobileInput {
+input RegisterUserBySMSCodeInput {
     mobile: String!
     password: String!
     nickname: String!
-    verificationCode: String!
 }
 
 input CreateUserInput {

@@ -19,9 +19,15 @@ export class UserResolver {
 
     private userServiceInterface;
 
-    @Query('loginByMobile')
-    async loginByMobile(req, body: { mobile: string, verificationCode: string }): Promise<CommonResult> {
-        const { code, message, data } = await this.userServiceInterface.loginByMobile(body).toPromise();
+    @Query('loginBySMSCode')
+    async loginBySMSCode(req, body: { mobile: string, verificationCode: string }): Promise<CommonResult> {
+        const { code, message, data } = await this.userServiceInterface.loginBySMSCode(body).toPromise();
+        return { code, message, data: data.tokenInfo };
+    }
+
+    @Query('loginByMobileAndPassword')
+    async loginByMobileAndPassword(req, body: { mobile: string, password: string }): Promise<CommonResult> {
+        const { code, message, data } = await this.userServiceInterface.loginByMobileAndPassword(body).toPromise();
         return { code, message, data: data.tokenInfo };
     }
 
@@ -35,19 +41,19 @@ export class UserResolver {
     //     return { code, message, data: data.tokenInfo };
     // }
 
-    @Mutation('registerByMobile')
-    async registerByMobile(req, { registerUserInput }): Promise<CommonResult> {
-        return this.userServiceInterface.registerByMobile({ registerUserInput }).toPromise();
+    @Mutation('registerBySMSCode')
+    async registerBySMSCode(req, { registerUserInput, verificationCode }): Promise<CommonResult> {
+        return await this.userServiceInterface.registerBySMSCode({ registerUserInput, verificationCode }).toPromise();
     }
 
     @Query('sendLoginVerificationCode')
-    async sendLoginVerificationCode(req, { mobile }): Promise<CommonResult> {
-        return this.userServiceInterface.getLoginVerificationCode(mobile).toPromise();
+    async sendLoginVerificationCode(req, body): Promise<CommonResult> {
+        return await this.userServiceInterface.getLoginVerificationCode(body).toPromise();
     }
 
     @Query('sendRegisterVerificationCode')
-    async sendRegisterVerificationCode(req, { mobile }): Promise<CommonResult> {
-        return this.userServiceInterface.getRegisterVerificationCode(mobile).toPromise();
+    async sendRegisterVerificationCode(req, body): Promise<CommonResult> {
+        return await this.userServiceInterface.getRegisterVerificationCode(body).toPromise();
     }
 
     // @Mutation('createUser')
