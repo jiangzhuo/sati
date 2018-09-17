@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { DynamicModule, Global, Inject, Module, OnModuleInit } from '@nestjs/common';
+import { DynamicModule, Global, UseGuards, Inject, Module, OnModuleInit } from '@nestjs/common';
 // import { PATH_METADATA } from '@nestjs/common/constants';
 import { APP_GUARD } from '@nestjs/core';
 import { ModulesContainer } from '@nestjs/core/injector/modules-container';
@@ -15,10 +15,10 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { UserResolver } from './resolvers/user.resolver';
 
-@Global()
+// @Global()
+@UseGuards(AuthGuard)
 @Module({
     providers: [
-        { provide: APP_GUARD, useClass: AuthGuard },
         NotaddGrpcClientFactory,
         AuthService,
         UserResolver
