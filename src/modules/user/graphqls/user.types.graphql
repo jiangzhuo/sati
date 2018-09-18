@@ -19,17 +19,20 @@ input RegisterUserBySMSCodeInput {
     mobile: String!
     password: String!
     nickname: String!
+    avatar: String!
 }
 
 input CreateUserInput {
     nickname: String!
     mobile: String!
     password: String!
+    avatar: String!
 }
 
 input UpdateCurrentUserInput {
     nickname: String!
     password: String!
+    avatar: String!
 }
 
 type LoginResponse {
@@ -59,7 +62,7 @@ type UserInfoData {
     userId: String
     mobile: String
     nickname: String
+    avatar: String
     status: Int
-    createTime: Int
     updateTime: Int
 }

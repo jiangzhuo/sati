@@ -70,7 +70,7 @@ export class UserResolver {
     @Mutation('updateCurrentUserInfo')
     async updateCurrentUserInfo(req, body, context): Promise<CommonResult> {
         body.userId = context.user.id;
-        return this.userServiceInterface.updateCurrentUserInfo(body).toPromise();
+        return await this.userServiceInterface.updateCurrentUserInfo(body).toPromise();
     }
 
     // @Query('findUserInfoByIds')
@@ -81,6 +81,11 @@ export class UserResolver {
 
     @Query('findCurrentUserInfo')
     async findCurrentUserInfo(req, body, context): Promise<CommonResult> {
-        return this.userServiceInterface.findCurrentUserInfo({ userId: context.user.id }).toPromise();
+        if (context.user) {
+            return { code: 200, message: 'userInfo from context', data: context.user };
+        } else {
+            return { code: 401, message: 'no userInfo in context', data: {} };
+        }
+        // return await this.userServiceInterface.findCurrentUserInfo({ userId: context.user.id }).toPromise();
     }
 }

@@ -17,7 +17,6 @@ export class UploadController {
             bucket: AVATAR_BUCKET
         });
         const result = await client.put(`avatar/${UUID()}.jpg`, file.buffer);
-        console.log(result);
         return { code: 200, message: 'upload avatar success', data: result.res.requestUrls[0] };
     }
 }
