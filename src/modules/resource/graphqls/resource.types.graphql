@@ -2,7 +2,29 @@ type Query {
     sayMindfulnessHello(name: String!): SayHelloResponse
     sayNatureHello(name: String!): SayHelloResponse
     sayWanderHello(name: String!): SayHelloResponse
+    getMindfulness(first: Int, after: String): getMindfulnessResponse
 }
+
+type getMindfulnessResponse{
+    code: Int
+    message: String
+    data: [Mindfulness]
+}
+
+type Mindfulness {
+    id : String
+    background : String
+    name : String
+    description : String
+    scenes : [String]
+    productId : String
+    createTime : Int
+    updateTime : Int
+    author : String
+    audio : String
+    copy : String
+}
+
 
 type SayHelloResponse {
     code: Int

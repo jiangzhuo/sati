@@ -29,6 +29,12 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data: msg };
     }
 
+    @Query('getMindfulness')
+    async getMindfulness(req, body: { take: number, after?: string }) {
+        const { data } = await this.mindfulnessServiceInterface.getMindfulness(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Query('sayNatureHello')
     async sayNatureHello(req, body: { name: string }) {
         const { msg } = await this.natureServiceInterface.sayHello({ name: body.name }).toPromise();
