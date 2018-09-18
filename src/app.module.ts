@@ -7,6 +7,7 @@ import { ErrorsInterceptor } from './common/interceptors/errors.interceptor';
 import { GraphQLConfigService } from './graphql-config.service';
 import { NotaddGrpcClientFactory } from './grpc/grpc.client-factory';
 import { UserModule } from './modules/user/user.module';
+import { ResourceModule } from './modules/resource/resource.module';
 import { UploadModule } from './modules/upload/upload.module';
 
 @Global()
@@ -16,6 +17,7 @@ import { UploadModule } from './modules/upload/upload.module';
             useClass: GraphQLConfigService
         }),
         UploadModule,
+        ResourceModule,
         UserModule.forRoot({ i18n: 'zh-CN' }),
     ],
     providers: [

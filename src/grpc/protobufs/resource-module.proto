@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package sati_module_resource;
+
+message PlaceholderRequest { }
+
+message StringDataResponse {
+    int32 code = 1;
+    string message = 2;
+    string data = 3;
+}
+
+service MindfulnessService {
+    rpc SayHello (SayHelloRequest) returns (SayHelloResponse) { }
+}
+
+service NatureService {
+    rpc SayHello (SayHelloRequest) returns (SayHelloResponse) { }
+}
+
+service WanderService {
+    rpc SayHello (SayHelloRequest) returns (SayHelloResponse) { }
+}
+
+message SayHelloRequest {
+    string name = 1;
+}
+
+message SayHelloResponse {
+    string msg = 1;
+}

@@ -1,0 +1,11 @@
+type Query {
+    sayMindfulnessHello(name: String!): SayHelloResponse
+    sayNatureHello(name: String!): SayHelloResponse
+    sayWanderHello(name: String!): SayHelloResponse
+}
+
+type SayHelloResponse {
+    code: Int
+    message: String
+    data: String
+}

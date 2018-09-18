@@ -9,6 +9,9 @@ export class NotaddGrpcClientFactory {
 
     @Client(generateGrpcOptions('localhost:50051', 'sati_module_user', 'user-module.proto'))
     public readonly userModuleClient: ClientGrpc;
+
+    @Client(generateGrpcOptions('localhost:50052', 'sati_module_resource', 'resource-module.proto'))
+    public readonly resourceModuleClient: ClientGrpc;
 }
 
 export function generateGrpcOptions(url: string, packageName: string, protoFileName: string): GrpcOptions {
