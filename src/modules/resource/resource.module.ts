@@ -12,7 +12,6 @@ import { __ as t, configure as i18nConfigure } from 'i18n';
 // import { Permission, Resource } from '../../common/interfaces';
 import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
 import { AuthGuard } from './auth/auth.guard';
-import { AuthService } from './auth/auth.service';
 import { ResourceResolver } from './resolvers/resource.resolver';
 
 // @Global()
@@ -20,10 +19,8 @@ import { ResourceResolver } from './resolvers/resource.resolver';
 @Module({
     providers: [
         NotaddGrpcClientFactory,
-        AuthService,
         ResourceResolver
-    ],
-    exports: [AuthService]
+    ]
 })
 export class ResourceModule implements OnModuleInit {
     constructor(
