@@ -3,12 +3,42 @@ type Query {
     sayNatureHello(name: String!): SayHelloResponse
     sayWanderHello(name: String!): SayHelloResponse
     getMindfulness(first: Int, after: String): getMindfulnessResponse
+    getMindfulnessById(id: String!): getMindfulnessResponse
+    getMindfulnessByIds(ids: [String]): getMindfulnessResponse
+    getNature(first: Int, after: String): getNatureResponse
+    getNatureById(id: String!): getNatureResponse
+    getNatureByIds(ids: [String]): getNatureResponse
+    getWander(first: Int, after: String): getWanderResponse
+    getWanderById(id: String!): getWanderResponse
+    getWanderByIds(ids: [String]): getWanderResponse
+    getWanderAlbum(first: Int, after: String): getWanderAlbumResponse
+    getWanderAlbumById(id: String!): getWanderAlbumResponse
+    getWanderAlbumByIds(ids: [String]): getWanderAlbumResponse
+    getWanderByWanderAlbumId(id: String!):getWanderResponse
 }
 
 type getMindfulnessResponse{
     code: Int
     message: String
     data: [Mindfulness]
+}
+
+type getNatureResponse{
+    code: Int
+    message: String
+    data: [Nature]
+}
+
+type getWanderResponse{
+    code: Int
+    message: String
+    data: [Wander]
+}
+
+type getWanderAlbumResponse{
+    code: Int
+    message: String
+    data: [WanderAlbum]
 }
 
 type Mindfulness {
@@ -23,6 +53,51 @@ type Mindfulness {
     author : String
     audio : String
     copy : String
+    status: Int
+}
+
+type Nature {
+    id : String
+    background : String
+    name : String
+    description : String
+    scenes : [String]
+    productId : String
+    createTime : Int
+    updateTime : Int
+    author : String
+    audio : String
+    status: Int
+}
+
+type Wander {
+    id : String
+    background : String
+    name : String
+    description : String
+    scenes : [String]
+    productId : String
+    createTime : Int
+    updateTime : Int
+    author : String
+    audio : String
+    copy : String
+    wanderAlbumId: String
+    status: Int
+}
+
+type WanderAlbum {
+    id : String
+    background : String
+    name : String
+    description : String
+    scenes : [String]
+    productId : String
+    createTime : Int
+    updateTime : Int
+    author : String
+    copy : String
+    status: Int
 }
 
 
