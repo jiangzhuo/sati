@@ -13,6 +13,7 @@ export class ResourceResolver {
         this.mindfulnessServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('MindfulnessService');
         this.natureServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('NatureService');
         this.wanderServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('WanderService');
+        this.sceneServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('SceneService');
     }
 
     constructor(
@@ -22,6 +23,7 @@ export class ResourceResolver {
     private mindfulnessServiceInterface;
     private natureServiceInterface;
     private wanderServiceInterface;
+    private sceneServiceInterface;
 
     @Query('sayMindfulnessHello')
     async sayMindfulnessHello(req, body: { name: string }) {
@@ -38,6 +40,12 @@ export class ResourceResolver {
     @Query('sayWanderHello')
     async sayWanderHello(req, body: { name: string }) {
         const { msg } = await this.wanderServiceInterface.sayHello({ name: body.name }).toPromise();
+        return { code: 200, message: 'success', data: msg };
+    }
+
+    @Query('saySceneHello')
+    async saySceneHello(req, body: { name: string }) {
+        const { msg } = await this.sceneServiceInterface.sayHello({ name: body.name }).toPromise();
         return { code: 200, message: 'success', data: msg };
     }
 
@@ -116,6 +124,42 @@ export class ResourceResolver {
     @Query('getWanderByWanderAlbumId')
     async getWanderByWanderAlbumId(req, body: { id: string }) {
         const { data } = await this.wanderServiceInterface.getWanderByWanderAlbumId(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('getScene')
+    async getScene(req, body: { take: number, after?: string }) {
+        const { data } = await this.sceneServiceInterface.getWander(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('getSceneById')
+    async getSceneById(req, body: { id: string }) {
+        const { data } = await this.sceneServiceInterface.getSceneById(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('getSceneByIds')
+    async getSceneByIds(req, body: { ids: [string] }) {
+        const { data } = await this.sceneServiceInterface.getSceneByIds(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('createScene')
+    async createScene(req, body: { name: string }) {
+        const { data } = await this.sceneServiceInterface.createScene(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('updateScene')
+    async updateScene(req, body: { id: string, name: string }) {
+        const { data } = await this.sceneServiceInterface.updateScene(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('deleteScene')
+    async deleteScene(req, body: { id: string }) {
+        const { data } = await this.sceneServiceInterface.deleteScene(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 }
