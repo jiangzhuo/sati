@@ -11,11 +11,9 @@ import { __ as t, configure as i18nConfigure } from 'i18n';
 // import { PERMISSION_DEFINITION, RESOURCE_DEFINITION } from '../../common/decorators';
 // import { Permission, Resource } from '../../common/interfaces';
 import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
-import { AuthGuard } from './auth/auth.guard';
 import { ResourceResolver } from './resolvers/resource.resolver';
 
 // @Global()
-@UseGuards(AuthGuard)
 @Module({
     providers: [
         NotaddGrpcClientFactory,
