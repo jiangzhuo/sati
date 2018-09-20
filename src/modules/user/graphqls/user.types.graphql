@@ -8,14 +8,22 @@ type Query {
     "发送注册验证码"
     sendRegisterVerificationCode(mobile: String!): UserModuleCommonResult
     "获取当前用户信息"
-    findCurrentUserInfo: UserInfoResult
+    getCurrentUser: UserResult
+    "根据id获取用户信息"
+    getUserById(id: String!): UserResult
+    "根据mobile获取用户信息"
+    getUserByMobile(mobile: String!): UserResult
+    "获取用户信息列表"
+    getUser(first: Int, after: String): UsersInfoResult
 }
 
 type Mutation {
     "使用手机号验证码注册"
-    registerBySMSCode(registerUserInput: RegisterUserBySMSCodeInput, verificationCode: String!): UserInfoResult
+    registerBySMSCode(registerUserInput: RegisterUserBySMSCodeInput, verificationCode: String!): UserResult
     "更新当前用户信息"
-    updateCurrentUserInfo(updateCurrentUserInput: UpdateCurrentUserInput): UserInfoResult
+    updateCurrentUser(updateCurrentUserInput: UpdateCurrentUserInput): UserResult
+    "更新用户信息"
+    updateUserById(updateUserInput: UpdateUserInput): UserResult
 }
 
 input RegisterUserBySMSCodeInput {
@@ -42,11 +50,24 @@ input CreateUserInput {
 
 input UpdateCurrentUserInput {
     "昵称"
-    nickname: String!
+    nickname: String
     "密码"
-    password: String!
+    password: String
     "头像的网址，通过上传头像接口获取"
-    avatar: String!
+    avatar: String
+}
+
+input UpdateUserInput {
+    "唯一id"
+    id: String!
+    "昵称"
+    nickname: String
+    "密码"
+    password: String
+    "头像的网址，通过上传头像接口获取"
+    avatar: String
+    "状态"
+    status: Int
 }
 
 type LoginResponse {
@@ -62,19 +83,19 @@ type AccessToken {
     expiresIn: Int
 }
 
-type UserInfoResult {
+type UserResult {
     code: Int
     message: String
-    data: UserInfoData
+    data: UserData
 }
 
 type UsersInfoResult {
     code: Int
     message: String
-    data: [UserInfoData]
+    data: [UserData]
 }
 
-type UserInfoData {
+type UserData {
     "用户唯一id"
     id: String
     "手机号也是唯一的"

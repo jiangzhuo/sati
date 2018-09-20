@@ -46,7 +46,6 @@ export class UserResolver {
     @Mutation('registerBySMSCode')
     async registerBySMSCode(req, { registerUserInput, verificationCode }): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.registerBySMSCode({ registerUserInput, verificationCode }).toPromise();
-        console.log(data)
         return { code: 200, message: 'success', data };
     }
 
@@ -68,30 +67,49 @@ export class UserResolver {
     //     return this.userServiceInterface.createUser(body).toPromise();
     // }
 
-    // @Mutation('updateUserInfoById')
-    // async updateUserInfoById(req, body): Promise<CommonResult> {
-    //     return this.userServiceInterface.updateUserInfoById(body).toPromise();
+    // @Mutation('updateUserById')
+    // async updateUserById(req, body): Promise<CommonResult> {
+    //     return this.userServiceInterface.updateUserById(body).toPromise();
     // }
 
-    @Mutation('updateCurrentUserInfo')
-    async updateCurrentUserInfo(req, body, context): Promise<CommonResult> {
-        body.userId = context.user.id;
-        return await this.userServiceInterface.updateCurrentUserInfo(body).toPromise();
+    @Mutation('updateCurrentUser')
+    async updateCurrentUser(req, body, context): Promise<CommonResult> {
+        body.updateCurrentUserInput.id = context.user.id;
+        const { data } = await this.userServiceInterface.updateUserById(body.updateCurrentUserInput).toPromise();
+        return { code: 200, message: 'success', data };
     }
 
-    // @Query('findUserInfoByIds')
-    // @Permission({ name: 'find_user_info_by_ids', identify: 'user:findUserInfoByIds', action: 'find' })
-    // async findUserInfoByIds(req, body: { userIds: number[] }): Promise<CommonResult> {
-    //     return await this.userServiceInterface.findUserInfoByIds(body).toPromise();
-    // }
+    @Mutation('updateUserById')
+    async updateUserById(req, body, context): Promise<CommonResult> {
+        const { data } = await this.userServiceInterface.updateUserById(body.updateUserInput).toPromise();
+        return { code: 200, message: 'success', data };
+    }
 
-    @Query('findCurrentUserInfo')
-    async findCurrentUserInfo(req, body, context): Promise<CommonResult> {
+    @Query('getCurrentUser')
+    async getCurrentUser(req, body, context): Promise<CommonResult> {
         if (context.user) {
             return { code: 200, message: 'userInfo from context', data: context.user };
         } else {
             return { code: 401, message: 'no userInfo in context', data: {} };
         }
-        // return await this.userServiceInterface.findCurrentUserInfo({ userId: context.user.id }).toPromise();
+        // return await this.userServiceInterface.updateCurrentUser({ userId: context.user.id }).toPromise();
+    }
+
+    @Query('getUserById')
+    async getUserById(req, body, context): Promise<CommonResult> {
+        const { data } = await this.userServiceInterface.getUserById(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('getUserByMobile')
+    async getUserByMobile(req, body, context): Promise<CommonResult> {
+        const { data } = await this.userServiceInterface.getUserByMobile(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('getUser')
+    async getUser(req, body, context): Promise<CommonResult> {
+        const { data } = await this.userServiceInterface.getUser(body).toPromise();
+        return { code: 200, message: 'success', data };
     }
 }
