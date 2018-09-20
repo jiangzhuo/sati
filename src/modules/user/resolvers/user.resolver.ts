@@ -45,17 +45,21 @@ export class UserResolver {
 
     @Mutation('registerBySMSCode')
     async registerBySMSCode(req, { registerUserInput, verificationCode }): Promise<CommonResult> {
-        return await this.userServiceInterface.registerBySMSCode({ registerUserInput, verificationCode }).toPromise();
+        const { data } = await this.userServiceInterface.registerBySMSCode({ registerUserInput, verificationCode }).toPromise();
+        console.log(data)
+        return { code: 200, message: 'success', data };
     }
 
     @Query('sendLoginVerificationCode')
     async sendLoginVerificationCode(req, body): Promise<CommonResult> {
-        return await this.userServiceInterface.getLoginVerificationCode(body).toPromise();
+        const { data } = await this.userServiceInterface.getLoginVerificationCode(body).toPromise();
+        return { code: 200, message: 'success' };
     }
 
     @Query('sendRegisterVerificationCode')
     async sendRegisterVerificationCode(req, body): Promise<CommonResult> {
-        return await this.userServiceInterface.getRegisterVerificationCode(body).toPromise();
+        const { data } = await this.userServiceInterface.getRegisterVerificationCode(body).toPromise();
+        return { code: 200, message: 'success' };
     }
 
     // @Mutation('createUser')

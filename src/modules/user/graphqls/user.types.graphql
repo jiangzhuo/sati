@@ -13,9 +13,9 @@ type Query {
 
 type Mutation {
     "使用手机号验证码注册"
-    registerBySMSCode(registerUserInput: RegisterUserBySMSCodeInput, verificationCode: String!): UserModuleCommonResult
+    registerBySMSCode(registerUserInput: RegisterUserBySMSCodeInput, verificationCode: String!): UserInfoResult
     "更新当前用户信息"
-    updateCurrentUserInfo(updateCurrentUserInput: UpdateCurrentUserInput): UserModuleCommonResult
+    updateCurrentUserInfo(updateCurrentUserInput: UpdateCurrentUserInput): UserInfoResult
 }
 
 input RegisterUserBySMSCodeInput {
@@ -76,7 +76,7 @@ type UsersInfoResult {
 
 type UserInfoData {
     "用户唯一id"
-    userId: String
+    id: String
     "手机号也是唯一的"
     mobile: String
     "昵称"

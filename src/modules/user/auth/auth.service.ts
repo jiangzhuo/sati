@@ -44,7 +44,7 @@ export class AuthService implements OnModuleInit {
 
         try {
             const decodedToken = <{ userId: string }>jwt.verify(token, 'secretKey');
-            const { data } = await this.userServiceInterface.findUserInfoById({ userId: decodedToken.userId }).toPromise();
+            const { data } = await this.userServiceInterface.getUserById({ id: decodedToken.userId }).toPromise();
             return data;
         } catch (error) {
             if (error instanceof jwt.JsonWebTokenError) {
