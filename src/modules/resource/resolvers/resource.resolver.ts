@@ -131,7 +131,7 @@ export class ResourceResolver {
 
     @Query('getScene')
     async getScene(req, body: { take: number, after?: string }) {
-        const { data } = await this.sceneServiceInterface.getWander(body).toPromise();
+        const { data } = await this.sceneServiceInterface.getScene(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
