@@ -23,7 +23,7 @@ export class AuthService implements OnModuleInit {
          * whitelist
          */
         const whiteList = ['IntrospectionQuery',
-            'sayHello', 'test',
+            'sayHello', 'test', 'adminTest',
             'loginBySMSCode', 'loginByMobileAndPassword',
             'sendRegisterVerificationCode', 'sendLoginVerificationCode',
             'registerBySMSCode'];

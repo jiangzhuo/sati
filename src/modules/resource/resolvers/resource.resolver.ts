@@ -69,6 +69,25 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Mutation('createMindfulness')
+    async createMindfulness(req, body) {
+        const { data } = await this.mindfulnessServiceInterface.createMindfulness(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('updateMindfulness')
+    async updateMindfulness(req, body) {
+        body.data.id = body.id;
+        const { data } = await this.mindfulnessServiceInterface.updateMindfulness(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('deleteMindfulness')
+    async deleteMindfulness(req, body: { id: string }) {
+        const { data } = await this.mindfulnessServiceInterface.deleteMindfulness(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Query('getNature')
     async getNature(req, body: { take: number, after?: string }) {
         const { data } = await this.natureServiceInterface.getNature(body).toPromise();
