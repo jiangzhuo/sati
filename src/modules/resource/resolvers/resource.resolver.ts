@@ -145,7 +145,7 @@ export class ResourceResolver {
 
     @Query('getWanderAlbum')
     async getWanderAlbum(req, body: { take: number, after?: string }) {
-        const { data } = await this.wanderServiceInterface.getWander(body).toPromise();
+        const { data } = await this.wanderServiceInterface.getWanderAlbum(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
@@ -200,6 +200,44 @@ export class ResourceResolver {
     @Mutation('deleteScene')
     async deleteScene(req, body: { id: string }) {
         const { data } = await this.sceneServiceInterface.deleteScene(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('createWander')
+    async createWander(req, body) {
+        const { data } = await this.wanderServiceInterface.createWander(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('updateWander')
+    async updateWander(req, body) {
+        body.data.id = body.id;
+        const { data } = await this.wanderServiceInterface.updateWander(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('deleteWander')
+    async deleteWander(req, body: { id: string }) {
+        const { data } = await this.wanderServiceInterface.deleteWander(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('createWanderAlbum')
+    async createWanderAlbum(req, body) {
+        const { data } = await this.wanderServiceInterface.createWanderAlbum(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('updateWanderAlbum')
+    async updateWanderAlbum(req, body) {
+        body.data.id = body.id;
+        const { data } = await this.wanderServiceInterface.updateWanderAlbum(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('deleteWanderAlbum')
+    async deleteWanderAlbum(req, body: { id: string }) {
+        const { data } = await this.wanderServiceInterface.deleteWanderAlbum(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 }

@@ -60,6 +60,18 @@ type Mutation{
     updateNature(id: String!, data: updateNatureRequest!): getNatureResponse
     "删除自然"
     deleteNature(id: String!): getNatureResponse
+    "创建漫步"
+    createWander(data: createWanderRequest!): getWanderResponse
+    "更新漫步"
+    updateWander(id: String!, data: updateWanderRequest!): getWanderResponse
+    "删除漫步"
+    deleteWander(id: String!): getWanderResponse
+    "创建漫步列表"
+    createWanderAlbum(data: createWanderAlbumRequest!): getWanderAlbumResponse
+    "更新漫步列表"
+    updateWanderAlbum(id: String!, data: updateWanderAlbumRequest!): getWanderAlbumResponse
+    "删除漫步列表"
+    deleteWanderAlbum(id: String!): getWanderAlbumResponse
 }
 
 input createMindfulnessRequest{
@@ -120,6 +132,90 @@ type getManyWanderResponse{
     code: Int
     message: String
     data: [Wander]
+}
+
+input createWanderRequest{
+    "背景图片地址"
+    background : String
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "商品id 例如ai.kizuna.store.iap6"
+    price : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "文案"
+    copy : String
+    "专辑id"
+    wanderAlbumId : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+}
+
+input updateWanderRequest{
+    "背景图片地址"
+    background : String
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "商品id 例如ai.kizuna.store.iap6"
+    price : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "文案"
+    copy : String
+    "专辑id"
+    wanderAlbumId : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+}
+
+input createWanderAlbumRequest{
+    "背景图片地址"
+    background : String
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "商品id 例如ai.kizuna.store.iap6"
+    price : Int
+    "作者id"
+    author : String
+    "文案"
+    copy : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+}
+
+input updateWanderAlbumRequest{
+    "背景图片地址"
+    background : String
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "商品id 例如ai.kizuna.store.iap6"
+    price : Int
+    "作者id"
+    author : String
+    "文案"
+    copy : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
 }
 
 input createNatureRequest{
