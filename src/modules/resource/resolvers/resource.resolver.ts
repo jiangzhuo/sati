@@ -106,6 +106,25 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Mutation('createNature')
+    async createNature(req, body) {
+        const { data } = await this.natureServiceInterface.createNature(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('updateNature')
+    async updateNature(req, body) {
+        body.data.id = body.id;
+        const { data } = await this.natureServiceInterface.updateNature(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('deleteNature')
+    async deleteNature(req, body: { id: string }) {
+        const { data } = await this.natureServiceInterface.deleteNature(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Query('getWander')
     async getWander(req, body: { take: number, after?: string }) {
         const { data } = await this.wanderServiceInterface.getWander(body).toPromise();

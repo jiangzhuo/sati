@@ -54,6 +54,12 @@ type Mutation{
     updateMindfulness(id: String!, data: updateMindfulnessRequest!): getMindfulnessResponse
     "删除正态"
     deleteMindfulness(id: String!): getMindfulnessResponse
+    "创建自然"
+    createNature(data: createNatureRequest!): getNatureResponse
+    "更新自然"
+    updateNature(id: String!, data: updateNatureRequest!): getNatureResponse
+    "删除自然"
+    deleteNature(id: String!): getNatureResponse
 }
 
 input createMindfulnessRequest{
@@ -66,7 +72,7 @@ input createMindfulnessRequest{
     "适用场景的id"
     scenes : [String]
     "商品id 例如ai.kizuna.store.iap6"
-    productId : [String]
+    price : Int
     "作者id"
     author : String
     "声音文件地址"
@@ -87,7 +93,7 @@ input updateMindfulnessRequest{
     "适用场景的id"
     scenes : [String]
     "商品id 例如ai.kizuna.store.iap6"
-    productId : [String]
+    price : Int
     "作者id"
     author : String
     "声音文件地址"
@@ -114,6 +120,44 @@ type getManyWanderResponse{
     code: Int
     message: String
     data: [Wander]
+}
+
+input createNatureRequest{
+    "背景图片地址"
+    background : String
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "商品id 例如ai.kizuna.store.iap6"
+    price : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+}
+
+input updateNatureRequest{
+    "背景图片地址"
+    background : String
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "商品id 例如ai.kizuna.store.iap6"
+    price : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
 }
 
 type getManyWanderAlbumResponse{
@@ -170,7 +214,7 @@ type Mindfulness {
     "适用场景的id"
     scenes : [String]
     "商品id 例如ai.kizuna.store.iap6"
-    productId : [String]
+    price : Int
     "创建日期"
     createTime : Int
     "更新时间"
@@ -197,7 +241,7 @@ type Nature {
     "适用场景的id"
     scenes : [String]
     "商品id 例如ai.kizuna.store.iap6"
-    productId : [String]
+    price : Int
     "创建日期"
     createTime : Int
     "更新时间"
@@ -222,7 +266,7 @@ type Wander {
     "适用场景的id"
     scenes : [String]
     "商品id 例如ai.kizuna.store.iap6"
-    productId : [String]
+    price : Int
     "创建日期"
     createTime : Int
     "更新时间"
@@ -251,7 +295,7 @@ type WanderAlbum {
     "适用场景的id"
     scenes : [String]
     "商品id 例如ai.kizuna.store.iap6"
-    productId : [String]
+    price : Int
     "创建日期"
     createTime : Int
     "更新时间"
