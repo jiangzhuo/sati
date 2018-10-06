@@ -69,6 +69,24 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Query('getMindfulnessRecordByMindfulnessId')
+    async getMindfulnessRecordByMindfulnessId(req, body: { mindfulnessId: string }, context) {
+        const { data } = await this.mindfulnessServiceInterface.getMindfulnessRecordByMindfulnessId({
+            userId: context.user.id,
+            mindfulnessId: body.mindfulnessId
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('favoriteMindfulness')
+    async favoriteMindfulness(req, body: { id: string }, context) {
+        const { data } = await this.mindfulnessServiceInterface.favoriteMindfulness({
+            userId: context.user.id,
+            mindfulnessId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('createMindfulness')
     async createMindfulness(req, body) {
         const { data } = await this.mindfulnessServiceInterface.createMindfulness(body.data).toPromise();
@@ -106,6 +124,15 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Query('getNatureRecordByNatureId')
+    async getNatureRecordByNatureId(req, body: { natureId: string }, context) {
+        const { data } = await this.natureServiceInterface.getNatureRecordByNatureId({
+            userId: context.user.id,
+            natureId: body.natureId
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('createNature')
     async createNature(req, body) {
         const { data } = await this.natureServiceInterface.createNature(body.data).toPromise();
@@ -122,6 +149,15 @@ export class ResourceResolver {
     @Mutation('deleteNature')
     async deleteNature(req, body: { id: string }) {
         const { data } = await this.natureServiceInterface.deleteNature(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('favoriteNature')
+    async favoriteNature(req, body: { id: string }, context) {
+        const { data } = await this.natureServiceInterface.favoriteNature({
+            userId: context.user.id,
+            natureId: body.id
+        }).toPromise();
         return { code: 200, message: 'success', data };
     }
 
@@ -143,6 +179,15 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Query('getWanderRecordByWanderId')
+    async getWanderRecordByWanderId(req, body: { wanderId: string }, context) {
+        const { data } = await this.wanderServiceInterface.getWanderRecordByWanderId({
+            userId: context.user.id,
+            wanderId: body.wanderId
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Query('getWanderAlbum')
     async getWanderAlbum(req, body: { take: number, after?: string }) {
         const { data } = await this.wanderServiceInterface.getWanderAlbum(body).toPromise();
@@ -158,6 +203,15 @@ export class ResourceResolver {
     @Query('getWanderAlbumByIds')
     async getWanderAlbumByIds(req, body: { ids: [string] }) {
         const { data } = await this.wanderServiceInterface.getWanderAlbumByIds(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('getWanderAlbumRecordByWanderAlbumId')
+    async getWanderAlbumRecordByWanderAlbumId(req, body: { wanderAlbumId: string }, context) {
+        const { data } = await this.wanderServiceInterface.getWanderAlbumRecordByWanderAlbumId({
+            userId: context.user.id,
+            wanderAlbumId: body.wanderAlbumId
+        }).toPromise();
         return { code: 200, message: 'success', data };
     }
 
@@ -222,6 +276,15 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Mutation('favoriteWander')
+    async favoriteWander(req, body: { id: string }, context) {
+        const { data } = await this.wanderServiceInterface.favoriteWander({
+            userId: context.user.id,
+            wanderId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('createWanderAlbum')
     async createWanderAlbum(req, body) {
         const { data } = await this.wanderServiceInterface.createWanderAlbum(body.data).toPromise();
@@ -238,6 +301,15 @@ export class ResourceResolver {
     @Mutation('deleteWanderAlbum')
     async deleteWanderAlbum(req, body: { id: string }) {
         const { data } = await this.wanderServiceInterface.deleteWanderAlbum(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('favoriteWanderAlbum')
+    async favoriteWanderAlbum(req, body: { id: string }, context) {
+        const { data } = await this.wanderServiceInterface.favoriteWanderAlbum({
+            userId: context.user.id,
+            wanderAlbumId: body.id
+        }).toPromise();
         return { code: 200, message: 'success', data };
     }
 }

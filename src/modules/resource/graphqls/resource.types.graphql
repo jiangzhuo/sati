@@ -13,24 +13,32 @@ type Query {
     getMindfulnessById(id: String!): getMindfulnessResponse
     "根据一组id获取正态"
     getMindfulnessByIds(ids: [String]): getManyMindfulnessResponse
+    "根据正态的id获取这个正态的相关记录"
+    getMindfulnessRecordByMindfulnessId(mindfulnessId: String!): getMindfulnessRecordResponse
     "获取自然列表"
     getNature(first: Int, after: String): getManyNatureResponse
     "根据id获取自然"
     getNatureById(id: String!): getNatureResponse
     "根据一组id获取自然"
     getNatureByIds(ids: [String]): getManyNatureResponse
+    "根据自然的id获取这个自然的相关记录"
+    getNatureRecordByNatureId(natureId: String!): getNatureRecordResponse
     "获取漫步列表"
     getWander(first: Int, after: String): getManyWanderResponse
     "根据id获取漫步"
     getWanderById(id: String!): getWanderResponse
     "根据一组id获取漫步"
     getWanderByIds(ids: [String]): getManyWanderResponse
+    "根据漫步的id获取这个漫步的相关记录"
+    getWanderRecordByWanderId(wanderId: String!): getWanderRecordResponse
     "获取漫步专辑列表"
     getWanderAlbum(first: Int, after: String): getManyWanderAlbumResponse
     "根据id获取漫步专辑"
     getWanderAlbumById(id: String!): getWanderAlbumResponse
     "根据一组id获取漫步专辑"
     getWanderAlbumByIds(ids: [String]): getManyWanderAlbumResponse
+    "根据漫步专辑的id获取这个漫步专辑的相关记录"
+    getWanderAlbumRecordByWanderAlbumId(wanderAlbumId: String!): getWanderAlbumRecordResponse
     "根据专辑id获取漫步"
     getWanderByWanderAlbumId(id: String!): getManyWanderResponse
     "获取使用场景列表"
@@ -54,24 +62,32 @@ type Mutation{
     updateMindfulness(id: String!, data: updateMindfulnessRequest!): getMindfulnessResponse
     "删除正态"
     deleteMindfulness(id: String!): getMindfulnessResponse
+    "收藏正态"
+    favoriteMindfulness(id: String!): getMindfulnessRecordResponse
     "创建自然"
     createNature(data: createNatureRequest!): getNatureResponse
     "更新自然"
     updateNature(id: String!, data: updateNatureRequest!): getNatureResponse
     "删除自然"
     deleteNature(id: String!): getNatureResponse
+    "收藏自然"
+    favoriteNature(id: String!): getNatureRecordResponse
     "创建漫步"
     createWander(data: createWanderRequest!): getWanderResponse
     "更新漫步"
     updateWander(id: String!, data: updateWanderRequest!): getWanderResponse
     "删除漫步"
     deleteWander(id: String!): getWanderResponse
+    "收藏漫步"
+    favoriteWander(id: String!): getWanderRecordResponse
     "创建漫步列表"
     createWanderAlbum(data: createWanderAlbumRequest!): getWanderAlbumResponse
     "更新漫步列表"
     updateWanderAlbum(id: String!, data: updateWanderAlbumRequest!): getWanderAlbumResponse
     "删除漫步列表"
     deleteWanderAlbum(id: String!): getWanderAlbumResponse
+    "收藏漫步专辑"
+    favoriteWanderAlbum(id: String!): getWanderAlbumRecordResponse
 }
 
 input createMindfulnessRequest{
@@ -274,10 +290,22 @@ type getMindfulnessResponse{
     data: Mindfulness
 }
 
+type getMindfulnessRecordResponse{
+    code: Int
+    message: String
+    data: MindfulnessRecord
+}
+
 type getNatureResponse{
     code: Int
     message: String
     data: Nature
+}
+
+type getNatureRecordResponse{
+    code: Int
+    message: String
+    data: NatureRecord
 }
 
 type getWanderResponse{
@@ -286,10 +314,22 @@ type getWanderResponse{
     data: Wander
 }
 
+type getWanderRecordResponse{
+    code: Int
+    message: String
+    data: WanderRecord
+}
+
 type getWanderAlbumResponse{
     code: Int
     message: String
     data: WanderAlbum
+}
+
+type getWanderAlbumRecordResponse{
+    code: Int
+    message: String
+    data: WanderAlbumRecord
 }
 
 type getSceneResponse{
@@ -325,6 +365,29 @@ type Mindfulness {
     status: Int
 }
 
+type MindfulnessRecord {
+    "唯一id"
+    id : String
+    "用户的id"
+    userId : String
+    "正态的id"
+    mindfulnessId : String
+    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
+    favorite : Int
+    "累计时长"
+    totalDuration: Int
+    "最长单词时长"
+    longestDuration: Int
+    "总共开始次数"
+    startCount: Int
+    "总完成次数"
+    finishCount: Int
+    "上次开始时间"
+    lastStartTime: Int
+    "上次结束时间"
+    lastFinishTime: Int
+}
+
 type Nature {
     "唯一id"
     id : String
@@ -348,6 +411,29 @@ type Nature {
     audio : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+}
+
+type NatureRecord {
+    "唯一id"
+    id : String
+    "用户的id"
+    userId : String
+    "自然的id"
+    natureId : String
+    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
+    favorite : Int
+    "累计时长"
+    totalDuration: Int
+    "最长单词时长"
+    longestDuration: Int
+    "总共开始次数"
+    startCount: Int
+    "总完成次数"
+    finishCount: Int
+    "上次开始时间"
+    lastStartTime: Int
+    "上次结束时间"
+    lastFinishTime: Int
 }
 
 type Wander {
@@ -379,6 +465,29 @@ type Wander {
     status: Int
 }
 
+type WanderRecord {
+    "唯一id"
+    id : String
+    "用户的id"
+    userId : String
+    "漫步的id"
+    wanderId : String
+    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
+    favorite : Int
+    "累计时长"
+    totalDuration: Int
+    "最长单词时长"
+    longestDuration: Int
+    "总共开始次数"
+    startCount: Int
+    "总完成次数"
+    finishCount: Int
+    "上次开始时间"
+    lastStartTime: Int
+    "上次结束时间"
+    lastFinishTime: Int
+}
+
 type WanderAlbum {
     "唯一id"
     id : String
@@ -402,6 +511,29 @@ type WanderAlbum {
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+}
+
+type WanderAlbumRecord {
+    "唯一id"
+    id : String
+    "用户的id"
+    userId : String
+    "漫步专辑的id"
+    wanderAlbumId : String
+    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
+    favorite : Int
+    "累计时长"
+    totalDuration: Int
+    "最长单词时长"
+    longestDuration: Int
+    "总共开始次数"
+    startCount: Int
+    "总完成次数"
+    finishCount: Int
+    "上次开始时间"
+    lastStartTime: Int
+    "上次结束时间"
+    lastFinishTime: Int
 }
 
 type Scene {
