@@ -125,6 +125,12 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Mutation('revertDeletedMindfulness')
+    async revertDeletedMindfulness(req, body: { id: string }) {
+        const { data } = await this.mindfulnessServiceInterface.revertDeletedMindfulness(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Query('getNature')
     async getNature(req, body: { take: number, after?: string }) {
         const { data } = await this.natureServiceInterface.getNature(body).toPromise();
@@ -168,6 +174,12 @@ export class ResourceResolver {
     @Mutation('deleteNature')
     async deleteNature(req, body: { id: string }) {
         const { data } = await this.natureServiceInterface.deleteNature(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('revertDeletedNature')
+    async revertDeletedNature(req, body: { id: string }) {
+        const { data } = await this.natureServiceInterface.revertDeletedNature(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
@@ -314,6 +326,12 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Mutation('revertDeletedWander')
+    async revertDeletedWander(req, body: { id: string }) {
+        const { data } = await this.wanderServiceInterface.revertDeletedWander(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('favoriteWander')
     async favoriteWander(req, body: { id: string }, context) {
         const { data } = await this.wanderServiceInterface.favoriteWander({
@@ -358,6 +376,12 @@ export class ResourceResolver {
     @Mutation('deleteWanderAlbum')
     async deleteWanderAlbum(req, body: { id: string }) {
         const { data } = await this.wanderServiceInterface.deleteWanderAlbum(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('revertDeletedWanderAlbum')
+    async revertDeletedWanderAlbum(req, body: { id: string }) {
+        const { data } = await this.wanderServiceInterface.revertDeletedWanderAlbum(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 

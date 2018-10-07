@@ -62,6 +62,8 @@ type Mutation{
     updateMindfulness(id: String!, data: updateMindfulnessRequest!): getMindfulnessResponse
     "删除正态"
     deleteMindfulness(id: String!): getMindfulnessResponse
+    "恢复删除的正态"
+    revertDeletedMindfulness(id: String!): getMindfulnessResponse
     "收藏正态"
     favoriteMindfulness(id: String!): getMindfulnessRecordResponse
     "开始正态"
@@ -74,6 +76,8 @@ type Mutation{
     updateNature(id: String!, data: updateNatureRequest!): getNatureResponse
     "删除自然"
     deleteNature(id: String!): getNatureResponse
+    "恢复删除的自然"
+    revertDeletedNature(id: String!): getNatureResponse
     "收藏自然"
     favoriteNature(id: String!): getNatureRecordResponse
     "开始自然"
@@ -86,6 +90,8 @@ type Mutation{
     updateWander(id: String!, data: updateWanderRequest!): getWanderResponse
     "删除漫步"
     deleteWander(id: String!): getWanderResponse
+    "恢复删除的漫步"
+    revertDeletedWander(id: String!): getWanderResponse
     "收藏漫步"
     favoriteWander(id: String!): getWanderRecordResponse
     "开始漫步"
@@ -98,6 +104,8 @@ type Mutation{
     updateWanderAlbum(id: String!, data: updateWanderAlbumRequest!): getWanderAlbumResponse
     "删除漫步列表"
     deleteWanderAlbum(id: String!): getWanderAlbumResponse
+    "恢复删除的漫步列表"
+    revertDeletedWanderAlbum(id: String!): getWanderAlbumResponse
     "收藏漫步专辑"
     favoriteWanderAlbum(id: String!): getWanderAlbumRecordResponse
     "开始正态专辑"
