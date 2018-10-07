@@ -64,6 +64,10 @@ type Mutation{
     deleteMindfulness(id: String!): getMindfulnessResponse
     "收藏正态"
     favoriteMindfulness(id: String!): getMindfulnessRecordResponse
+    "开始正态"
+    startMindfulness(id: String!): getMindfulnessRecordResponse
+    "结束正态"
+    finishMindfulness(id: String!, duration: Int!): getMindfulnessRecordResponse
     "创建自然"
     createNature(data: createNatureRequest!): getNatureResponse
     "更新自然"
@@ -72,6 +76,10 @@ type Mutation{
     deleteNature(id: String!): getNatureResponse
     "收藏自然"
     favoriteNature(id: String!): getNatureRecordResponse
+    "开始自然"
+    startNature(id: String!): getNatureRecordResponse
+    "结束自然"
+    finishNature(id: String!, duration: Int!): getNatureRecordResponse
     "创建漫步"
     createWander(data: createWanderRequest!): getWanderResponse
     "更新漫步"
@@ -80,6 +88,10 @@ type Mutation{
     deleteWander(id: String!): getWanderResponse
     "收藏漫步"
     favoriteWander(id: String!): getWanderRecordResponse
+    "开始漫步"
+    startWander(id: String!): getWanderRecordResponse
+    "结束漫步"
+    finishWander(id: String!, duration: Int!): getWanderRecordResponse
     "创建漫步列表"
     createWanderAlbum(data: createWanderAlbumRequest!): getWanderAlbumResponse
     "更新漫步列表"
@@ -88,6 +100,10 @@ type Mutation{
     deleteWanderAlbum(id: String!): getWanderAlbumResponse
     "收藏漫步专辑"
     favoriteWanderAlbum(id: String!): getWanderAlbumRecordResponse
+    "开始正态专辑"
+    startWanderAlbum(id: String!): getWanderAlbumRecordResponse
+    "结束正态专辑"
+    finishWanderAlbum(id: String!, duration: Int!): getWanderAlbumRecordResponse
 }
 
 input createMindfulnessRequest{

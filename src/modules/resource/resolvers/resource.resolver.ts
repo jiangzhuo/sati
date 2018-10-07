@@ -87,6 +87,25 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Mutation('startMindfulness')
+    async startMindfulness(req, body: { id: string }, context) {
+        const { data } = await this.mindfulnessServiceInterface.startMindfulness({
+            userId: context.user.id,
+            mindfulnessId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('finishMindfulness')
+    async finishMindfulness(req, body: { id: string, duration: number }, context) {
+        const { data } = await this.mindfulnessServiceInterface.finishMindfulness({
+            userId: context.user.id,
+            mindfulnessId: body.id,
+            duration: body.duration
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('createMindfulness')
     async createMindfulness(req, body) {
         const { data } = await this.mindfulnessServiceInterface.createMindfulness(body.data).toPromise();
@@ -157,6 +176,25 @@ export class ResourceResolver {
         const { data } = await this.natureServiceInterface.favoriteNature({
             userId: context.user.id,
             natureId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('startNature')
+    async startNature(req, body: { id: string }, context) {
+        const { data } = await this.natureServiceInterface.startNature({
+            userId: context.user.id,
+            natureId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('finishNature')
+    async finishNature(req, body: { id: string, duration: number }, context) {
+        const { data } = await this.natureServiceInterface.finishNature({
+            userId: context.user.id,
+            natureId: body.id,
+            duration: body.duration
         }).toPromise();
         return { code: 200, message: 'success', data };
     }
@@ -285,6 +323,25 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Mutation('startWander')
+    async startWander(req, body: { id: string }, context) {
+        const { data } = await this.wanderServiceInterface.startWander({
+            userId: context.user.id,
+            wanderId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('finishWander')
+    async finishWander(req, body: { id: string, duration: number }, context) {
+        const { data } = await this.wanderServiceInterface.finishWander({
+            userId: context.user.id,
+            wanderId: body.id,
+            duration: body.duration
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('createWanderAlbum')
     async createWanderAlbum(req, body) {
         const { data } = await this.wanderServiceInterface.createWanderAlbum(body.data).toPromise();
@@ -309,6 +366,25 @@ export class ResourceResolver {
         const { data } = await this.wanderServiceInterface.favoriteWanderAlbum({
             userId: context.user.id,
             wanderAlbumId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('startWanderAlbum')
+    async startWanderAlbum(req, body: { id: string }, context) {
+        const { data } = await this.wanderServiceInterface.startWanderAlbum({
+            userId: context.user.id,
+            wanderAlbumId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('finishWanderAlbum')
+    async finishWanderAlbum(req, body: { id: string, duration: number }, context) {
+        const { data } = await this.wanderServiceInterface.finishWanderAlbum({
+            userId: context.user.id,
+            wanderAlbumId: body.id,
+            duration: body.duration
         }).toPromise();
         return { code: 200, message: 'success', data };
     }
