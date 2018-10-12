@@ -16,6 +16,7 @@ export class ResourceResolver {
         this.natureServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('NatureService');
         this.wanderServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('WanderService');
         this.sceneServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('SceneService');
+        this.userServiceInterface = this.notaddGrpcClientFactory.userModuleClient.getService('UserService');
     }
 
     constructor(
@@ -26,6 +27,7 @@ export class ResourceResolver {
     private natureServiceInterface;
     private wanderServiceInterface;
     private sceneServiceInterface;
+    private userServiceInterface;
 
     @Query('sayMindfulnessHello')
     async sayMindfulnessHello(req, body: { name: string }) {
@@ -85,6 +87,36 @@ export class ResourceResolver {
             mindfulnessId: body.id
         }).toPromise();
         return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('buyMindfulness')
+    async buyMindfulness(req, body: { id: string }, context) {
+        const { data } = await this.mindfulnessServiceInterface.getMindfulnessById({ id: body.id }).toPromise();
+        try {
+            await this.userServiceInterface.changeBalance({
+                id: context.user.id,
+                changeValue: -1 * data.price,
+                type: 'mindfulness',
+                extraInfo: JSON.stringify(data)
+            }).toPromise();
+        } catch (e) {
+            return { code: e.code, message: e.details };
+        }
+        try {
+            const { data } = await this.mindfulnessServiceInterface.buyMindfulness({
+                userId: context.user.id,
+                mindfulnessId: body.id
+            }).toPromise();
+            return { code: 200, message: 'success', data };
+        } catch (e) {
+            await this.userServiceInterface.changeBalance({
+                id: context.user.id,
+                changeValue: -1 * data.price,
+                type: 'mindfulnessRollback',
+                extraInfo: JSON.stringify(data)
+            }).toPromise();
+            return { code: e.code, message: e.details };
+        }
     }
 
     @Mutation('startMindfulness')
@@ -190,6 +222,36 @@ export class ResourceResolver {
             natureId: body.id
         }).toPromise();
         return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('buyNature')
+    async buyNature(req, body: { id: string }, context) {
+        const { data } = await this.natureServiceInterface.getNatureById({ id: body.id }).toPromise();
+        try {
+            await this.userServiceInterface.changeBalance({
+                id: context.user.id,
+                changeValue: -1 * data.price,
+                type: 'nature',
+                extraInfo: JSON.stringify(data)
+            }).toPromise();
+        } catch (e) {
+            return { code: e.code, message: e.details };
+        }
+        try {
+            const { data } = await this.natureServiceInterface.buyNature({
+                userId: context.user.id,
+                natureId: body.id
+            }).toPromise();
+            return { code: 200, message: 'success', data };
+        } catch (e) {
+            await this.userServiceInterface.changeBalance({
+                id: context.user.id,
+                changeValue: -1 * data.price,
+                type: 'natureRollback',
+                extraInfo: JSON.stringify(data)
+            }).toPromise();
+            return { code: e.code, message: e.details };
+        }
     }
 
     @Mutation('startNature')
@@ -341,6 +403,36 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Mutation('buyWander')
+    async buyWander(req, body: { id: string }, context) {
+        const { data } = await this.wanderServiceInterface.getWanderById({ id: body.id }).toPromise();
+        try {
+            await this.userServiceInterface.changeBalance({
+                id: context.user.id,
+                changeValue: -1 * data.price,
+                type: 'wander',
+                extraInfo: JSON.stringify(data)
+            }).toPromise();
+        } catch (e) {
+            return { code: e.code, message: e.details };
+        }
+        try {
+            const { data } = await this.wanderServiceInterface.buyWander({
+                userId: context.user.id,
+                wanderId: body.id
+            }).toPromise();
+            return { code: 200, message: 'success', data };
+        } catch (e) {
+            await this.userServiceInterface.changeBalance({
+                id: context.user.id,
+                changeValue: -1 * data.price,
+                type: 'wanderRollback',
+                extraInfo: JSON.stringify(data)
+            }).toPromise();
+            return { code: e.code, message: e.details };
+        }
+    }
+
     @Mutation('startWander')
     async startWander(req, body: { id: string }, context) {
         const { data } = await this.wanderServiceInterface.startWander({
@@ -392,6 +484,36 @@ export class ResourceResolver {
             wanderAlbumId: body.id
         }).toPromise();
         return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('buyWanderAlbum')
+    async buyWanderAlbum(req, body: { id: string }, context) {
+        const { data } = await this.wanderServiceInterface.getWanderAlbumById({ id: body.id }).toPromise();
+        try {
+            await this.userServiceInterface.changeBalance({
+                id: context.user.id,
+                changeValue: -1 * data.price,
+                type: 'wanderAlbum',
+                extraInfo: JSON.stringify(data)
+            }).toPromise();
+        } catch (e) {
+            return { code: e.code, message: e.details };
+        }
+        try {
+            const { data } = await this.wanderServiceInterface.buyWanderAlbum({
+                userId: context.user.id,
+                wanderAlbumId: body.id
+            }).toPromise();
+            return { code: 200, message: 'success', data };
+        } catch (e) {
+            await this.userServiceInterface.changeBalance({
+                id: context.user.id,
+                changeValue: -1 * data.price,
+                type: 'wanderAlbumRollback',
+                extraInfo: JSON.stringify(data)
+            }).toPromise();
+            return { code: e.code, message: e.details };
+        }
     }
 
     @Mutation('startWanderAlbum')

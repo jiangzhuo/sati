@@ -66,6 +66,8 @@ type Mutation{
     revertDeletedMindfulness(id: String!): getMindfulnessResponse
     "收藏正态"
     favoriteMindfulness(id: String!): getMindfulnessRecordResponse
+    "购买正态"
+    buyMindfulness(id: String!): getMindfulnessRecordResponse
     "开始正态"
     startMindfulness(id: String!): getMindfulnessRecordResponse
     "结束正态"
@@ -80,6 +82,8 @@ type Mutation{
     revertDeletedNature(id: String!): getNatureResponse
     "收藏自然"
     favoriteNature(id: String!): getNatureRecordResponse
+    "购买自然"
+    buyNature(id: String!): getNatureRecordResponse
     "开始自然"
     startNature(id: String!): getNatureRecordResponse
     "结束自然"
@@ -94,6 +98,8 @@ type Mutation{
     revertDeletedWander(id: String!): getWanderResponse
     "收藏漫步"
     favoriteWander(id: String!): getWanderRecordResponse
+    "购买漫步"
+    buyWander(id: String!): getWanderRecordResponse
     "开始漫步"
     startWander(id: String!): getWanderRecordResponse
     "结束漫步"
@@ -108,6 +114,8 @@ type Mutation{
     revertDeletedWanderAlbum(id: String!): getWanderAlbumResponse
     "收藏漫步专辑"
     favoriteWanderAlbum(id: String!): getWanderAlbumRecordResponse
+    "购买漫步专辑"
+    buyWanderAlbum(id: String!): getWanderAlbumRecordResponse
     "开始正态专辑"
     startWanderAlbum(id: String!): getWanderAlbumRecordResponse
     "结束正态专辑"
@@ -410,6 +418,8 @@ type MindfulnessRecord {
     lastStartTime: Int
     "上次结束时间"
     lastFinishTime: Int
+    "购买时间，0表示没有购买"
+    boughtTime: Int
 }
 
 type Nature {
@@ -458,6 +468,8 @@ type NatureRecord {
     lastStartTime: Int
     "上次结束时间"
     lastFinishTime: Int
+    "购买时间，0表示没有购买"
+    boughtTime: Int
 }
 
 type Wander {
@@ -510,6 +522,8 @@ type WanderRecord {
     lastStartTime: Int
     "上次结束时间"
     lastFinishTime: Int
+    "购买时间，0表示没有购买"
+    boughtTime: Int
 }
 
 type WanderAlbum {
@@ -558,6 +572,8 @@ type WanderAlbumRecord {
     lastStartTime: Int
     "上次结束时间"
     lastFinishTime: Int
+    "购买时间，0表示没有购买"
+    boughtTime: Int
 }
 
 type Scene {
