@@ -112,4 +112,28 @@ export class UserResolver {
         const { data } = await this.userServiceInterface.getUser(body).toPromise();
         return { code: 200, message: 'success', data };
     }
+
+    @Query('searchUserAccount')
+    async searchUserAccount(req, body, context): Promise<CommonResult> {
+        const { data } = await this.userServiceInterface.searchUserAccount(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('countUserAccount')
+    async countUserAccount(req, body, context): Promise<CommonResult> {
+        const { data } = await this.userServiceInterface.countUserAccount(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('searchUser')
+    async searchUser(req, body, context): Promise<CommonResult> {
+        const { data } = await this.userServiceInterface.searchUser(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('countUser')
+    async countUser(req, body, context): Promise<CommonResult> {
+        const { data } = await this.userServiceInterface.countUser(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
 }

@@ -15,6 +15,14 @@ type Query {
     getUserByMobile(mobile: String!): UserResult
     "获取用户信息列表"
     getUser(first: Int, after: String): UsersInfoResult
+    "搜索用户"
+    searchUser(keyword: String, page: Int!, limit: Int!, sort: String!): UsersInfoResult
+    "搜索用户分页计数"
+    countUser(keyword: String): CountUserResponse
+    "获取用户的账户数据"
+    searchUserAccount(userId: String!, page: Int!, limit: Int!, type: String!): SearchUserAccountResponse
+    "获取用户的账户数据的分页计数"
+    countUserAccount(userId: String!, type: String!): CountUserAccountResponse
 }
 
 type Mutation {
@@ -95,6 +103,24 @@ type UsersInfoResult {
     data: [UserData]
 }
 
+type CountUserResponse {
+    code: Int
+    message: String
+    data: Int
+}
+
+type SearchUserAccountResponse {
+    code: Int
+    message: String
+    data: [UserAccount]
+}
+
+type CountUserAccountResponse {
+    code: Int
+    message: String
+    data: Int
+}
+
 type UserData {
     "用户唯一id"
     id: String
@@ -108,4 +134,25 @@ type UserData {
     status: Int
     "最后更新时间（暂时没有使用）"
     updateTime: Int
+    "创建时间"
+    createTime: Int
+    "账户余额"
+    balance: Int
+}
+
+type UserAccount {
+    "账户变动记录唯一id"
+    id: String
+    "用户唯一id"
+    userId: String
+    "变换金额"
+    value: Int
+    "变化之后的余额"
+    afterBalance: Int
+    "类型"
+    type: String
+    "创建时间"
+    createTime: Int
+    "额外信息，json格式的字符串"
+    extraInfo: String
 }

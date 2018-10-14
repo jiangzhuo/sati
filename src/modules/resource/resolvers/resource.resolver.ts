@@ -111,7 +111,7 @@ export class ResourceResolver {
         } catch (e) {
             await this.userServiceInterface.changeBalance({
                 id: context.user.id,
-                changeValue: -1 * data.price,
+                changeValue: data.price,
                 type: 'mindfulnessRollback',
                 extraInfo: JSON.stringify(data)
             }).toPromise();
@@ -246,7 +246,7 @@ export class ResourceResolver {
         } catch (e) {
             await this.userServiceInterface.changeBalance({
                 id: context.user.id,
-                changeValue: -1 * data.price,
+                changeValue: data.price,
                 type: 'natureRollback',
                 extraInfo: JSON.stringify(data)
             }).toPromise();
@@ -425,7 +425,7 @@ export class ResourceResolver {
         } catch (e) {
             await this.userServiceInterface.changeBalance({
                 id: context.user.id,
-                changeValue: -1 * data.price,
+                changeValue: data.price,
                 type: 'wanderRollback',
                 extraInfo: JSON.stringify(data)
             }).toPromise();
@@ -508,7 +508,7 @@ export class ResourceResolver {
         } catch (e) {
             await this.userServiceInterface.changeBalance({
                 id: context.user.id,
-                changeValue: -1 * data.price,
+                changeValue: data.price,
                 type: 'wanderAlbumRollback',
                 extraInfo: JSON.stringify(data)
             }).toPromise();
