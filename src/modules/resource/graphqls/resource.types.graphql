@@ -47,6 +47,10 @@ type Query {
     getSceneById(id: String!): getSceneResponse
     "根据一组id获取使用场景"
     getSceneByIds(ids: [String]): getManySceneResponse
+    "获取首页列表"
+    getHome(first: Int, after: String): getManyHomeResponse
+    "根据id获取首页"
+    getHomeById(id: String!): getHomeResponse
 }
 
 type Mutation{
@@ -120,6 +124,12 @@ type Mutation{
     startWanderAlbum(id: String!): getWanderAlbumRecordResponse
     "结束正态专辑"
     finishWanderAlbum(id: String!, duration: Int!): getWanderAlbumRecordResponse
+    "创建首页"
+    createHome(data: createHomeRequest!): getHomeResponse
+    "更新首页"
+    updateHome(id: String!, data: updateHomeRequest!): getHomeResponse
+    "删除首页"
+    deleteHome(id: String!): getHomeResponse
 }
 
 input createMindfulnessRequest{
@@ -370,6 +380,53 @@ type getSceneResponse{
     data: Scene
 }
 
+type getHomeResponse{
+    code: Int
+    message: String
+    data: Home
+}
+
+type getManyHomeResponse{
+    code: Int
+    message: String
+    data: [Home]
+}
+
+input createHomeRequest{
+    "类型 mindfulness/nature/wander/wanderAlbum/shop"
+    type :String
+    "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
+    resourceId :String
+    "首页这一项显示的背景图片"
+    background :String
+    "名称 上面短的那行字"
+    name :String
+    "描述 下面长的那行字"
+    description :String
+    "作者的id"
+    author :String
+    "顺序id"
+    position :Int
+}
+
+input updateHomeRequest{
+    "类型 mindfulness/nature/wander/wanderAlbum/shop"
+    type :String
+    "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
+    resourceId :String
+    "首页这一项显示的背景图片"
+    background :String
+    "名称 上面短的那行字"
+    name :String
+    "描述 下面长的那行字"
+    description :String
+    "作者的id"
+    author :String
+    "顺序id"
+    position :Int
+}
+
+
 type Mindfulness {
     "唯一id"
     id : String
@@ -583,6 +640,28 @@ type Scene {
     name: String
 }
 
+type Home {
+    "唯一id"
+    id :String
+    "类型 mindfulness/nature/wander/wanderAlbum/shop"
+    type :String
+    "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
+    resourceId :String
+    "首页这一项显示的背景图片"
+    background :String
+    "名称 上面短的那行字"
+    name :String
+    "描述 下面长的那行字"
+    description :String
+    "作者的id"
+    author :String
+    "位置"
+    position :Int
+    "创建时间"
+    createTime: Int
+    "更新时间"
+    updateTime: Int
+}
 
 type SayHelloResponse {
     code: Int

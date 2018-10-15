@@ -17,6 +17,7 @@ export class ResourceResolver {
         this.wanderServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('WanderService');
         this.sceneServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('SceneService');
         this.userServiceInterface = this.notaddGrpcClientFactory.userModuleClient.getService('UserService');
+        this.homeServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('HomeService');
     }
 
     constructor(
@@ -28,6 +29,7 @@ export class ResourceResolver {
     private wanderServiceInterface;
     private sceneServiceInterface;
     private userServiceInterface;
+    private homeServiceInterface;
 
     @Query('sayMindfulnessHello')
     async sayMindfulnessHello(req, body: { name: string }) {
@@ -532,6 +534,37 @@ export class ResourceResolver {
             wanderAlbumId: body.id,
             duration: body.duration
         }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('getHome')
+    async getHome(req, body: { take: number, after?: string }) {
+        const { data } = await this.homeServiceInterface.getHome(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('getHomeById')
+    async getHomeById(req, body: { id: string }) {
+        const { data } = await this.homeServiceInterface.getHomeById(body).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('createHome')
+    async createHome(req, body) {
+        const { data } = await this.homeServiceInterface.createHome(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('updateHome')
+    async updateHome(req, body) {
+        body.data.id = body.id;
+        const { data } = await this.homeServiceInterface.updateHome(body.data).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Mutation('deleteHome')
+    async deleteHome(req, body: { id: string }) {
+        const { data } = await this.homeServiceInterface.deleteHome(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 }
