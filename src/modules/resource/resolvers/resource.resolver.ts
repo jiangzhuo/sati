@@ -91,6 +91,12 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Query('searchMindfulness')
+    async searchMindfulness(req, body: { keyword: string }) {
+        const { data } = await this.mindfulnessServiceInterface.searchMindfulness({ keyword: body.keyword }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('buyMindfulness')
     async buyMindfulness(req, body: { id: string }, context) {
         const { data } = await this.mindfulnessServiceInterface.getMindfulnessById({ id: body.id }).toPromise();
@@ -223,6 +229,12 @@ export class ResourceResolver {
             userId: context.user.id,
             natureId: body.id
         }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('searchNature')
+    async searchNature(req, body: { keyword: string }) {
+        const { data } = await this.natureServiceInterface.searchNature({ keyword: body.keyword }).toPromise();
         return { code: 200, message: 'success', data };
     }
 
@@ -405,6 +417,12 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Query('searchWander')
+    async searchWander(req, body: { keyword: string }) {
+        const { data } = await this.wanderServiceInterface.searchWander({ keyword: body.keyword }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('buyWander')
     async buyWander(req, body: { id: string }, context) {
         const { data } = await this.wanderServiceInterface.getWanderById({ id: body.id }).toPromise();
@@ -485,6 +503,12 @@ export class ResourceResolver {
             userId: context.user.id,
             wanderAlbumId: body.id
         }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('searchWanderAlbum')
+    async searchWanderAlbum(req, body: { keyword: string }) {
+        const { data } = await this.wanderServiceInterface.searchWanderAlbum({ keyword: body.keyword }).toPromise();
         return { code: 200, message: 'success', data };
     }
 

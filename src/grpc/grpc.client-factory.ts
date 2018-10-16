@@ -10,7 +10,7 @@ export class NotaddGrpcClientFactory {
     @Client(generateGrpcOptions('localhost:50051', 'sati_module_user', 'user-module.proto'))
     public readonly userModuleClient: ClientGrpc;
 
-    @Client(generateGrpcOptions('localhost:50052', 'sati_module_resource', 'resource-module.proto'))
+    @Client(generateGrpcOptions('localhost:50052', 'sati_module_resource', 'resource.module.proto'))
     public readonly resourceModuleClient: ClientGrpc;
 }
 
@@ -20,8 +20,9 @@ export function generateGrpcOptions(url: string, packageName: string, protoFileN
         options: {
             url,
             package: packageName,
-            protoPath: join(__dirname, './protobufs/' + protoFileName),
+            protoPath: protoFileName,
             loader: {
+                includeDirs: [join(__dirname, './protobufs/')],
                 arrays: true,
                 keepCase: true,
                 longs: String,

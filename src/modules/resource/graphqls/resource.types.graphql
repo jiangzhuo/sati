@@ -13,6 +13,8 @@ type Query {
     getMindfulnessById(id: String!): getMindfulnessResponse
     "根据一组id获取正态"
     getMindfulnessByIds(ids: [String]): getManyMindfulnessResponse
+    "搜索mindfulness"
+    searchMindfulness(keyword: String): getManyMindfulnessResponse
     "根据正态的id获取这个正态的相关记录"
     getMindfulnessRecordByMindfulnessId(mindfulnessId: String!): getMindfulnessRecordResponse
     "获取自然列表"
@@ -21,6 +23,8 @@ type Query {
     getNatureById(id: String!): getNatureResponse
     "根据一组id获取自然"
     getNatureByIds(ids: [String]): getManyNatureResponse
+    "搜索自然"
+    searchNature(keyword: String): getManyNatureResponse
     "根据自然的id获取这个自然的相关记录"
     getNatureRecordByNatureId(natureId: String!): getNatureRecordResponse
     "获取漫步列表"
@@ -29,6 +33,8 @@ type Query {
     getWanderById(id: String!): getWanderResponse
     "根据一组id获取漫步"
     getWanderByIds(ids: [String]): getManyWanderResponse
+    "搜索漫步"
+    searchWander(keyword: String): getManyWanderResponse
     "根据漫步的id获取这个漫步的相关记录"
     getWanderRecordByWanderId(wanderId: String!): getWanderRecordResponse
     "获取漫步专辑列表"
@@ -37,6 +43,8 @@ type Query {
     getWanderAlbumById(id: String!): getWanderAlbumResponse
     "根据一组id获取漫步专辑"
     getWanderAlbumByIds(ids: [String]): getManyWanderAlbumResponse
+    "搜索漫步专辑"
+    searchWanderAlbum(keyword: String): getManyWanderAlbumResponse
     "根据漫步专辑的id获取这个漫步专辑的相关记录"
     getWanderAlbumRecordByWanderAlbumId(wanderAlbumId: String!): getWanderAlbumRecordResponse
     "根据专辑id获取漫步"
