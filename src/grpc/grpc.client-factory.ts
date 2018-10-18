@@ -24,11 +24,7 @@ export function generateGrpcOptions(url: string, packageName: string, protoFileN
             loader: {
                 includeDirs: [join(__dirname, './protobufs/')],
                 arrays: true,
-                keepCase: true,
-                longs: String,
-                enums: String,
-                defaults: true,
-                oneofs: true
+                keepCase: true
             }
         }
     };

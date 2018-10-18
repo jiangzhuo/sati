@@ -82,6 +82,19 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Query('searchMindfulnessRecord')
+    async searchMindfulnessRecord(req, body, context) {
+        const { data } = await this.mindfulnessServiceInterface.searchMindfulnessRecord({
+            userId: context.user.id,
+            page: body.page,
+            limit: body.limit,
+            sort: body.sort,
+            favorite: body.favorite,
+            boughtTime: body.boughtTime
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Mutation('favoriteMindfulness')
     async favoriteMindfulness(req, body: { id: string }, context) {
         const { data } = await this.mindfulnessServiceInterface.favoriteMindfulness({
@@ -228,6 +241,19 @@ export class ResourceResolver {
         const { data } = await this.natureServiceInterface.favoriteNature({
             userId: context.user.id,
             natureId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('searchNatureRecord')
+    async searchNatureRecord(req, body, context) {
+        const { data } = await this.natureServiceInterface.searchNatureRecord({
+            userId: context.user.id,
+            page: body.page,
+            limit: body.limit,
+            sort: body.sort,
+            favorite: body.favorite,
+            boughtTime: body.boughtTime
         }).toPromise();
         return { code: 200, message: 'success', data };
     }
@@ -417,6 +443,19 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Query('searchWanderRecord')
+    async searchWanderRecord(req, body, context) {
+        const { data } = await this.wanderServiceInterface.searchWanderRecord({
+            userId: context.user.id,
+            page: body.page,
+            limit: body.limit,
+            sort: body.sort,
+            favorite: body.favorite,
+            boughtTime: body.boughtTime
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
     @Query('searchWander')
     async searchWander(req, body: { keyword: string }) {
         const { data } = await this.wanderServiceInterface.searchWander({ keyword: body.keyword }).toPromise();
@@ -502,6 +541,19 @@ export class ResourceResolver {
         const { data } = await this.wanderServiceInterface.favoriteWanderAlbum({
             userId: context.user.id,
             wanderAlbumId: body.id
+        }).toPromise();
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('searchWanderAlbumRecord')
+    async searchWanderAlbumRecord(req, body, context) {
+        const { data } = await this.wanderServiceInterface.searchWanderAlbumRecord({
+            userId: context.user.id,
+            page: body.page,
+            limit: body.limit,
+            sort: body.sort,
+            favorite: body.favorite,
+            boughtTime: body.boughtTime
         }).toPromise();
         return { code: 200, message: 'success', data };
     }

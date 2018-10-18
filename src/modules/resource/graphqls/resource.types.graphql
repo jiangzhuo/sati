@@ -17,6 +17,8 @@ type Query {
     searchMindfulness(keyword: String): getManyMindfulnessResponse
     "根据正态的id获取这个正态的相关记录"
     getMindfulnessRecordByMindfulnessId(mindfulnessId: String!): getMindfulnessRecordResponse
+    "根据条件获取正态的相关记录"
+    searchMindfulnessRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyMindfulnessRecordResponse
     "获取自然列表"
     getNature(first: Int, after: String): getManyNatureResponse
     "根据id获取自然"
@@ -27,6 +29,8 @@ type Query {
     searchNature(keyword: String): getManyNatureResponse
     "根据自然的id获取这个自然的相关记录"
     getNatureRecordByNatureId(natureId: String!): getNatureRecordResponse
+    "根据条件获取自然的相关记录"
+    searchNatureRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyNatureRecordResponse
     "获取漫步列表"
     getWander(first: Int, after: String): getManyWanderResponse
     "根据id获取漫步"
@@ -37,6 +41,8 @@ type Query {
     searchWander(keyword: String): getManyWanderResponse
     "根据漫步的id获取这个漫步的相关记录"
     getWanderRecordByWanderId(wanderId: String!): getWanderRecordResponse
+    "根据条件获取漫步的相关记录"
+    searchWanderRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyWanderRecordResponse
     "获取漫步专辑列表"
     getWanderAlbum(first: Int, after: String): getManyWanderAlbumResponse
     "根据id获取漫步专辑"
@@ -47,6 +53,8 @@ type Query {
     searchWanderAlbum(keyword: String): getManyWanderAlbumResponse
     "根据漫步专辑的id获取这个漫步专辑的相关记录"
     getWanderAlbumRecordByWanderAlbumId(wanderAlbumId: String!): getWanderAlbumRecordResponse
+    "根据条件获取漫步专辑的相关记录"
+    searchWanderAlbumRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyWanderAlbumRecordResponse
     "根据专辑id获取漫步"
     getWanderByWanderAlbumId(id: String!): getManyWanderResponse
     "获取使用场景列表"
@@ -346,6 +354,12 @@ type getMindfulnessRecordResponse{
     data: MindfulnessRecord
 }
 
+type getManyMindfulnessRecordResponse{
+    code: Int
+    message: String
+    data: [MindfulnessRecord]
+}
+
 type getNatureResponse{
     code: Int
     message: String
@@ -356,6 +370,12 @@ type getNatureRecordResponse{
     code: Int
     message: String
     data: NatureRecord
+}
+
+type getManyNatureRecordResponse{
+    code: Int
+    message: String
+    data: [NatureRecord]
 }
 
 type getWanderResponse{
@@ -370,6 +390,12 @@ type getWanderRecordResponse{
     data: WanderRecord
 }
 
+type getManyWanderRecordResponse{
+    code: Int
+    message: String
+    data: [WanderRecord]
+}
+
 type getWanderAlbumResponse{
     code: Int
     message: String
@@ -380,6 +406,12 @@ type getWanderAlbumRecordResponse{
     code: Int
     message: String
     data: WanderAlbumRecord
+}
+
+type getManyWanderAlbumRecordResponse{
+    code: Int
+    message: String
+    data: [WanderAlbumRecord]
 }
 
 type getSceneResponse{
