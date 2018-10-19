@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+// import 'reflect-metadata';
 
 import { DynamicModule, Global, UseGuards, Inject, Module, OnModuleInit } from '@nestjs/common';
 // import { PATH_METADATA } from '@nestjs/common/constants';
@@ -12,12 +12,14 @@ import { __ as t, configure as i18nConfigure } from 'i18n';
 // import { Permission, Resource } from '../../common/interfaces';
 import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
 import { ResourceResolver } from './resolvers/resource.resolver';
+import { ResourceCache } from './cache/resource.cache';
 
 // @Global()
 @Module({
     providers: [
         NotaddGrpcClientFactory,
-        ResourceResolver
+        ResourceResolver,
+        ResourceCache
     ]
 })
 export class ResourceModule implements OnModuleInit {

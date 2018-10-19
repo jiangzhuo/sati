@@ -1,4 +1,4 @@
-import { HttpException, Inject, UseGuards } from '@nestjs/common';
+import { HttpException, Inject, Optional, UseGuards } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { __ as t } from 'i18n';
 
@@ -6,6 +6,9 @@ import { __ as t } from 'i18n';
 import { CommonResult } from '../../../common/interfaces';
 import { NotaddGrpcClientFactory } from '../../../grpc/grpc.client-factory';
 import { AuthGuard } from '../auth/auth.guard';
+
+import { isArray } from 'lodash';
+import { ResourceCache } from '../cache/resource.cache';
 
 @Resolver()
 @UseGuards(AuthGuard)
@@ -21,8 +24,10 @@ export class ResourceResolver {
     }
 
     constructor(
-        @Inject(NotaddGrpcClientFactory) private readonly notaddGrpcClientFactory: NotaddGrpcClientFactory
-    ) { }
+        @Inject(NotaddGrpcClientFactory) private readonly notaddGrpcClientFactory: NotaddGrpcClientFactory,
+        @Optional() @Inject(ResourceCache) private readonly resourceCache: ResourceCache
+    ) {
+    }
 
     private mindfulnessServiceInterface;
     private natureServiceInterface;
@@ -58,18 +63,21 @@ export class ResourceResolver {
     @Query('getMindfulness')
     async getMindfulness(req, body: { first: number, after?: string }) {
         const { data } = await this.mindfulnessServiceInterface.getMindfulness(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
     @Query('getMindfulnessById')
     async getMindfulnessById(req, body: { id: string }) {
         const { data } = await this.mindfulnessServiceInterface.getMindfulnessById(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
     @Query('getMindfulnessByIds')
     async getMindfulnessByIds(req, body: { ids: [string] }) {
         const { data } = await this.mindfulnessServiceInterface.getMindfulnessByIds(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
@@ -107,6 +115,7 @@ export class ResourceResolver {
     @Query('searchMindfulness')
     async searchMindfulness(req, body: { keyword: string }) {
         const { data } = await this.mindfulnessServiceInterface.searchMindfulness({ keyword: body.keyword }).toPromise();
+        this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
@@ -162,6 +171,7 @@ export class ResourceResolver {
     @Mutation('createMindfulness')
     async createMindfulness(req, body) {
         const { data } = await this.mindfulnessServiceInterface.createMindfulness(body.data).toPromise();
+        this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
@@ -187,18 +197,21 @@ export class ResourceResolver {
     @Query('getNature')
     async getNature(req, body: { first: number, after?: string }) {
         const { data } = await this.natureServiceInterface.getNature(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
     @Query('getNatureById')
     async getNatureById(req, body: { id: string }) {
         const { data } = await this.natureServiceInterface.getNatureById(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
     @Query('getNatureByIds')
     async getNatureByIds(req, body: { ids: [string] }) {
         const { data } = await this.natureServiceInterface.getNatureByIds(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
@@ -214,6 +227,7 @@ export class ResourceResolver {
     @Mutation('createNature')
     async createNature(req, body) {
         const { data } = await this.natureServiceInterface.createNature(body.data).toPromise();
+        this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
@@ -261,6 +275,7 @@ export class ResourceResolver {
     @Query('searchNature')
     async searchNature(req, body: { keyword: string }) {
         const { data } = await this.natureServiceInterface.searchNature({ keyword: body.keyword }).toPromise();
+        this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
@@ -316,18 +331,21 @@ export class ResourceResolver {
     @Query('getWander')
     async getWander(req, body: { first: number, after?: string }) {
         const { data } = await this.wanderServiceInterface.getWander(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
     @Query('getWanderById')
     async getWanderById(req, body: { id: string }) {
         const { data } = await this.wanderServiceInterface.getWanderById(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
     @Query('getWanderByIds')
     async getWanderByIds(req, body: { ids: [string] }) {
         const { data } = await this.wanderServiceInterface.getWanderByIds(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
@@ -343,18 +361,21 @@ export class ResourceResolver {
     @Query('getWanderAlbum')
     async getWanderAlbum(req, body: { first: number, after?: string }) {
         const { data } = await this.wanderServiceInterface.getWanderAlbum(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
     @Query('getWanderAlbumById')
     async getWanderAlbumById(req, body: { id: string }) {
         const { data } = await this.wanderServiceInterface.getWanderAlbumById(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
     @Query('getWanderAlbumByIds')
     async getWanderAlbumByIds(req, body: { ids: [string] }) {
         const { data } = await this.wanderServiceInterface.getWanderAlbumByIds(body).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
@@ -364,6 +385,7 @@ export class ResourceResolver {
             userId: context.user.id,
             wanderAlbumId: body.wanderAlbumId
         }).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
@@ -412,6 +434,7 @@ export class ResourceResolver {
     @Mutation('createWander')
     async createWander(req, body) {
         const { data } = await this.wanderServiceInterface.createWander(body.data).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
@@ -459,6 +482,7 @@ export class ResourceResolver {
     @Query('searchWander')
     async searchWander(req, body: { keyword: string }) {
         const { data } = await this.wanderServiceInterface.searchWander({ keyword: body.keyword }).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
@@ -561,6 +585,7 @@ export class ResourceResolver {
     @Query('searchWanderAlbum')
     async searchWanderAlbum(req, body: { keyword: string }) {
         const { data } = await this.wanderServiceInterface.searchWanderAlbum({ keyword: body.keyword }).toPromise();
+        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
@@ -644,12 +669,25 @@ export class ResourceResolver {
         return { code: 200, message: 'success', data };
     }
 
-    // @Query('getNew')
-    // async getNew(req, body: { first: number, after?: string }) {
-    //     const mindfulnessResponse = await this.mindfulnessServiceInterface.getMindfulness(body).toPromise();
-    //     const natureResponse = await this.natureServiceInterface.getNature(body).toPromise();
-    //     const wanderResponse = await this.wanderServiceInterface.getWander(body).toPromise();
-    //     const wanderAlbumResponse = await this.wanderServiceInterface.getWanderAlbum(body).toPromise();
-    //     return { code: 200, message: 'success', data };
-    // }
+    @Query('getNew')
+    async getNew(req, body: { first: number, after?: string }) {
+        // const mindfulnessResponse = await this.mindfulnessServiceInterface.getMindfulness(body).toPromise();
+        // const natureResponse = await this.natureServiceInterface.getNature(body).toPromise();
+        // const wanderResponse = await this.wanderServiceInterface.getWander(body).toPromise();
+        // const wanderAlbumResponse = await this.wanderServiceInterface.getWanderAlbum(body).toPromise();
+        const data = this.resourceCache.getResourceByCreateTime(body.first, body.after).map((resource) => {
+            return {
+                resourceId: resource.id,
+                type: resource.type,
+                name: resource.name,
+                description: resource.description,
+                background: resource.background,
+                price: resource.price,
+                author: resource.author,
+                createTime: resource.createTime,
+                updateTime: resource.updateTime
+            };
+        });
+        return { code: 200, message: 'success', data };
+    }
 }
