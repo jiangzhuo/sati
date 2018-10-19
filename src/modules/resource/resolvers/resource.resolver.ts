@@ -56,7 +56,7 @@ export class ResourceResolver {
     }
 
     @Query('getMindfulness')
-    async getMindfulness(req, body: { take: number, after?: string }) {
+    async getMindfulness(req, body: { first: number, after?: string }) {
         const { data } = await this.mindfulnessServiceInterface.getMindfulness(body).toPromise();
         return { code: 200, message: 'success', data };
     }
@@ -185,7 +185,7 @@ export class ResourceResolver {
     }
 
     @Query('getNature')
-    async getNature(req, body: { take: number, after?: string }) {
+    async getNature(req, body: { first: number, after?: string }) {
         const { data } = await this.natureServiceInterface.getNature(body).toPromise();
         return { code: 200, message: 'success', data };
     }
@@ -314,7 +314,7 @@ export class ResourceResolver {
     }
 
     @Query('getWander')
-    async getWander(req, body: { take: number, after?: string }) {
+    async getWander(req, body: { first: number, after?: string }) {
         const { data } = await this.wanderServiceInterface.getWander(body).toPromise();
         return { code: 200, message: 'success', data };
     }
@@ -341,7 +341,7 @@ export class ResourceResolver {
     }
 
     @Query('getWanderAlbum')
-    async getWanderAlbum(req, body: { take: number, after?: string }) {
+    async getWanderAlbum(req, body: { first: number, after?: string }) {
         const { data } = await this.wanderServiceInterface.getWanderAlbum(body).toPromise();
         return { code: 200, message: 'success', data };
     }
@@ -374,7 +374,7 @@ export class ResourceResolver {
     }
 
     @Query('getScene')
-    async getScene(req, body: { take: number, after?: string }) {
+    async getScene(req, body: { first: number, after?: string }) {
         const { data } = await this.sceneServiceInterface.getScene(body).toPromise();
         return { code: 200, message: 'success', data };
     }
@@ -614,7 +614,7 @@ export class ResourceResolver {
     }
 
     @Query('getHome')
-    async getHome(req, body: { take: number, after?: string }) {
+    async getHome(req, body: { first: number, after?: string }) {
         const { data } = await this.homeServiceInterface.getHome(body).toPromise();
         return { code: 200, message: 'success', data };
     }
@@ -643,4 +643,13 @@ export class ResourceResolver {
         const { data } = await this.homeServiceInterface.deleteHome(body).toPromise();
         return { code: 200, message: 'success', data };
     }
+
+    // @Query('getNew')
+    // async getNew(req, body: { first: number, after?: string }) {
+    //     const mindfulnessResponse = await this.mindfulnessServiceInterface.getMindfulness(body).toPromise();
+    //     const natureResponse = await this.natureServiceInterface.getNature(body).toPromise();
+    //     const wanderResponse = await this.wanderServiceInterface.getWander(body).toPromise();
+    //     const wanderAlbumResponse = await this.wanderServiceInterface.getWanderAlbum(body).toPromise();
+    //     return { code: 200, message: 'success', data };
+    // }
 }
