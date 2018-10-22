@@ -136,4 +136,16 @@ export class UserResolver {
         const { data } = await this.userServiceInterface.countUser(body).toPromise();
         return { code: 200, message: 'success', data };
     }
+
+    @Mutation('changeBalanceByAdmin')
+    async changeBalanceByAdmin(req, body: { userId: string, changeValue: number, extraInfo: string }, context) {
+        const { data } = await this.userServiceInterface.changeBalance({
+            id: body.userId,
+            changeValue: body.changeValue,
+            type: 'changeByAdmin',
+            extraInfo: JSON.stringify({ operatorId: context.user.id, operatorExtraInfo: body.extraInfo })
+        }).toPromise();
+        console.log(data);
+        return { code: 200, message: 'success', data };
+    }
 }

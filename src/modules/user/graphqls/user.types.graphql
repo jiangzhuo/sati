@@ -32,6 +32,8 @@ type Mutation {
     updateCurrentUser(updateCurrentUserInput: UpdateCurrentUserInput): UserResult
     "更新用户信息"
     updateUserById(updateUserInput: UpdateUserInput): UserResult
+    "后台修改balance"
+    changeBalanceByAdmin(userId: String!, changeValue: Int!, extraInfo: String! ): UserResult
 }
 
 input RegisterUserBySMSCodeInput {
