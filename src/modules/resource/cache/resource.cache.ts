@@ -48,10 +48,7 @@ export class ResourceCache {
     }
 
     public getResourceByCreateTime(limit: number, after?: string) {
-        let startIndex = this.cacheSortedByCreateTime.indexOf(after);
-        if (startIndex === -1) {
-            startIndex = 0;
-        }
+        const startIndex = this.cacheSortedByCreateTime.indexOf(after);
         const resourceIds = this.cacheSortedByCreateTime.slice(startIndex + 1, startIndex + 1 + limit);
         return resourceIds.map(resourceId => this.cache.get(resourceId));
     }
