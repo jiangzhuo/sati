@@ -309,6 +309,8 @@ input createNatureRequest{
     author : String
     "声音文件地址"
     audio : String
+    "文案"
+    copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
 }
@@ -328,6 +330,8 @@ input updateNatureRequest{
     author : String
     "声音文件地址"
     audio : String
+    "文案"
+    copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
 }
@@ -548,6 +552,8 @@ type Nature {
     author : String
     "声音文件地址"
     audio : String
+    "文案"
+    copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
 }
