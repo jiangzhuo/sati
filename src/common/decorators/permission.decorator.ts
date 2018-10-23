@@ -2,8 +2,8 @@ import 'reflect-metadata';
 
 export const PERMISSION_DEFINITION = '__permission_definition__';
 
-export function Permission(options: { name: string, identify: string, action: 'create' | 'delete' | 'update' | 'find' }) {
+export function Permission(role: 'sadmin' | 'admin' | 'editor' | 'user') {
     return (target: any, propertyKey: string) => {
-        Reflect.defineMetadata(PERMISSION_DEFINITION, options, target, propertyKey);
+        Reflect.defineMetadata(PERMISSION_DEFINITION, role, target, propertyKey);
     };
 }

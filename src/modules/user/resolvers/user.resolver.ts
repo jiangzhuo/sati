@@ -2,7 +2,7 @@ import { HttpException, Inject, UseGuards } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { __ as t } from 'i18n';
 
-// import { Permission, Resource } from '../../../common/decorators';
+import { Permission, Resource } from '../../../common/decorators';
 import { CommonResult } from '../../../common/interfaces';
 import { NotaddGrpcClientFactory } from '../../../grpc/grpc.client-factory';
 import { AuthGuard } from '../auth/auth.guard';
@@ -73,6 +73,7 @@ export class UserResolver {
     // }
 
     @Mutation('updateCurrentUser')
+    @Permission('user')
     async updateCurrentUser(req, body, context): Promise<CommonResult> {
         body.updateCurrentUserInput.id = context.user.id;
         const { data } = await this.userServiceInterface.updateUserById(body.updateCurrentUserInput).toPromise();
@@ -80,12 +81,14 @@ export class UserResolver {
     }
 
     @Mutation('updateUserById')
+    @Permission('user')
     async updateUserById(req, body, context): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.updateUserById(body.updateUserInput).toPromise();
         return { code: 200, message: 'success', data };
     }
 
     @Query('getCurrentUser')
+    @Permission('user')
     async getCurrentUser(req, body, context): Promise<CommonResult> {
         if (context.user) {
             return { code: 200, message: 'userInfo from context', data: context.user };
@@ -96,48 +99,56 @@ export class UserResolver {
     }
 
     @Query('getUserById')
+    @Permission('user')
     async getUserById(req, body, context): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.getUserById(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
     @Query('getUserByMobile')
+    @Permission('user')
     async getUserByMobile(req, body, context): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.getUserByMobile(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
     @Query('getUser')
+    @Permission('user')
     async getUser(req, body, context): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.getUser(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
     @Query('searchUserAccount')
+    @Permission('admin')
     async searchUserAccount(req, body, context): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.searchUserAccount(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
     @Query('countUserAccount')
+    @Permission('admin')
     async countUserAccount(req, body, context): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.countUserAccount(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
     @Query('searchUser')
+    @Permission('admin')
     async searchUser(req, body, context): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.searchUser(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
     @Query('countUser')
+    @Permission('admin')
     async countUser(req, body, context): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.countUser(body).toPromise();
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('changeBalanceByAdmin')
+    @Permission('admin')
     async changeBalanceByAdmin(req, body: { userId: string, changeValue: number, extraInfo: string }, context) {
         const { data } = await this.userServiceInterface.changeBalance({
             id: body.userId,
