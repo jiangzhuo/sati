@@ -23,14 +23,14 @@ export class UserResolver {
 
     @Query('loginBySMSCode')
     async loginBySMSCode(req, body: { mobile: string, verificationCode: string }): Promise<CommonResult> {
-        const { code, message, data } = await this.userServiceInterface.loginBySMSCode(body).toPromise();
-        return { code, message, data: data.tokenInfo };
+        const { data } = await this.userServiceInterface.loginBySMSCode(body).toPromise();
+        return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
     @Query('loginByMobileAndPassword')
     async loginByMobileAndPassword(req, body: { mobile: string, password: string }): Promise<CommonResult> {
-        const { code, message, data } = await this.userServiceInterface.loginByMobileAndPassword(body).toPromise();
-        return { code, message, data: data.tokenInfo };
+        const { data } = await this.userServiceInterface.loginByMobileAndPassword(body).toPromise();
+        return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
     // @Query('adminLogin')
