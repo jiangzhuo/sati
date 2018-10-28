@@ -14,7 +14,7 @@ type Query {
     "根据一组id获取正态"
     getMindfulnessByIds(ids: [String]): getManyMindfulnessResponse
     "搜索mindfulness"
-    searchMindfulness(keyword: String): getManyMindfulnessResponse
+    searchMindfulness(keyword: String, from: Int, size: Int): getManyMindfulnessResponse
     "根据正态的id获取这个正态的相关记录"
     getMindfulnessRecordByMindfulnessId(mindfulnessId: String!): getMindfulnessRecordResponse
     "根据条件获取正态的相关记录"

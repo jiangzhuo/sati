@@ -120,8 +120,8 @@ export class ResourceResolver {
 
     @Query('searchMindfulness')
     @Permission('editor')
-    async searchMindfulness(req, body: { keyword: string }) {
-        const { data } = await this.mindfulnessServiceInterface.searchMindfulness({ keyword: body.keyword }).toPromise();
+    async searchMindfulness(req, body) {
+        const { total, data } = await this.mindfulnessServiceInterface.searchMindfulness(body).toPromise();
         this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }

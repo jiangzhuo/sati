@@ -54,7 +54,7 @@ export class UserResolver {
         const { data } = await this.userServiceInterface.getLoginVerificationCode(body).toPromise();
         return { code: 200, message: 'success' };
     }
-
+    // Its%queOress2
     @Query('sendRegisterVerificationCode')
     async sendRegisterVerificationCode(req, body): Promise<CommonResult> {
         const { data } = await this.userServiceInterface.getRegisterVerificationCode(body).toPromise();
