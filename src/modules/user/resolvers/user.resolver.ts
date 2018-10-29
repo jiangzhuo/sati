@@ -136,8 +136,8 @@ export class UserResolver {
     @Query('searchUser')
     @Permission('admin')
     async searchUser(req, body, context): Promise<CommonResult> {
-        const { data } = await this.userServiceInterface.searchUser(body).toPromise();
-        return { code: 200, message: 'success', data };
+        const { total, data } = await this.userServiceInterface.searchUser(body).toPromise();
+        return { code: 200, message: 'success', data: { total, data } };
     }
 
     @Query('countUser')
