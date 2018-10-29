@@ -14,7 +14,7 @@ type Query {
     "根据一组id获取正态"
     getMindfulnessByIds(ids: [String]): getManyMindfulnessResponse
     "搜索mindfulness"
-    searchMindfulness(keyword: String, from: Int, size: Int): getManyMindfulnessResponse
+    searchMindfulness(keyword: String, from: Int, size: Int): searchMindfulnessResponse
     "根据正态的id获取这个正态的相关记录"
     getMindfulnessRecordByMindfulnessId(mindfulnessId: String!): getMindfulnessRecordResponse
     "根据条件获取正态的相关记录"
@@ -26,7 +26,7 @@ type Query {
     "根据一组id获取自然"
     getNatureByIds(ids: [String]): getManyNatureResponse
     "搜索自然"
-    searchNature(keyword: String): getManyNatureResponse
+    searchNature(keyword: String, from: Int, size: Int): searchNatureResponse
     "根据自然的id获取这个自然的相关记录"
     getNatureRecordByNatureId(natureId: String!): getNatureRecordResponse
     "根据条件获取自然的相关记录"
@@ -38,7 +38,7 @@ type Query {
     "根据一组id获取漫步"
     getWanderByIds(ids: [String]): getManyWanderResponse
     "搜索漫步"
-    searchWander(keyword: String): getManyWanderResponse
+    searchWander(keyword: String, from: Int, size: Int): searchWanderResponse
     "根据漫步的id获取这个漫步的相关记录"
     getWanderRecordByWanderId(wanderId: String!): getWanderRecordResponse
     "根据条件获取漫步的相关记录"
@@ -50,7 +50,7 @@ type Query {
     "根据一组id获取漫步专辑"
     getWanderAlbumByIds(ids: [String]): getManyWanderAlbumResponse
     "搜索漫步专辑"
-    searchWanderAlbum(keyword: String): getManyWanderAlbumResponse
+    searchWanderAlbum(keyword: String, from: Int, size: Int): searchWanderAlbumResponse
     "根据漫步专辑的id获取这个漫步专辑的相关记录"
     getWanderAlbumRecordByWanderAlbumId(wanderAlbumId: String!): getWanderAlbumRecordResponse
     "根据条件获取漫步专辑的相关记录"
@@ -198,16 +198,51 @@ type getManyMindfulnessResponse{
     data: [Mindfulness]
 }
 
+type searchMindfulnessData{
+    "搜索结果有多少"
+    total: Int
+    "搜索结果数据"
+    data: [Mindfulness]
+}
+
+type searchMindfulnessResponse{
+    code: Int
+    message: String
+    data: searchMindfulnessData
+}
+
 type getManyNatureResponse{
     code: Int
     message: String
     data: [Nature]
 }
 
+type searchNatureData{
+    total: Int
+    data: [Nature]
+}
+
+type searchNatureResponse{
+    code: Int
+    message: String
+    data: searchNatureData
+}
+
 type getManyWanderResponse{
     code: Int
     message: String
     data: [Wander]
+}
+
+type searchWanderData{
+    total: Int
+    data: [Wander]
+}
+
+type searchWanderResponse{
+    code: Int
+    message: String
+    data: searchWanderData
 }
 
 input createWanderRequest{
@@ -340,6 +375,17 @@ type getManyWanderAlbumResponse{
     code: Int
     message: String
     data: [WanderAlbum]
+}
+
+type searchWanderAlbumData{
+    total: Int
+    data: [WanderAlbum]
+}
+
+type searchWanderAlbumResponse{
+    code: Int
+    message: String
+    data: searchWanderAlbumData
 }
 
 type getManySceneResponse{

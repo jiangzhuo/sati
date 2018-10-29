@@ -123,7 +123,7 @@ export class ResourceResolver {
     async searchMindfulness(req, body) {
         const { total, data } = await this.mindfulnessServiceInterface.searchMindfulness(body).toPromise();
         this.resourceCache.updateResourceCache(data, 'mindfulness');
-        return { code: 200, message: 'success', data };
+        return { code: 200, message: 'success', data: { total, data } };
     }
 
     @Mutation('buyMindfulness')
@@ -299,9 +299,9 @@ export class ResourceResolver {
     @Query('searchNature')
     @Permission('editor')
     async searchNature(req, body: { keyword: string }) {
-        const { data } = await this.natureServiceInterface.searchNature({ keyword: body.keyword }).toPromise();
+        const { total, data } = await this.natureServiceInterface.searchNature({ keyword: body.keyword }).toPromise();
         this.resourceCache.updateResourceCache(data, 'nature');
-        return { code: 200, message: 'success', data };
+        return { code: 200, message: 'success', data: { total, data } };
     }
 
     @Mutation('buyNature')
@@ -531,9 +531,9 @@ export class ResourceResolver {
     @Query('searchWander')
     @Permission('editor')
     async searchWander(req, body: { keyword: string }) {
-        const { data } = await this.wanderServiceInterface.searchWander({ keyword: body.keyword }).toPromise();
+        const { total, data } = await this.wanderServiceInterface.searchWander({ keyword: body.keyword }).toPromise();
         this.resourceCache.updateResourceCache(data, 'wander');
-        return { code: 200, message: 'success', data };
+        return { code: 200, message: 'success', data: { total, data } };
     }
 
     @Mutation('buyWander')
@@ -644,9 +644,9 @@ export class ResourceResolver {
     @Query('searchWanderAlbum')
     @Permission('editor')
     async searchWanderAlbum(req, body: { keyword: string }) {
-        const { data } = await this.wanderServiceInterface.searchWanderAlbum({ keyword: body.keyword }).toPromise();
+        const { total, data } = await this.wanderServiceInterface.searchWanderAlbum({ keyword: body.keyword }).toPromise();
         this.resourceCache.updateResourceCache(data, 'wanderAlbum');
-        return { code: 200, message: 'success', data };
+        return { code: 200, message: 'success', data: { total, data } };
     }
 
     @Mutation('buyWanderAlbum')
