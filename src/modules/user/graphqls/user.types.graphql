@@ -23,6 +23,8 @@ type Query {
     searchUserAccount(userId: String!, page: Int!, limit: Int!, type: String!): SearchUserAccountResponse
     "获取用户的账户数据的分页计数"
     countUserAccount(userId: String!, type: String!): CountUserAccountResponse
+    "续订更新token"
+    renewToken: LoginResponse
 }
 
 type Mutation {

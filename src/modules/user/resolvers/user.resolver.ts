@@ -33,6 +33,12 @@ export class UserResolver {
         return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
+    @Query('renewToken')
+    async renewToken(req, body, context) {
+        const { data } = await this.userServiceInterface.renewToken({ userId: context.user.id }).toPromise();
+        return { code: 200, message: 'success', data: data.tokenInfo };
+    }
+
     // @Query('adminLogin')
     // async adminLogin(req, body: { username: string, password: string }): Promise<CommonResult> {
     //     const { code, message, data } = await this.userServiceInterface.login(body).toPromise();
