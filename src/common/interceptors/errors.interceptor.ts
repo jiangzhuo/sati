@@ -15,7 +15,12 @@ export class ErrorsInterceptor implements NestInterceptor {
             if (error.code && error.details) {
                 return Promise.resolve({
                     code: error.code,
-                    message: error.details
+                    message: error.details,
+                });
+            } else {
+                return Promise.resolve({
+                    code: 500,
+                    message: error.message || 'unknow error',
                 });
             }
         }));

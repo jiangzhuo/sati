@@ -1,4 +1,4 @@
-import { HttpException, Inject, Optional, UseGuards } from '@nestjs/common';
+import { HttpException, Inject, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { __ as t } from 'i18n';
 
@@ -9,10 +9,12 @@ import { AuthGuard } from '../auth/auth.guard';
 
 import { isArray } from 'lodash';
 import { ResourceCache } from '../cache/resource.cache';
+import { ErrorsInterceptor } from '../../../common/interceptors/errors.interceptor';
 
 @Resolver()
 @UseGuards(AuthGuard)
 // @Resource({ name: 'user_manage', identify: 'user:manage' })
+@UseInterceptors(ErrorsInterceptor)
 export class ResourceResolver {
     onModuleInit() {
         this.mindfulnessServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('MindfulnessService');
@@ -130,20 +132,16 @@ export class ResourceResolver {
     @Permission('user')
     async buyMindfulness(req, body: { id: string }, context) {
         const { data } = await this.mindfulnessServiceInterface.getMindfulnessById({ id: body.id }).toPromise();
-        try {
-            await this.userServiceInterface.changeBalance({
-                id: context.user.id,
-                changeValue: -1 * data.price,
-                type: 'mindfulness',
-                extraInfo: JSON.stringify(data)
-            }).toPromise();
-        } catch (e) {
-            return { code: e.code, message: e.details };
-        }
+        await this.userServiceInterface.changeBalance({
+            id: context.user.id,
+            changeValue: -1 * data.price,
+            type: 'mindfulness',
+            extraInfo: JSON.stringify(data),
+        }).toPromise();
         try {
             const { data } = await this.mindfulnessServiceInterface.buyMindfulness({
                 userId: context.user.id,
-                mindfulnessId: body.id
+                mindfulnessId: body.id,
             }).toPromise();
             return { code: 200, message: 'success', data };
         } catch (e) {
@@ -151,7 +149,7 @@ export class ResourceResolver {
                 id: context.user.id,
                 changeValue: data.price,
                 type: 'mindfulnessRollback',
-                extraInfo: JSON.stringify(data)
+                extraInfo: JSON.stringify(data),
             }).toPromise();
             return { code: e.code, message: e.details };
         }
