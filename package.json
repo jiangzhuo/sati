@@ -21,6 +21,7 @@
         "@types/uuid": "^3.4.4",
         "ali-oss": "^6.0.1",
         "apollo-server-express": "^2.0.6",
+        "cache-manager": "^2.9.0",
         "collections": "^5.1.5",
         "graphql": "^14.0.2",
         "graphql-tools": "^3.1.1",
@@ -36,6 +37,7 @@
         "uuid": "^3.3.2"
     },
     "devDependencies": {
+        "@types/cache-manager": "^1.2.6",
         "@types/collections": "^5.0.0",
         "@types/graphql": "^14.0.0",
         "@types/graphql-type-json": "^0.1.2",

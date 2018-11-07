@@ -1,6 +1,6 @@
 // import 'reflect-metadata';
 
-import { DynamicModule, Global, UseGuards, Inject, Module, OnModuleInit } from '@nestjs/common';
+import { DynamicModule, Global, UseGuards, Inject, Module, OnModuleInit, CacheModule } from '@nestjs/common';
 // import { PATH_METADATA } from '@nestjs/common/constants';
 import { APP_GUARD } from '@nestjs/core';
 import { ModulesContainer } from '@nestjs/core/injector/modules-container';
@@ -16,6 +16,7 @@ import { ResourceCache } from './cache/resource.cache';
 
 // @Global()
 @Module({
+    imports: [CacheModule.register({ ttl: 60 })],
     providers: [
         NotaddGrpcClientFactory,
         ResourceResolver,
