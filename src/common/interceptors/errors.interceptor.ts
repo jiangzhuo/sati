@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/node';
 import { ExecutionContext, HttpException, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -9,7 +10,7 @@ export class ErrorsInterceptor implements NestInterceptor {
             if (error instanceof HttpException) {
                 return Promise.resolve({
                     code: error.getStatus(),
-                    message: error.getResponse()
+                    message: error.getResponse(),
                 });
             }
             if (error.code && error.details) {
@@ -18,6 +19,7 @@ export class ErrorsInterceptor implements NestInterceptor {
                     message: error.details,
                 });
             } else {
+                Sentry.captureException(error);
                 return Promise.resolve({
                     code: 500,
                     message: error.message || 'unknow error',
