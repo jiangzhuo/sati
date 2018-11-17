@@ -34,8 +34,8 @@ export class ResourceCache {
     private natureServiceInterface;
     private wanderServiceInterface;
 
-    public updateResourceCache(resources, type: string) {
-        if (!isArray(resources)) {
+    public updateResourceCache(resources = [], type: string) {
+        if (!isArray(resources) && resources !== null) {
             resources = [resources];
         }
         resources.forEach((resource) => {
