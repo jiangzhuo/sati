@@ -42,7 +42,6 @@ export class ResourceResolver {
 
     @Query('sayMindfulnessHello')
     async sayMindfulnessHello(req, body: { name: string }) {
-        throw new Error('jiangzhuo');
         const { msg } = await this.mindfulnessServiceInterface.sayHello({ name: body.name }).toPromise();
         return { code: 200, message: 'success', data: msg };
     }

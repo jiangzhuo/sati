@@ -15,8 +15,9 @@ export class GraphQLConfigService implements GqlOptionsFactory {
             typePaths: ['./**/*.types.graphql'],
             resolvers: { JSON: GraphQLJSON },
             context: async ({ req }) => {
+                const udid = req.headers.udid;
                 const user = await this.authService.validateUser(req);
-                return { user };
+                return { user, udid };
             }
         };
     }
