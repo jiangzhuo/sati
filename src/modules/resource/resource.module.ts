@@ -6,19 +6,34 @@ import { APP_GUARD } from '@nestjs/core';
 import { ModulesContainer } from '@nestjs/core/injector/modules-container';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 // import { RESOLVER_TYPE_METADATA } from '@nestjs/graphql/dist/graphql.constants';
-import { __ as t, configure as i18nConfigure } from 'i18n';
+// import { __ as t, configure as i18nConfigure } from 'i18n';
 
 // import { PERMISSION_DEFINITION, RESOURCE_DEFINITION } from '../../common/decorators';
 // import { Permission, Resource } from '../../common/interfaces';
-import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
+// import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
 import { ResourceResolver } from './resolvers/resource.resolver';
 import { ResourceCache } from './cache/resource.cache';
+import { MoleculerModule } from 'nestjs-moleculer';
 
 // @Global()
 @Module({
-    imports: [CacheModule.register({ ttl: 60 })],
+    imports: [CacheModule.register({ ttl: 60 }),
+        MoleculerModule.forRoot({
+            namespace: 'sati-resource',
+            // logger: bindings => new Logger(),
+            transporter: 'TCP',
+            hotReload: true,
+            brokerName: 'resource',
+        }),
+        MoleculerModule.forRoot({
+            namespace: 'sati-user',
+            // logger: bindings => new Logger(),
+            transporter: 'TCP',
+            hotReload: true,
+            brokerName: 'user',
+        })],
     providers: [
-        NotaddGrpcClientFactory,
+        // NotaddGrpcClientFactory,
         ResourceResolver,
         ResourceCache
     ]
@@ -28,12 +43,7 @@ export class ResourceModule implements OnModuleInit {
     ) {
     }
 
-    static forRoot(options: { i18n: 'en-US' | 'zh-CN' }): DynamicModule {
-        i18nConfigure({
-            locales: ['en-US', 'zh-CN'],
-            defaultLocale: options.i18n,
-            directory: 'src/i18n'
-        });
+    static forRoot(): DynamicModule {
         return {
             module: ResourceModule
         };

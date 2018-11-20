@@ -2,10 +2,10 @@ import { Module, Global } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 
-import { AppResolver } from './app.resolver';
+// import { AppResolver } from './app.resolver';
 import { ErrorsInterceptor } from './common/interceptors/errors.interceptor';
 import { GraphQLConfigService } from './graphql-config.service';
-import { NotaddGrpcClientFactory } from './grpc/grpc.client-factory';
+// import { NotaddGrpcClientFactory } from './grpc/grpc.client-factory';
 import { UserModule } from './modules/user/user.module';
 import { ResourceModule } from './modules/resource/resource.module';
 import { UploadModule } from './modules/upload/upload.module';
@@ -18,15 +18,13 @@ import { UploadModule } from './modules/upload/upload.module';
         }),
         UploadModule,
         ResourceModule,
-        UserModule.forRoot({ i18n: 'zh-CN' }),
+        UserModule.forRoot(),
     ],
     providers: [
         {
             provide: APP_INTERCEPTOR,
             useClass: ErrorsInterceptor
-        },
-        NotaddGrpcClientFactory,
-        AppResolver
+        }
     ],
     exports: []
 })

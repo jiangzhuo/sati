@@ -1,6 +1,8 @@
 import { Inject, Injectable, Optional } from '@nestjs/common';
 import { isArray } from 'lodash';
-import { NotaddGrpcClientFactory } from '../../../grpc/grpc.client-factory';
+// import { NotaddGrpcClientFactory } from '../../../grpc/grpc.client-factory';
+import { InjectBroker } from 'nestjs-moleculer';
+import { ServiceBroker } from 'moleculer';
 // import { validateEach } from "@nestjs/common/utils/validate-each.util";
 // import * as SortedMap from 'collections/sorted-map';
 // import * as FastMap from 'collections/fast-map';
@@ -10,9 +12,6 @@ import { NotaddGrpcClientFactory } from '../../../grpc/grpc.client-factory';
 @Injectable()
 export class ResourceCache {
     async onModuleInit(): Promise<any> {
-        this.mindfulnessServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('MindfulnessService');
-        this.natureServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('NatureService');
-        this.wanderServiceInterface = this.notaddGrpcClientFactory.resourceModuleClient.getService('WanderService');
         await this.initResourceCache();
         setInterval(() => {
             this.initResourceCache().then(() => {
@@ -24,15 +23,12 @@ export class ResourceCache {
     }
 
     constructor(
-        @Inject(NotaddGrpcClientFactory) private readonly notaddGrpcClientFactory: NotaddGrpcClientFactory
+        @InjectBroker('resource') private readonly broker: ServiceBroker
     ) {
     }
 
     private cache = new Map();
     private cacheSortedByCreateTime = [];
-    private mindfulnessServiceInterface;
-    private natureServiceInterface;
-    private wanderServiceInterface;
 
     public updateResourceCache(resources = [], type: string) {
         if (!isArray(resources) && resources !== null) {
@@ -59,44 +55,40 @@ export class ResourceCache {
         try {
 
             // mindfulness
-            let mindfulnessResult = await this.mindfulnessServiceInterface.getMindfulness({ first: batchGetLimit }).toPromise();
+            let mindfulnessResult = await this.broker.call('mindfulness.getMindfulness', { first: batchGetLimit });
             while (mindfulnessResult.data.length &&
             mindfulnessResult.data.length !== 0 &&
             mindfulnessResult.data.some((mindfulness) => !this.cache.has(mindfulness.id))) {
                 this.updateResourceCache(mindfulnessResult.data, 'mindfulness');
-                mindfulnessResult = await this.mindfulnessServiceInterface.getMindfulness(
-                    { first: batchGetLimit, after: mindfulnessResult.data[mindfulnessResult.data.length - 1].id }
-                ).toPromise();
+                mindfulnessResult = await this.broker.call('mindfulness.getMindfulness',
+                    { first: batchGetLimit, after: mindfulnessResult.data[mindfulnessResult.data.length - 1].id });
             }
             // nature
-            let natureResult = await this.natureServiceInterface.getNature({ first: batchGetLimit }).toPromise();
+            let natureResult = await this.broker.call('nature.getNature', { first: batchGetLimit });
             while (natureResult.data.length &&
             natureResult.data.length !== 0 &&
             natureResult.data.some((nature) => !this.cache.has(nature.id))) {
                 this.updateResourceCache(natureResult.data, 'nature');
-                natureResult = await this.natureServiceInterface.getNature(
-                    { first: batchGetLimit, after: natureResult.data[natureResult.data.length - 1].id }
-                ).toPromise();
+                natureResult = await this.broker.call('nature.getNature',
+                    { first: batchGetLimit, after: natureResult.data[natureResult.data.length - 1].id });
             }
             // wander
-            let wanderResult = await this.wanderServiceInterface.getWander({ first: batchGetLimit }).toPromise();
+            let wanderResult = await this.broker.call('wander.getWander', { first: batchGetLimit });
             while (wanderResult.data.length &&
             wanderResult.data.length !== 0 &&
             wanderResult.data.some((wander) => !this.cache.has(wander.id))) {
                 this.updateResourceCache(wanderResult.data, 'wander');
-                wanderResult = await this.wanderServiceInterface.getWander(
-                    { first: batchGetLimit, after: wanderResult.data[wanderResult.data.length - 1].id }
-                ).toPromise();
+                wanderResult = await this.broker.call('wander.getWander',
+                    { first: batchGetLimit, after: wanderResult.data[wanderResult.data.length - 1].id });
             }
             // wanderAlbum
-            let wanderAlbumResult = await this.wanderServiceInterface.getWanderAlbum({ first: batchGetLimit }).toPromise();
+            let wanderAlbumResult = await this.broker.call('wander.getWanderAlbum', { first: batchGetLimit });
             while (wanderAlbumResult.data.length &&
             wanderAlbumResult.data.length !== 0 &&
             wanderAlbumResult.data.some((wanderAlbum) => !this.cache.has(wanderAlbum.id))) {
                 this.updateResourceCache(wanderAlbumResult.data, 'wanderAlbum');
-                wanderAlbumResult = await this.wanderServiceInterface.getWanderAlbum(
-                    { first: batchGetLimit, after: wanderAlbumResult.data[wanderAlbumResult.data.length - 1].id }
-                ).toPromise();
+                wanderAlbumResult = await this.broker.call('wander.getWanderAlbum',
+                    { first: batchGetLimit, after: wanderAlbumResult.data[wanderAlbumResult.data.length - 1].id });
             }
         } catch (e) {
             console.error('init resource cache failed!');

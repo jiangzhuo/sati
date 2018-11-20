@@ -13,10 +13,10 @@ export class ErrorsInterceptor implements NestInterceptor {
                     message: error.getResponse(),
                 });
             }
-            if (error.code && error.details) {
+            if (error.code) {
                 return Promise.resolve({
                     code: error.code,
-                    message: error.details,
+                    message: error.details || JSON.stringify(error.data) || '',
                 });
             } else {
                 Sentry.captureException(error);

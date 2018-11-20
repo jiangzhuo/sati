@@ -6,41 +6,44 @@ import { APP_GUARD } from '@nestjs/core';
 import { ModulesContainer } from '@nestjs/core/injector/modules-container';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 // import { RESOLVER_TYPE_METADATA } from '@nestjs/graphql/dist/graphql.constants';
-import { __ as t, configure as i18nConfigure } from 'i18n';
+// import { __ as t, configure as i18nConfigure } from 'i18n';
 
 // import { PERMISSION_DEFINITION, RESOURCE_DEFINITION } from '../../common/decorators';
 // import { Permission, Resource } from '../../common/interfaces';
-import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
+// import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
 import { AuthService } from './auth/auth.service';
 import { UserResolver } from './resolvers/user.resolver';
+import { MoleculerModule } from 'nestjs-moleculer';
 
 // @Global()
 @Module({
+    imports: [
+        MoleculerModule.forRoot({
+            namespace: 'sati-user',
+            // logger: bindings => new Logger(),
+            transporter: 'TCP',
+            hotReload: true,
+            brokerName: 'user',
+        })],
     providers: [
-        NotaddGrpcClientFactory,
         AuthService,
-        UserResolver
+        UserResolver,
     ],
-    exports: [AuthService]
+    exports: [AuthService],
 })
 export class UserModule implements OnModuleInit {
     private readonly metadataScanner: MetadataScanner;
 
     constructor(
         @Inject(ModulesContainer) private readonly modulesContainer: ModulesContainer,
-        @Inject(AuthService) private readonly authService: AuthService
+        @Inject(AuthService) private readonly authService: AuthService,
     ) {
         this.metadataScanner = new MetadataScanner();
     }
 
-    static forRoot(options: { i18n: 'en-US' | 'zh-CN' }): DynamicModule {
-        i18nConfigure({
-            locales: ['en-US', 'zh-CN'],
-            defaultLocale: options.i18n,
-            directory: 'src/i18n'
-        });
+    static forRoot(): DynamicModule {
         return {
-            module: UserModule
+            module: UserModule,
         };
     }
 

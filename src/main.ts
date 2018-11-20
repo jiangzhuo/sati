@@ -1,3 +1,4 @@
+import './hackNestLogger';
 import * as Sentry from '@sentry/node';
 import { hostname } from 'os';
 

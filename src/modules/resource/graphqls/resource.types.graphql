@@ -7,6 +7,8 @@ type Query {
     sayWanderHello(name: String!): SayHelloResponse
     "Scene测试接口"
     saySceneHello(name: String!): SayHelloResponse
+    "Home测试接口"
+    sayHomeHello(name: String!): SayHelloResponse
     "获取正态列表"
     getMindfulness(first: Int, after: String): getManyMindfulnessResponse
     "根据id获取正态"
