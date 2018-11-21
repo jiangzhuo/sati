@@ -1,4 +1,4 @@
-import { HttpException, Inject, Req, Request, UseGuards, UseInterceptors } from '@nestjs/common';
+import { UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 // import { __ as t } from 'i18n';
 
@@ -8,12 +8,13 @@ import { CommonResult } from '../../../common/interfaces';
 import { AuthGuard } from '../auth/auth.guard';
 import { ServiceBroker } from 'moleculer';
 import { InjectBroker } from 'nestjs-moleculer';
-import { ErrorsInterceptor } from '../../../common/interceptors/errors.interceptor';
+import { ErrorsInterceptor, LoggingInterceptor } from '../../../common/interceptors';
 
 @Resolver()
 @UseGuards(AuthGuard)
 // @Resource({ name: 'user_manage', identify: 'user:manage' })
 @UseInterceptors(ErrorsInterceptor)
+@UseInterceptors(LoggingInterceptor)
 export class UserResolver {
     onModuleInit() {
         // this.userServiceInterface = this.notaddGrpcClientFactory.userModuleClient.getService('UserService');
@@ -29,20 +30,40 @@ export class UserResolver {
 
     @Query('loginBySMSCode')
     async loginBySMSCode(req, body: { mobile: string, verificationCode: string }, context): Promise<CommonResult> {
-        // console.log(context)
-        const { data } = await this.userBroker.call('user.loginBySMSCode', body);
+        const { data } = await this.userBroker.call('user.loginBySMSCode', body,
+            {
+                meta: {
+                    udid: context.udid,
+                    operationName: context.operationName,
+                    clientIp: context.clientIp,
+                },
+            });
         return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
     @Query('loginByMobileAndPassword')
     async loginByMobileAndPassword(req, body: { mobile: string, password: string }, context): Promise<CommonResult> {
-        const { data } = await this.userBroker.call('user.loginByMobileAndPassword', body);
+        const { data } = await this.userBroker.call('user.loginByMobileAndPassword', body,
+            {
+                meta: {
+                    udid: context.udid,
+                    operationName: context.operationName,
+                    clientIp: context.clientIp,
+                },
+            });
         return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
     @Query('renewToken')
     async renewToken(req, body, context) {
-        const { data } = await this.userBroker.call('user.renewToken', { userId: context.user.id });
+        const { data } = await this.userBroker.call('user.renewToken', { userId: context.user.id },
+            {
+                meta: {
+                    udid: context.udid,
+                    operationName: context.operationName,
+                    clientIp: context.clientIp,
+                },
+            });
         return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
@@ -58,22 +79,43 @@ export class UserResolver {
 
     @Mutation('registerBySMSCode')
     async registerBySMSCode(req, { registerUserInput, verificationCode }, context): Promise<CommonResult> {
-        const { data } = await this.userBroker.call('user.registerBySMSCode'
-            , { registerUserInput, verificationCode },
+        const { data } = await this.userBroker.call('user.registerBySMSCode',
+            { registerUserInput, verificationCode },
+            {
+                meta: {
+                    udid: context.udid,
+                    operationName: context.operationName,
+                    clientIp: context.clientIp,
+                },
+            },
         );
         return { code: 200, message: 'success', data };
     }
 
     @Query('sendLoginVerificationCode')
     async sendLoginVerificationCode(req, body, context): Promise<CommonResult> {
-        const { data } = await this.userBroker.call('user.getLoginVerificationCode', body);
+        const { data } = await this.userBroker.call('user.getLoginVerificationCode', body,
+            {
+                meta: {
+                    udid: context.udid,
+                    operationName: context.operationName,
+                    clientIp: context.clientIp,
+                },
+            });
         return { code: 200, message: 'success' };
     }
 
     // Its%queOress2
     @Query('sendRegisterVerificationCode')
     async sendRegisterVerificationCode(req, body, context): Promise<CommonResult> {
-        const { data } = await this.userBroker.call('user.getRegisterVerificationCode', body);
+        const { data } = await this.userBroker.call('user.getRegisterVerificationCode', body,
+            {
+                meta: {
+                    udid: context.udid,
+                    operationName: context.operationName,
+                    clientIp: context.clientIp,
+                },
+            });
         return { code: 200, message: 'success' };
     }
 

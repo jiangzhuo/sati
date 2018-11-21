@@ -16,7 +16,7 @@ import * as https from 'https';
 import * as path from 'path';
 
 async function bootstrap() {
-    const logger = new Logger('Notadd');
+    const logger = new Logger('sati');
     logger.log(APP_CONFIG.banner);
 
     const privateKey = fs.readFileSync(path.join(__dirname, './ssl/privkey.pem'), 'utf8');

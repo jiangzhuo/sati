@@ -18,7 +18,8 @@ export class AuthService implements OnModuleInit {
     constructor(
         @InjectBroker() private readonly userBroker: ServiceBroker,
         // @Inject(NotaddGrpcClientFactory) private readonly notaddGrpcClientFactory: NotaddGrpcClientFactory
-    ) { }
+    ) {
+    }
 
     // private userServiceInterface;
 
@@ -49,7 +50,14 @@ export class AuthService implements OnModuleInit {
         try {
             const decodedToken = <{ userId: string }>jwt.verify(token, 'secretKey');
             const { data } = await this.userBroker.call('user.getUserById', { id: decodedToken.userId },
-                { meta: { operationName: req.body.operationName, udid: req.headers.udid } });
+                {
+                    meta: {
+                        userId: decodedToken.userId,
+                        operationName: req.body.operationName,
+                        udid: req.headers.udid,
+                        clientIp: req.headers['X-Forwarded-For'] || req.connection.remoteAddress,
+                    },
+                });
             return data;
         } catch (error) {
             Sentry.captureException(error);

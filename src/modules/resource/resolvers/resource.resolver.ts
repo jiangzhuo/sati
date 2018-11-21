@@ -1,5 +1,5 @@
-import { CacheInterceptor, HttpException, Inject, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
-import { GraphqlCacheInterceptor } from '../../../common/interceptors/graphqlCache.interceptor';
+import { Inject, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
+// import { GraphqlCacheInterceptor } from '../../../common/interceptors/graphqlCache.interceptor';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 // import { __ as t } from 'i18n';
 
@@ -10,14 +10,16 @@ import { AuthGuard } from '../auth/auth.guard';
 
 import { isArray } from 'lodash';
 import { ResourceCache } from '../cache/resource.cache';
-import { ErrorsInterceptor } from '../../../common/interceptors/errors.interceptor';
+// import { ErrorsInterceptor } from '../../../common/interceptors/errors.interceptor';
 import { InjectBroker } from 'nestjs-moleculer';
 import { ServiceBroker } from 'moleculer';
+import { ErrorsInterceptor, GraphqlCacheInterceptor, LoggingInterceptor } from 'src/common/interceptors';
 
 @Resolver()
 @UseGuards(AuthGuard)
 // @Resource({ name: 'user_manage', identify: 'user:manage' })
 @UseInterceptors(ErrorsInterceptor)
+@UseInterceptors(LoggingInterceptor)
 // @UseInterceptors(GraphqlCacheInterceptor)
 export class ResourceResolver {
     onModuleInit() {

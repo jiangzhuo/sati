@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@nestjs/common';
+import { Inject, Injectable, Logger, Optional } from '@nestjs/common';
 import { isArray } from 'lodash';
 // import { NotaddGrpcClientFactory } from '../../../grpc/grpc.client-factory';
 import { InjectBroker } from 'nestjs-moleculer';
@@ -27,6 +27,7 @@ export class ResourceCache {
     ) {
     }
 
+    private logger = new Logger('sati');
     private cache = new Map();
     private cacheSortedByCreateTime = [];
 
@@ -91,8 +92,8 @@ export class ResourceCache {
                     { first: batchGetLimit, after: wanderAlbumResult.data[wanderAlbumResult.data.length - 1].id });
             }
         } catch (e) {
-            console.error('init resource cache failed!');
-            console.error(e);
+            this.logger.error('init resource cache failed!');
+            this.logger.error(e);
         }
     }
 }
