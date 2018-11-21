@@ -19,18 +19,10 @@ import { MoleculerModule } from 'nestjs-moleculer';
 @Module({
     imports: [CacheModule.register({ ttl: 60 }),
         MoleculerModule.forRoot({
-            namespace: 'sati-resource',
+            namespace: 'sati',
             // logger: bindings => new Logger(),
             transporter: 'TCP',
             hotReload: true,
-            brokerName: 'resource',
-        }),
-        MoleculerModule.forRoot({
-            namespace: 'sati-user',
-            // logger: bindings => new Logger(),
-            transporter: 'TCP',
-            hotReload: true,
-            brokerName: 'user',
         })],
     providers: [
         // NotaddGrpcClientFactory,

@@ -32,8 +32,8 @@ export class ResourceResolver {
     constructor(
         // @Inject(NotaddGrpcClientFactory) private readonly notaddGrpcClientFactory: NotaddGrpcClientFactory,
         @Optional() @Inject(ResourceCache) private readonly resourceCache: ResourceCache,
-        @InjectBroker('resource') private readonly resourceBroker: ServiceBroker,
-        @InjectBroker('user') private readonly userBroker: ServiceBroker,
+        @InjectBroker() private readonly resourceBroker: ServiceBroker,
+        @InjectBroker() private readonly userBroker: ServiceBroker,
     ) {
     }
 

@@ -2,10 +2,11 @@ import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { AuthenticationError } from 'apollo-server-core';
 // import { __ as t } from 'i18n';
 import * as jwt from 'jsonwebtoken';
+import * as Sentry from '@sentry/node';
 
 import { Permission, Resource } from '../../../common/interfaces';
 // import { NotaddGrpcClientFactory } from '../../../grpc/grpc.client-factory';
-import { ServiceBroker } from 'moleculer';
+import { Errors, ServiceBroker } from 'moleculer';
 import { InjectBroker } from 'nestjs-moleculer';
 
 @Injectable()
@@ -15,7 +16,7 @@ export class AuthService implements OnModuleInit {
     }
 
     constructor(
-        @InjectBroker('user') private readonly userBroker: ServiceBroker,
+        @InjectBroker() private readonly userBroker: ServiceBroker,
         // @Inject(NotaddGrpcClientFactory) private readonly notaddGrpcClientFactory: NotaddGrpcClientFactory
     ) { }
 
@@ -47,15 +48,22 @@ export class AuthService implements OnModuleInit {
 
         try {
             const decodedToken = <{ userId: string }>jwt.verify(token, 'secretKey');
-            const { data } = await this.userBroker.call('user.getUserById', { id: decodedToken.userId });
+            const { data } = await this.userBroker.call('user.getUserById', { id: decodedToken.userId },
+                { meta: { operationName: req.body.operationName, udid: req.headers.udid } });
             return data;
         } catch (error) {
+            Sentry.captureException(error);
             if (error instanceof jwt.JsonWebTokenError) {
                 throw new AuthenticationError('The authorization code is incorrect');
             }
             if (error instanceof jwt.TokenExpiredError) {
                 throw new AuthenticationError('The authorization code has expired');
             }
+            if (error instanceof Errors.MoleculerError) {
+                // moleculer base error
+                throw error;
+            }
+            throw error;
         }
     }
 }

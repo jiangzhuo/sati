@@ -23,7 +23,7 @@ export class ResourceCache {
     }
 
     constructor(
-        @InjectBroker('resource') private readonly broker: ServiceBroker
+        @InjectBroker() private readonly broker: ServiceBroker
     ) {
     }
 

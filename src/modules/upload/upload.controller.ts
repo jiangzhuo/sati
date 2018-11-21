@@ -5,8 +5,10 @@ import * as hasha from 'hasha';
 import * as mime from 'mime';
 
 import { ACCESS_KEY_ID, ACCESS_KEY_SECRET, REGION, AVATAR_BUCKET } from '../../configurations/oss.config';
+import { ErrorsInterceptor } from '../../common/interceptors/errors.interceptor';
 
 @Controller()
+@UseInterceptors(ErrorsInterceptor)
 export class UploadController {
     constructor() { }
 
