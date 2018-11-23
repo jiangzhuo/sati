@@ -38,8 +38,14 @@ export class AuthService implements OnModuleInit {
         //     const query = gql(req.body.query);
         //     req.body.operationName = query.definitions[0].name.value;
         // }
-        if (req.body && whiteList.includes(req.body.operationName)) {
-            return;
+        // fix operationName
+        if (req.body && req.body.operationName && req.body.operationName !== 'IntrospectionQuery') {
+            const operationName = req.body.operationName;
+            req.body.operationName = operationName.charAt(0).toLowerCase() + operationName.slice(1);
+            if (whiteList.includes(req.body.operationName)) {
+                return;
+            }
+
         }
 
         let token = req.headers.authorization as string;
