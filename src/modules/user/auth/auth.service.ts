@@ -3,6 +3,8 @@ import { AuthenticationError } from 'apollo-server-core';
 // import { __ as t } from 'i18n';
 import * as jwt from 'jsonwebtoken';
 import * as Sentry from '@sentry/node';
+// import gql from 'graphql-tag';
+
 
 import { Permission, Resource } from '../../../common/interfaces';
 // import { NotaddGrpcClientFactory } from '../../../grpc/grpc.client-factory';
@@ -32,6 +34,10 @@ export class AuthService implements OnModuleInit {
             'loginBySMSCode', 'loginByMobileAndPassword',
             'sendRegisterVerificationCode', 'sendLoginVerificationCode',
             'registerBySMSCode'];
+        // if (!req.body.operationName) {
+        //     const query = gql(req.body.query);
+        //     req.body.operationName = query.definitions[0].name.value;
+        // }
         if (req.body && whiteList.includes(req.body.operationName)) {
             return;
         }
