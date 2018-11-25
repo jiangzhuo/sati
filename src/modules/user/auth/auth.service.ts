@@ -3,7 +3,7 @@ import { AuthenticationError } from 'apollo-server-core';
 // import { __ as t } from 'i18n';
 import * as jwt from 'jsonwebtoken';
 import * as Sentry from '@sentry/node';
-// import gql from 'graphql-tag';
+import gql from 'graphql-tag';
 
 
 import { Permission, Resource } from '../../../common/interfaces';
@@ -34,19 +34,22 @@ export class AuthService implements OnModuleInit {
             'loginBySMSCode', 'loginByMobileAndPassword',
             'sendRegisterVerificationCode', 'sendLoginVerificationCode',
             'registerBySMSCode'];
-        // if (!req.body.operationName) {
-        //     const query = gql(req.body.query);
-        //     req.body.operationName = query.definitions[0].name.value;
-        // }
-        // fix operationName
-        if (req.body && req.body.operationName && req.body.operationName !== 'IntrospectionQuery') {
-            const operationName = req.body.operationName;
-            req.body.operationName = operationName.charAt(0).toLowerCase() + operationName.slice(1);
-            if (whiteList.includes(req.body.operationName)) {
-                return;
-            }
-
+        const query = gql(req.body.query);
+        req.body.operationName = query.definitions[0].name.value;
+        if (whiteList.includes(req.body.operationName)) {
+            return;
         }
+        // fix operationName
+        // if (req.body && req.body.operationName) {
+        //     if (whiteList.includes(req.body.operationName)) {
+        //         return;
+        //     }
+        //     const operationName = req.body.operationName;
+        //     req.body.operationName = operationName.charAt(0).toLowerCase() + operationName.slice(1);
+        //     if (whiteList.includes(req.body.operationName)) {
+        //         return;
+        //     }
+        // }
 
         let token = req.headers.authorization as string;
         if (!token) {
