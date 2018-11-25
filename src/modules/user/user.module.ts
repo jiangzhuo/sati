@@ -21,7 +21,8 @@ import { MoleculerModule } from 'nestjs-moleculer';
         MoleculerModule.forRoot({
             namespace: 'sati',
             // logger: bindings => new Logger(),
-            transporter: 'TCP'
+            transporter: 'TCP',
+            logLevel: 'debug',
         })],
     providers: [
         AuthService,

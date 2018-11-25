@@ -22,7 +22,7 @@ import { MoleculerModule } from 'nestjs-moleculer';
             namespace: 'sati',
             // logger: bindings => new Logger(),
             transporter: 'TCP',
-            hotReload: true,
+            logLevel: 'debug',
         })],
     providers: [
         // NotaddGrpcClientFactory,

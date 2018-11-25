@@ -35,7 +35,11 @@ export class AuthService implements OnModuleInit {
             'sendRegisterVerificationCode', 'sendLoginVerificationCode',
             'registerBySMSCode'];
         const query = gql(req.body.query);
-        req.body.operationName = query.definitions[0].name.value;
+        if (query.definitions.every((definition) => {
+            return definition.name.value !== req.body.operationName;
+        })) {
+            req.body.operationName = query.definitions[0].name.value;
+        }
         if (whiteList.includes(req.body.operationName)) {
             return;
         }
