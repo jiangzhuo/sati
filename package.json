@@ -51,7 +51,6 @@
         "@types/jsonwebtoken": "^7.2.8",
         "@types/mime": "^2.0.0",
         "@types/node": "^10.5.2",
-        "nodemon": "^1.18.3",
         "ts-node": "^7.0.0",
         "tsconfig-paths": "^3.6.0",
         "tslint": "^5.11.0"
