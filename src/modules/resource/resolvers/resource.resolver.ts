@@ -148,28 +148,34 @@ export class ResourceResolver {
     @Mutation('buyMindfulness')
     @Permission('user')
     async buyMindfulness(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('mindfulness.getMindfulnessById', { id: body.id });
-        await this.userBroker.call('user.changeBalance', {
-            id: context.user.id,
-            changeValue: -1 * data.price,
-            type: 'mindfulness',
-            extraInfo: JSON.stringify(data),
+        // const { data } = await this.resourceBroker.call('mindfulness.getMindfulnessById', { id: body.id });
+        // await this.userBroker.call('user.changeBalance', {
+        //     id: context.user.id,
+        //     changeValue: -1 * data.price,
+        //     type: 'mindfulness',
+        //     extraInfo: JSON.stringify(data),
+        // });
+        // try {
+        //     const { data } = await this.resourceBroker.call('mindfulness.buyMindfulness', {
+        //         userId: context.user.id,
+        //         mindfulnessId: body.id,
+        //     });
+        //     return { code: 200, message: 'success', data };
+        // } catch (e) {
+        //     await this.userBroker.call('user.changeBalance', {
+        //         id: context.user.id,
+        //         changeValue: data.price,
+        //         type: 'mindfulnessRollback',
+        //         extraInfo: JSON.stringify(data),
+        //     });
+        //     return { code: e.code, message: e.details };
+        // }
+        const { data } = await this.resourceBroker.call('mindfulness.buyMindfulness', {
+            userId: context.user.id,
+            mindfulnessId: body.id,
         });
-        try {
-            const { data } = await this.resourceBroker.call('mindfulness.buyMindfulness', {
-                userId: context.user.id,
-                mindfulnessId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'mindfulnessRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        return { code: 200, message: 'success', data };
+
     }
 
     @Mutation('startMindfulness')
@@ -322,32 +328,38 @@ export class ResourceResolver {
     @Mutation('buyNature')
     @Permission('user')
     async buyNature(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('nature.getNatureById', { id: body.id });
-        try {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: -1 * data.price,
-                type: 'nature',
-                extraInfo: JSON.stringify(data),
-            });
-        } catch (e) {
-            return { code: e.code, message: e.details };
-        }
-        try {
-            const { data } = await this.resourceBroker.call('nature.buyNature', {
-                userId: context.user.id,
-                natureId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'natureRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        // const { data } = await this.resourceBroker.call('nature.getNatureById', { id: body.id });
+        // try {
+        //     await this.userBroker.call('user.changeBalance', {
+        //         id: context.user.id,
+        //         changeValue: -1 * data.price,
+        //         type: 'nature',
+        //         extraInfo: JSON.stringify(data),
+        //     });
+        // } catch (e) {
+        //     return { code: e.code, message: e.details };
+        // }
+        // try {
+        //     const { data } = await this.resourceBroker.call('nature.buyNature', {
+        //         userId: context.user.id,
+        //         natureId: body.id,
+        //     });
+        //     return { code: 200, message: 'success', data };
+        // } catch (e) {
+        //     await this.userBroker.call('user.changeBalance', {
+        //         id: context.user.id,
+        //         changeValue: data.price,
+        //         type: 'natureRollback',
+        //         extraInfo: JSON.stringify(data),
+        //     });
+        //     return { code: e.code, message: e.details };
+        // }
+
+        const { data } = await this.resourceBroker.call('nature.buyNature', {
+            userId: context.user.id,
+            natureId: body.id,
+        });
+        return { code: 200, message: 'success', data };
     }
 
     @Mutation('startNature')
@@ -554,32 +566,37 @@ export class ResourceResolver {
     @Mutation('buyWander')
     @Permission('user')
     async buyWander(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('wander.getWanderById', { id: body.id });
-        try {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: -1 * data.price,
-                type: 'wander',
-                extraInfo: JSON.stringify(data),
-            });
-        } catch (e) {
-            return { code: e.code, message: e.details };
-        }
-        try {
-            const { data } = await this.resourceBroker.call('wander.buyWander', {
-                userId: context.user.id,
-                wanderId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'wanderRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        // const { data } = await this.resourceBroker.call('wander.getWanderById', { id: body.id });
+        // try {
+        //     await this.userBroker.call('user.changeBalance', {
+        //         id: context.user.id,
+        //         changeValue: -1 * data.price,
+        //         type: 'wander',
+        //         extraInfo: JSON.stringify(data),
+        //     });
+        // } catch (e) {
+        //     return { code: e.code, message: e.details };
+        // }
+        // try {
+        //     const { data } = await this.resourceBroker.call('wander.buyWander', {
+        //         userId: context.user.id,
+        //         wanderId: body.id,
+        //     });
+        //     return { code: 200, message: 'success', data };
+        // } catch (e) {
+        //     await this.userBroker.call('user.changeBalance', {
+        //         id: context.user.id,
+        //         changeValue: data.price,
+        //         type: 'wanderRollback',
+        //         extraInfo: JSON.stringify(data),
+        //     });
+        //     return { code: e.code, message: e.details };
+        // }
+        const { data } = await this.resourceBroker.call('wander.buyWander', {
+            userId: context.user.id,
+            wanderId: body.id,
+        });
+        return { code: 200, message: 'success', data };
     }
 
     @Mutation('startWander')
@@ -667,32 +684,37 @@ export class ResourceResolver {
     @Mutation('buyWanderAlbum')
     @Permission('user')
     async buyWanderAlbum(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('wander.getWanderAlbumById', { id: body.id });
-        try {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: -1 * data.price,
-                type: 'wanderAlbum',
-                extraInfo: JSON.stringify(data),
-            });
-        } catch (e) {
-            return { code: e.code, message: e.details };
-        }
-        try {
-            const { data } = await this.resourceBroker.call('wander.buyWanderAlbum', {
-                userId: context.user.id,
-                wanderAlbumId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'wanderAlbumRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        // const { data } = await this.resourceBroker.call('wander.getWanderAlbumById', { id: body.id });
+        // try {
+        //     await this.userBroker.call('user.changeBalance', {
+        //         id: context.user.id,
+        //         changeValue: -1 * data.price,
+        //         type: 'wanderAlbum',
+        //         extraInfo: JSON.stringify(data),
+        //     });
+        // } catch (e) {
+        //     return { code: e.code, message: e.details };
+        // }
+        // try {
+        //     const { data } = await this.resourceBroker.call('wander.buyWanderAlbum', {
+        //         userId: context.user.id,
+        //         wanderAlbumId: body.id,
+        //     });
+        //     return { code: 200, message: 'success', data };
+        // } catch (e) {
+        //     await this.userBroker.call('user.changeBalance', {
+        //         id: context.user.id,
+        //         changeValue: data.price,
+        //         type: 'wanderAlbumRollback',
+        //         extraInfo: JSON.stringify(data),
+        //     });
+        //     return { code: e.code, message: e.details };
+        // }
+        const { data } = await this.resourceBroker.call('wander.buyWander', {
+            userId: context.user.id,
+            wanderId: body.id,
+        });
+        return { code: 200, message: 'success', data };
     }
 
     @Mutation('startWanderAlbum')
