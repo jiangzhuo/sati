@@ -718,7 +718,7 @@ export class ResourceResolver {
 
     @Query('getHome')
     @Permission('user')
-    async getHome(req, body: { first: number, after?: string }) {
+    async getHome(req, body: { first: number, after?: string, position?: number }) {
         const { data } = await this.resourceBroker.call('home.getHome', body);
         return { code: 200, message: 'success', data };
     }
