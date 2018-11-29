@@ -30,7 +30,7 @@ async function bootstrap() {
     };
 
     const server = express();
-    const app = await NestFactory.create(AppModule, server);
+    const app = await NestFactory.create(AppModule, server, { cors: true, httpsOptions: credentials });
     await app.init();
 
     http.createServer(server).listen(5000);
