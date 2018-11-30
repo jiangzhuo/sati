@@ -154,7 +154,7 @@ type Mutation{
 
 input createMindfulnessRequest{
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -175,7 +175,7 @@ input createMindfulnessRequest{
 
 input updateMindfulnessRequest{
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -249,7 +249,7 @@ type searchWanderResponse{
 
 input createWanderRequest{
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -272,7 +272,7 @@ input createWanderRequest{
 
 input updateWanderRequest{
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -295,7 +295,7 @@ input updateWanderRequest{
 
 input createWanderAlbumRequest{
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -314,7 +314,7 @@ input createWanderAlbumRequest{
 
 input updateWanderAlbumRequest{
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -333,7 +333,7 @@ input updateWanderAlbumRequest{
 
 input createNatureRequest{
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -354,7 +354,7 @@ input createNatureRequest{
 
 input updateNatureRequest{
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -498,7 +498,7 @@ input createHomeRequest{
     "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
     resourceId :String
     "首页这一项显示的背景图片"
-    background :String
+    background : [String]
     "名称 上面短的那行字"
     name :String
     "描述 下面长的那行字"
@@ -517,7 +517,7 @@ input updateHomeRequest{
     "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
     resourceId :String
     "首页这一项显示的背景图片"
-    background :String
+    background : [String]
     "名称 上面短的那行字"
     name :String
     "描述 下面长的那行字"
@@ -535,7 +535,7 @@ type Mindfulness {
     "唯一id"
     id : String
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -587,7 +587,7 @@ type Nature {
     "唯一id"
     id : String
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -639,7 +639,7 @@ type Wander {
     "唯一id"
     id : String
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -693,7 +693,7 @@ type WanderAlbum {
     "唯一id"
     id : String
     "背景图片地址"
-    background : String
+    background : [String]
     "名称"
     name : String
     "描述"
@@ -754,7 +754,7 @@ type Home {
     "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
     resourceId :String
     "首页这一项显示的背景图片"
-    background :String
+    background : [String]
     "名称 上面短的那行字"
     name :String
     "描述 下面长的那行字"
@@ -777,7 +777,7 @@ type New {
     "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
     resourceId :String
     "首页这一项显示的背景图片"
-    background :String
+    background : [String]
     "名称 上面短的那行字"
     name :String
     "描述 下面长的那行字"
