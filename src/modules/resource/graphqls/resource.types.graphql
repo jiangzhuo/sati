@@ -66,7 +66,7 @@ type Query {
     "根据一组id获取使用场景"
     getSceneByIds(ids: [String]): getManySceneResponse
     "获取首页列表"
-    getHome(first: Int, after: Int, position: Int): getManyHomeResponse
+    getHome(first: Int, after: Int, before: Int, position: Int): getManyHomeResponse
     "根据id获取首页"
     getHomeById(id: String!): getHomeResponse
     "获取最新"
