@@ -81,9 +81,9 @@ export class ResourceResolver {
 
     @Query('getMindfulness')
     @Permission('user')
-    async getMindfulness(req, body: { first: number, after?: string }) {
+    async getMindfulness(req, body: { first: number, after?: number , before?: number }) {
         const { data } = await this.resourceBroker.call('mindfulness.getMindfulness', body);
-        this.resourceCache.updateResourceCache(data, 'mindfulness');
+        // this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
@@ -91,7 +91,7 @@ export class ResourceResolver {
     @Permission('user')
     async getMindfulnessById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('mindfulness.getMindfulnessById', body);
-        this.resourceCache.updateResourceCache(data, 'mindfulness');
+        // this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
@@ -99,7 +99,7 @@ export class ResourceResolver {
     @Permission('user')
     async getMindfulnessByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('mindfulness.getMindfulnessByIds', body);
-        this.resourceCache.updateResourceCache(data, 'mindfulness');
+        // this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
@@ -141,7 +141,7 @@ export class ResourceResolver {
     @Permission('editor')
     async searchMindfulness(req, body) {
         const { total, data } = await this.resourceBroker.call('mindfulness.searchMindfulness', body);
-        this.resourceCache.updateResourceCache(data, 'mindfulness');
+        // this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data: { total, data } };
     }
 
@@ -197,7 +197,7 @@ export class ResourceResolver {
     @Permission('editor')
     async createMindfulness(req, body) {
         const { data } = await this.resourceBroker.call('mindfulness.createMindfulness', body.data);
-        this.resourceCache.updateResourceCache(data, 'mindfulness');
+        // this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };
     }
 
@@ -225,9 +225,9 @@ export class ResourceResolver {
 
     @Query('getNature')
     @Permission('user')
-    async getNature(req, body: { first: number, after?: string }) {
+    async getNature(req, body: { first: number, after?: number , before?: number }) {
         const { data } = await this.resourceBroker.call('nature.getNature', body);
-        this.resourceCache.updateResourceCache(data, 'nature');
+        // this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
@@ -235,7 +235,7 @@ export class ResourceResolver {
     @Permission('user')
     async getNatureById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('nature.getNatureById', body);
-        this.resourceCache.updateResourceCache(data, 'nature');
+        // this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
@@ -243,7 +243,7 @@ export class ResourceResolver {
     @Permission('user')
     async getNatureByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('nature.getNatureByIds', body);
-        this.resourceCache.updateResourceCache(data, 'nature');
+        // this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
@@ -261,7 +261,7 @@ export class ResourceResolver {
     @Permission('editor')
     async createNature(req, body) {
         const { data } = await this.resourceBroker.call('nature.createNature', body.data);
-        this.resourceCache.updateResourceCache(data, 'nature');
+        // this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };
     }
 
@@ -315,7 +315,7 @@ export class ResourceResolver {
     @Permission('editor')
     async searchNature(req, body: { keyword: string }) {
         const { total, data } = await this.resourceBroker.call('nature.searchNature', { keyword: body.keyword });
-        this.resourceCache.updateResourceCache(data, 'nature');
+        // this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data: { total, data } };
     }
 
@@ -373,9 +373,9 @@ export class ResourceResolver {
 
     @Query('getWander')
     @Permission('user')
-    async getWander(req, body: { first: number, after?: string }) {
+    async getWander(req, body: { first: number, after?: number , before?: number }) {
         const { data } = await this.resourceBroker.call('wander.getWander', body);
-        this.resourceCache.updateResourceCache(data, 'wander');
+        // this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
@@ -383,7 +383,7 @@ export class ResourceResolver {
     @Permission('user')
     async getWanderById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('wander.getWanderById', body);
-        this.resourceCache.updateResourceCache(data, 'wander');
+        // this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
@@ -391,7 +391,7 @@ export class ResourceResolver {
     @Permission('user')
     async getWanderByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('wander.getWanderByIds', body);
-        this.resourceCache.updateResourceCache(data, 'wander');
+        // this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
@@ -407,9 +407,9 @@ export class ResourceResolver {
 
     @Query('getWanderAlbum')
     @Permission('user')
-    async getWanderAlbum(req, body: { first: number, after?: string }) {
+    async getWanderAlbum(req, body: { first: number, after?: number , before?: number }) {
         const { data } = await this.resourceBroker.call('wander.getWanderAlbum', body);
-        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
+        // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
@@ -417,7 +417,7 @@ export class ResourceResolver {
     @Permission('user')
     async getWanderAlbumById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('wander.getWanderAlbumById', body);
-        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
+        // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
@@ -425,7 +425,7 @@ export class ResourceResolver {
     @Permission('user')
     async getWanderAlbumByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('wander.getWanderAlbumByIds', body);
-        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
+        // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
@@ -436,7 +436,7 @@ export class ResourceResolver {
             userId: context.user.id,
             wanderAlbumId: body.wanderAlbumId,
         });
-        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
+        // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };
     }
 
@@ -493,7 +493,7 @@ export class ResourceResolver {
     @Permission('editor')
     async createWander(req, body) {
         const { data } = await this.resourceBroker.call('wander.createWander', body.data);
-        this.resourceCache.updateResourceCache(data, 'wander');
+        // this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };
     }
 
@@ -547,7 +547,7 @@ export class ResourceResolver {
     @Permission('editor')
     async searchWander(req, body: { keyword: string }) {
         const { total, data } = await this.resourceBroker.call('wander.searchWander', { keyword: body.keyword });
-        this.resourceCache.updateResourceCache(data, 'wander');
+        // this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data: { total, data } };
     }
 
@@ -660,7 +660,7 @@ export class ResourceResolver {
     @Permission('editor')
     async searchWanderAlbum(req, body: { keyword: string }) {
         const { total, data } = await this.resourceBroker.call('wander.searchWanderAlbum', { keyword: body.keyword });
-        this.resourceCache.updateResourceCache(data, 'wanderAlbum');
+        // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data: { total, data } };
     }
 
@@ -754,24 +754,25 @@ export class ResourceResolver {
 
     @Query('getNew')
     @Permission('user')
-    async getNew(req, body: { first: number, after?: string }) {
+    async getNew(req, body: { first: number, after?: number, before?: number }) {
         // const mindfulnessResponse = await this.mindfulnessServiceInterface.getMindfulness(body);
         // const natureResponse = await this.natureServiceInterface.getNature(body);
         // const wanderResponse = await this.wanderServiceInterface.getWander(body);
         // const wanderAlbumResponse = await this.wanderServiceInterface.getWanderAlbum(body);
-        const data = this.resourceCache.getResourceByCreateTime(body.first, body.after).map((resource) => {
-            return {
-                resourceId: resource.id,
-                type: resource.type,
-                name: resource.name,
-                description: resource.description,
-                background: resource.background,
-                price: resource.price,
-                author: resource.author,
-                createTime: resource.createTime,
-                updateTime: resource.updateTime,
-            };
-        });
+        // const data = this.resourceCache.getResourceByCreateTime(body.first, body.after,body.before).map((resource) => {
+        //     return {
+        //         resourceId: resource.id,
+        //         type: resource.type,
+        //         name: resource.name,
+        //         description: resource.description,
+        //         background: resource.background,
+        //         price: resource.price,
+        //         author: resource.author,
+        //         createTime: resource.createTime,
+        //         updateTime: resource.updateTime,
+        //     };
+        // });
+        const { data } = await this.resourceBroker.call('home.getNew', body);
         return { code: 200, message: 'success', data };
     }
 }

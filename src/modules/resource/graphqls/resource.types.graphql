@@ -10,7 +10,7 @@ type Query {
     "Home测试接口"
     sayHomeHello(name: String!): SayHelloResponse
     "获取正态列表"
-    getMindfulness(first: Int, after: String): getManyMindfulnessResponse
+    getMindfulness(first: Int, after: Int, before: Int): getManyMindfulnessResponse
     "根据id获取正态"
     getMindfulnessById(id: String!): getMindfulnessResponse
     "根据一组id获取正态"
@@ -22,7 +22,7 @@ type Query {
     "根据条件获取正态的相关记录"
     searchMindfulnessRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyMindfulnessRecordResponse
     "获取自然列表"
-    getNature(first: Int, after: String): getManyNatureResponse
+    getNature(first: Int, after: Int, before: Int): getManyNatureResponse
     "根据id获取自然"
     getNatureById(id: String!): getNatureResponse
     "根据一组id获取自然"
@@ -34,7 +34,7 @@ type Query {
     "根据条件获取自然的相关记录"
     searchNatureRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyNatureRecordResponse
     "获取漫步列表"
-    getWander(first: Int, after: String): getManyWanderResponse
+    getWander(first: Int, after: Int, before: Int): getManyWanderResponse
     "根据id获取漫步"
     getWanderById(id: String!): getWanderResponse
     "根据一组id获取漫步"
@@ -46,7 +46,7 @@ type Query {
     "根据条件获取漫步的相关记录"
     searchWanderRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyWanderRecordResponse
     "获取漫步专辑列表"
-    getWanderAlbum(first: Int, after: String): getManyWanderAlbumResponse
+    getWanderAlbum(first: Int, after: Int, before: Int): getManyWanderAlbumResponse
     "根据id获取漫步专辑"
     getWanderAlbumById(id: String!): getWanderAlbumResponse
     "根据一组id获取漫步专辑"
@@ -70,7 +70,7 @@ type Query {
     "根据id获取首页"
     getHomeById(id: String!): getHomeResponse
     "获取最新"
-    getNew(first: Int!, after: String): getManyNewResponse
+    getNew(first: Int!, after: Int, before:Int): getManyNewResponse
 }
 
 type Mutation{
@@ -171,6 +171,8 @@ input createMindfulnessRequest{
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
 }
 
 input updateMindfulnessRequest{
@@ -192,6 +194,8 @@ input updateMindfulnessRequest{
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
 }
 
 type getManyMindfulnessResponse{
@@ -268,6 +272,8 @@ input createWanderRequest{
     wanderAlbums : [String]
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
 }
 
 input updateWanderRequest{
@@ -291,6 +297,8 @@ input updateWanderRequest{
     wanderAlbums : [String]
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
 }
 
 input createWanderAlbumRequest{
@@ -310,6 +318,8 @@ input createWanderAlbumRequest{
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
 }
 
 input updateWanderAlbumRequest{
@@ -329,6 +339,8 @@ input updateWanderAlbumRequest{
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
 }
 
 input createNatureRequest{
@@ -350,6 +362,8 @@ input createNatureRequest{
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
 }
 
 input updateNatureRequest{
@@ -371,6 +385,8 @@ input updateNatureRequest{
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
 }
 
 type getManyWanderAlbumResponse{
@@ -506,7 +522,7 @@ input createHomeRequest{
     "作者的id"
     author :String
     "顺序id"
-    position :Int,
+    position :Int
     "生效日期，从什么时候开始生效"
     validTime: Int
 }
@@ -525,7 +541,7 @@ input updateHomeRequest{
     "作者的id"
     author :String
     "顺序id"
-    position :Int,
+    position :Int
     "生效日期，从什么时候开始生效"
     validTime: Int
 }
@@ -556,6 +572,8 @@ type Mindfulness {
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效时间"
+    validTime: Int
 }
 
 type MindfulnessRecord {
@@ -608,6 +626,8 @@ type Nature {
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效时间"
+    validTime: Int
 }
 
 type NatureRecord {
@@ -662,6 +682,8 @@ type Wander {
     wanderAlbums: [String]
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效时间"
+    validTime: Int
 }
 
 type WanderRecord {
@@ -712,6 +734,8 @@ type WanderAlbum {
     copy : String
     "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
     status: Int
+    "生效时间"
+    validTime: Int
 }
 
 type WanderAlbumRecord {
@@ -790,6 +814,8 @@ type New {
     createTime: Int
     "更新时间"
     updateTime: Int
+    "生效时间"
+    validTime: Int
 }
 
 type SayHelloResponse {
