@@ -80,7 +80,7 @@ export class ResourceResolver {
     }
 
     @Query('getMindfulness')
-    @Permission('user')
+    @Permission('anony')
     async getMindfulness(req, body: { first: number, after?: number , before?: number }) {
         const { data } = await this.resourceBroker.call('mindfulness.getMindfulness', body);
         // this.resourceCache.updateResourceCache(data, 'mindfulness');
@@ -88,7 +88,7 @@ export class ResourceResolver {
     }
 
     @Query('getMindfulnessById')
-    @Permission('user')
+    @Permission('anony')
     async getMindfulnessById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('mindfulness.getMindfulnessById', body);
         // this.resourceCache.updateResourceCache(data, 'mindfulness');
@@ -96,7 +96,7 @@ export class ResourceResolver {
     }
 
     @Query('getMindfulnessByIds')
-    @Permission('user')
+    @Permission('anony')
     async getMindfulnessByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('mindfulness.getMindfulnessByIds', body);
         // this.resourceCache.updateResourceCache(data, 'mindfulness');
@@ -224,7 +224,7 @@ export class ResourceResolver {
     }
 
     @Query('getNature')
-    @Permission('user')
+    @Permission('anony')
     async getNature(req, body: { first: number, after?: number , before?: number }) {
         const { data } = await this.resourceBroker.call('nature.getNature', body);
         // this.resourceCache.updateResourceCache(data, 'nature');
@@ -232,7 +232,7 @@ export class ResourceResolver {
     }
 
     @Query('getNatureById')
-    @Permission('user')
+    @Permission('anony')
     async getNatureById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('nature.getNatureById', body);
         // this.resourceCache.updateResourceCache(data, 'nature');
@@ -240,7 +240,7 @@ export class ResourceResolver {
     }
 
     @Query('getNatureByIds')
-    @Permission('user')
+    @Permission('anony')
     async getNatureByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('nature.getNatureByIds', body);
         // this.resourceCache.updateResourceCache(data, 'nature');
@@ -288,7 +288,7 @@ export class ResourceResolver {
     }
 
     @Mutation('favoriteNature')
-    @Permission('user')
+    @Permission('anony')
     async favoriteNature(req, body: { id: string }, context) {
         const { data } = await this.resourceBroker.call('nature.favoriteNature', {
             userId: context.user.id,
@@ -372,7 +372,7 @@ export class ResourceResolver {
     }
 
     @Query('getWander')
-    @Permission('user')
+    @Permission('anony')
     async getWander(req, body: { first: number, after?: number , before?: number }) {
         const { data } = await this.resourceBroker.call('wander.getWander', body);
         // this.resourceCache.updateResourceCache(data, 'wander');
@@ -380,7 +380,7 @@ export class ResourceResolver {
     }
 
     @Query('getWanderById')
-    @Permission('user')
+    @Permission('anony')
     async getWanderById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('wander.getWanderById', body);
         // this.resourceCache.updateResourceCache(data, 'wander');
@@ -388,7 +388,7 @@ export class ResourceResolver {
     }
 
     @Query('getWanderByIds')
-    @Permission('user')
+    @Permission('anony')
     async getWanderByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('wander.getWanderByIds', body);
         // this.resourceCache.updateResourceCache(data, 'wander');
@@ -406,7 +406,7 @@ export class ResourceResolver {
     }
 
     @Query('getWanderAlbum')
-    @Permission('user')
+    @Permission('anony')
     async getWanderAlbum(req, body: { first: number, after?: number , before?: number }) {
         const { data } = await this.resourceBroker.call('wander.getWanderAlbum', body);
         // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
@@ -414,7 +414,7 @@ export class ResourceResolver {
     }
 
     @Query('getWanderAlbumById')
-    @Permission('user')
+    @Permission('anony')
     async getWanderAlbumById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('wander.getWanderAlbumById', body);
         // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
@@ -422,7 +422,7 @@ export class ResourceResolver {
     }
 
     @Query('getWanderAlbumByIds')
-    @Permission('user')
+    @Permission('anony')
     async getWanderAlbumByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('wander.getWanderAlbumByIds', body);
         // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
@@ -441,28 +441,28 @@ export class ResourceResolver {
     }
 
     @Query('getWanderByWanderAlbumId')
-    @Permission('user')
+    @Permission('anony')
     async getWanderByWanderAlbumId(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('wander.getWanderByWanderAlbumId', body);
         return { code: 200, message: 'success', data };
     }
 
     @Query('getScene')
-    @Permission('user')
+    @Permission('anony')
     async getScene(req, body: { first: number, after?: string }) {
         const { data } = await this.resourceBroker.call('scene.getScene', body);
         return { code: 200, message: 'success', data };
     }
 
     @Query('getSceneById')
-    @Permission('user')
+    @Permission('anony')
     async getSceneById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('scene.getSceneById', body);
         return { code: 200, message: 'success', data };
     }
 
     @Query('getSceneByIds')
-    @Permission('user')
+    @Permission('anony')
     async getSceneByIds(req, body: { ids: [string] }) {
         const { data } = await this.resourceBroker.call('scene.getSceneByIds', body);
         return { code: 200, message: 'success', data };
@@ -633,7 +633,7 @@ export class ResourceResolver {
     }
 
     @Mutation('favoriteWanderAlbum')
-    @Permission('user')
+    @Permission('anony')
     async favoriteWanderAlbum(req, body: { id: string }, context) {
         const { data } = await this.resourceBroker.call('wander.favoriteWanderAlbum', {
             userId: context.user.id,
@@ -717,14 +717,14 @@ export class ResourceResolver {
     }
 
     @Query('getHome')
-    @Permission('user')
+    @Permission('anony')
     async getHome(req, body: { first: number, after?: number, before?: number, position?: number }) {
         const { data } = await this.resourceBroker.call('home.getHome', body);
         return { code: 200, message: 'success', data };
     }
 
     @Query('getHomeById')
-    @Permission('user')
+    @Permission('anony')
     async getHomeById(req, body: { id: string }) {
         const { data } = await this.resourceBroker.call('home.getHomeById', body);
         return { code: 200, message: 'success', data };
@@ -753,7 +753,7 @@ export class ResourceResolver {
     }
 
     @Query('getNew')
-    @Permission('user')
+    @Permission('anony')
     async getNew(req, body: { first: number, after?: number, before?: number }) {
         // const mindfulnessResponse = await this.mindfulnessServiceInterface.getMindfulness(body);
         // const natureResponse = await this.natureServiceInterface.getNature(body);

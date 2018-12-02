@@ -131,7 +131,7 @@ export class UserResolver {
     // }
 
     @Mutation('updateCurrentUser')
-    @Permission('user')
+    @Permission('anony')
     async updateCurrentUser(req, body, context): Promise<CommonResult> {
         body.updateCurrentUserInput.id = context.user.id;
         const { data } = await this.userBroker.call('user.updateUserById', body.updateCurrentUserInput);
@@ -139,14 +139,14 @@ export class UserResolver {
     }
 
     @Mutation('updateUserById')
-    @Permission('user')
+    @Permission('anony')
     async updateUserById(req, body, context): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.updateUserById', body.updateUserInput);
         return { code: 200, message: 'success', data };
     }
 
     @Query('getCurrentUser')
-    @Permission('user')
+    @Permission('anony')
     async getCurrentUser(req, body, context): Promise<CommonResult> {
         if (context.user) {
             return { code: 200, message: 'userInfo from context', data: context.user };
@@ -157,21 +157,21 @@ export class UserResolver {
     }
 
     @Query('getUserById')
-    @Permission('user')
+    @Permission('anony')
     async getUserById(req, body, context): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.getUserById', body);
         return { code: 200, message: 'success', data };
     }
 
     @Query('getUserByMobile')
-    @Permission('user')
+    @Permission('anony')
     async getUserByMobile(req, body, context): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.getUserByMobile', body);
         return { code: 200, message: 'success', data };
     }
 
     @Query('getUser')
-    @Permission('user')
+    @Permission('anony')
     async getUser(req, body, context): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.getUser', body);
         return { code: 200, message: 'success', data };

@@ -4,9 +4,10 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { PERMISSION_DEFINITION } from '../../../common/decorators';
 
 export const ROLE_MAP = {
-    sadmin: 0b1,
-    admin: 0b10,
-    editor: 0b100
+    sadmin: 0b0001,
+    admin:  0b0010,
+    editor: 0b0100,
+    anony:  0b1000,
 };
 
 @Injectable()
@@ -16,8 +17,7 @@ export class AuthGuard implements CanActivate {
         const user = gqlCtx.getContext().user;
         const handlerPerm = Reflect.getMetadata(PERMISSION_DEFINITION, context.getClass().prototype, context.getHandler().name);
         if (handlerPerm) {
-            if (handlerPerm === 'user') {
-                // 普通用户接口
+            if (handlerPerm === 'anony') {
                 return true;
             } else {
                 return !!(user.role & ROLE_MAP[handlerPerm]);
