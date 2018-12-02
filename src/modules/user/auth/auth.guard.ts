@@ -4,6 +4,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { PERMISSION_DEFINITION } from '../../../common/decorators';
 
 export const ROLE_MAP = {
+    user:   0b0000,
     sadmin: 0b0001,
     admin:  0b0010,
     editor: 0b0100,
@@ -19,6 +20,8 @@ export class AuthGuard implements CanActivate {
         if (handlerPerm) {
             if (handlerPerm === 'anony') {
                 return true;
+            }if (handlerPerm === 'anony') {
+                return !!user;
             } else {
                 return !!(user.role & ROLE_MAP[handlerPerm]);
             }
