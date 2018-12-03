@@ -1,10 +1,10 @@
-import { Controller, Inject, Post, Get, Options, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
+import { Controller, FileInterceptor, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 // import * as UUID from 'uuid/v1';
 import * as OSS from 'ali-oss';
 import * as hasha from 'hasha';
 import * as mime from 'mime';
 
-import { ACCESS_KEY_ID, ACCESS_KEY_SECRET, REGION, AVATAR_BUCKET } from '../../configurations/oss.config';
+import { ACCESS_KEY_ID, ACCESS_KEY_SECRET, AVATAR_BUCKET, REGION } from '../../configurations/oss.config';
 import { ErrorsInterceptor } from '../../common/interceptors/errors.interceptor';
 
 @Controller()
@@ -19,7 +19,8 @@ export class UploadController {
             region: REGION,
             accessKeyId: ACCESS_KEY_ID,
             accessKeySecret: ACCESS_KEY_SECRET,
-            bucket: AVATAR_BUCKET
+            bucket: AVATAR_BUCKET,
+            internal: true
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
@@ -34,7 +35,8 @@ export class UploadController {
             region: REGION,
             accessKeyId: ACCESS_KEY_ID,
             accessKeySecret: ACCESS_KEY_SECRET,
-            bucket: AVATAR_BUCKET
+            bucket: AVATAR_BUCKET,
+            internal: true
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
@@ -49,7 +51,8 @@ export class UploadController {
             region: REGION,
             accessKeyId: ACCESS_KEY_ID,
             accessKeySecret: ACCESS_KEY_SECRET,
-            bucket: AVATAR_BUCKET
+            bucket: AVATAR_BUCKET,
+            internal: true
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
