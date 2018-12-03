@@ -8,7 +8,7 @@ import {
     ACCESS_KEY_ID,
     ACCESS_KEY_SECRET,
     AVATAR_BUCKET,
-    EXTERNAL_END_POINT,
+    BASE_URL,
     REGION,
 } from '../../configurations/oss.config';
 import { ErrorsInterceptor } from '../../common/interceptors/errors.interceptor';
@@ -32,7 +32,7 @@ export class UploadController {
         // console.log(hash);
         const filename = `avatar/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
         await client.put(filename, file.buffer);
-        return { code: 200, message: 'upload avatar success', data: await client.generateObjectUrl(filename, EXTERNAL_END_POINT) };
+        return { code: 200, message: 'upload avatar success', data: await client.generateObjectUrl(filename, BASE_URL) };
     }
 
     @Post('uploadBackground')
@@ -49,7 +49,7 @@ export class UploadController {
         // console.log(hash);
         const filename = `background/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
         await client.put(filename, file.buffer);
-        return { code: 200, message: 'upload background success', data: await client.generateObjectUrl(filename, EXTERNAL_END_POINT) };
+        return { code: 200, message: 'upload background success', data: await client.generateObjectUrl(filename, BASE_URL) };
     }
 
     @Post('uploadAudio')
@@ -66,6 +66,6 @@ export class UploadController {
         // console.log(hash);
         const filename = `audio/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
         await client.put(filename, file.buffer);
-        return { code: 200, message: 'upload audio success', data: await client.generateObjectUrl(filename, EXTERNAL_END_POINT) };
+        return { code: 200, message: 'upload audio success', data: await client.generateObjectUrl(filename, BASE_URL) };
     }
 }
