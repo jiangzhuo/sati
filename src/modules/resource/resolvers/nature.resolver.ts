@@ -28,7 +28,7 @@ export class NatureResolver {
 
     @Query('getNature')
     @Permission('anony')
-    async getNature(req, body: { first: number, after?: number , before?: number }) {
+    async getNature(req, body: { first: number, after?: number, before?: number, status?: number }) {
         const { data } = await this.resourceBroker.call('nature.getNature', body);
         // this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data };

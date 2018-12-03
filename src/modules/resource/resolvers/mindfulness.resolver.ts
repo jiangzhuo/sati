@@ -28,7 +28,7 @@ export class MindfulnessResolver {
 
     @Query('getMindfulness')
     @Permission('anony')
-    async getMindfulness(req, body: { first: number, after?: number , before?: number }) {
+    async getMindfulness(req, body: { first: number, after?: number, before?: number, status?: number }) {
         const { data } = await this.resourceBroker.call('mindfulness.getMindfulness', body);
         // this.resourceCache.updateResourceCache(data, 'mindfulness');
         return { code: 200, message: 'success', data };

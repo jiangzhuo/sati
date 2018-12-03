@@ -23,7 +23,7 @@ export class MindfulnessAlbumResolver {
 
     @Query('getMindfulnessAlbum')
     @Permission('anony')
-    async getMindfulnessAlbum(req, body: { first: number, after?: number , before?: number }) {
+    async getMindfulnessAlbum(req, body: { first: number, after?: number, before?: number, status?: number }) {
         const { data } = await this.resourceBroker.call('mindfulnessAlbum.getMindfulnessAlbum', body);
         // this.resourceCache.updateResourceCache(data, 'mindfulnessAlbum');
         return { code: 200, message: 'success', data };

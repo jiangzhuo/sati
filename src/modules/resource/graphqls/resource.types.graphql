@@ -24,7 +24,7 @@ type Query {
     getHomeById(id: String!): getHomeResponse
 
     "获取最新"
-    getNew(first: Int!, after: Int, before:Int): getManyNewResponse
+    getNew(first: Int!, after: Int, before:Int, status: Int): getManyNewResponse
 }
 
 type Mutation{
@@ -164,6 +164,8 @@ type New {
     updateTime: Int
     "生效时间"
     validTime: Int
+    "状态"
+    status: Int
 }
 
 type SayHelloResponse {

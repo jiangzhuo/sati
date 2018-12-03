@@ -23,7 +23,7 @@ export class NatureAlbumResolver {
 
     @Query('getNatureAlbum')
     @Permission('user')
-    async getNatureAlbum(req, body: { first: number, after?: number , before?: number }) {
+    async getNatureAlbum(req, body: { first: number, after?: number, before?: number, status?: number }) {
         const { data } = await this.resourceBroker.call('natureAlbum.getNatureAlbum', body);
         // this.resourceCache.updateResourceCache(data, 'natureAlbum');
         return { code: 200, message: 'success', data };

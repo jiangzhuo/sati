@@ -59,7 +59,7 @@ export class WanderResolver {
 
     @Query('getWander')
     @Permission('anony')
-    async getWander(req, body: { first: number, after?: number , before?: number }) {
+    async getWander(req, body: { first: number, after?: number, before?: number, status?: number }) {
         const { data } = await this.resourceBroker.call('wander.getWander', body);
         // this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data };

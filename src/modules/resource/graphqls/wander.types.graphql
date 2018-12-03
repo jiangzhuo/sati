@@ -1,6 +1,6 @@
 type Query {
     "获取漫步列表"
-    getWander(first: Int, after: Int, before: Int): getManyWanderResponse
+    getWander(first: Int, after: Int, before: Int, status: Int): getManyWanderResponse
     "根据id获取漫步"
     getWanderById(id: String!): getWanderResponse
     "根据一组id获取漫步"
@@ -16,7 +16,7 @@ type Query {
     getWanderByWanderAlbumId(id: String!): getManyWanderResponse
 
     "获取漫步专辑列表"
-    getWanderAlbum(first: Int, after: Int, before: Int): getManyWanderAlbumResponse
+    getWanderAlbum(first: Int, after: Int, before: Int, status: Int): getManyWanderAlbumResponse
     "根据id获取漫步专辑"
     getWanderAlbumById(id: String!): getWanderAlbumResponse
     "根据一组id获取漫步专辑"

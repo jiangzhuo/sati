@@ -66,7 +66,7 @@ export class HomeResolver {
 
     @Query('getNew')
     @Permission('anony')
-    async getNew(req, body: { first: number, after?: number, before?: number }) {
+    async getNew(req, body: { first: number, after?: number, before?: number, status?: number }) {
         const { data } = await this.resourceBroker.call('home.getNew', body);
         return { code: 200, message: 'success', data };
     }

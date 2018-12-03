@@ -1,6 +1,6 @@
 type Query {
     "获取正态列表"
-    getMindfulness(first: Int, after: Int, before: Int): getManyMindfulnessResponse
+    getMindfulness(first: Int, after: Int, before: Int, status: Int): getManyMindfulnessResponse
     "根据id获取正态"
     getMindfulnessById(id: String!): getMindfulnessResponse
     "根据一组id获取正态"
@@ -16,7 +16,7 @@ type Query {
     getMindfulnessByMindfulnessAlbumId(id: String!): getManyMindfulnessResponse
 
     "获取正态专辑列表"
-    getMindfulnessAlbum(first: Int, after: Int, before: Int): getManyMindfulnessAlbumResponse
+    getMindfulnessAlbum(first: Int, after: Int, before: Int, status: Int): getManyMindfulnessAlbumResponse
     "根据id获取正态专辑"
     getMindfulnessAlbumById(id: String!): getMindfulnessAlbumResponse
     "根据一组id获取正态专辑"

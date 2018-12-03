@@ -23,7 +23,7 @@ export class WanderAlbumResolver {
 
     @Query('getWanderAlbum')
     @Permission('anony')
-    async getWanderAlbum(req, body: { first: number, after?: number , before?: number }) {
+    async getWanderAlbum(req, body: { first: number, after?: number, before?: number, status?: number }) {
         const { data } = await this.resourceBroker.call('wanderAlbum.getWanderAlbum', body);
         // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data };

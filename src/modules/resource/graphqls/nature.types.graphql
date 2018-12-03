@@ -1,6 +1,6 @@
 type Query {
     "获取自然列表"
-    getNature(first: Int, after: Int, before: Int): getManyNatureResponse
+    getNature(first: Int, after: Int, before: Int, status: Int): getManyNatureResponse
     "根据id获取自然"
     getNatureById(id: String!): getNatureResponse
     "根据一组id获取自然"
@@ -16,7 +16,7 @@ type Query {
     getNatureByNatureAlbumId(id: String!): getManyNatureResponse
 
     "获取自然专辑列表"
-    getNatureAlbum(first: Int, after: Int, before: Int): getManyNatureAlbumResponse
+    getNatureAlbum(first: Int, after: Int, before: Int, status: Int): getManyNatureAlbumResponse
     "根据id获取自然专辑"
     getNatureAlbumById(id: String!): getNatureAlbumResponse
     "根据一组id获取自然专辑"
