@@ -4,7 +4,13 @@ import * as OSS from 'ali-oss';
 import * as hasha from 'hasha';
 import * as mime from 'mime';
 
-import { ACCESS_KEY_ID, ACCESS_KEY_SECRET, AVATAR_BUCKET, REGION } from '../../configurations/oss.config';
+import {
+    ACCESS_KEY_ID,
+    ACCESS_KEY_SECRET,
+    AVATAR_BUCKET,
+    EXTERNAL_END_POINT,
+    REGION,
+} from '../../configurations/oss.config';
 import { ErrorsInterceptor } from '../../common/interceptors/errors.interceptor';
 
 @Controller()
@@ -24,8 +30,9 @@ export class UploadController {
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
-        const result = await client.put(`avatar/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`, file.buffer);
-        return { code: 200, message: 'upload avatar success', data: result.res.requestUrls[0] };
+        const filename = `avatar/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
+        await client.put(filename, file.buffer);
+        return { code: 200, message: 'upload avatar success', data: await client.generateObjectUrl(filename, EXTERNAL_END_POINT) };
     }
 
     @Post('uploadBackground')
@@ -40,8 +47,9 @@ export class UploadController {
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
-        const result = await client.put(`background/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`, file.buffer);
-        return { code: 200, message: 'upload background success', data: result.res.requestUrls[0] };
+        const filename = `background/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
+        await client.put(filename, file.buffer);
+        return { code: 200, message: 'upload background success', data: await client.generateObjectUrl(filename, EXTERNAL_END_POINT) };
     }
 
     @Post('uploadAudio')
@@ -56,7 +64,8 @@ export class UploadController {
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
-        const result = await client.put(`audio/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`, file.buffer);
-        return { code: 200, message: 'upload audio success', data: result.res.requestUrls[0] };
+        const filename = `audio/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
+        await client.put(filename, file.buffer);
+        return { code: 200, message: 'upload audio success', data: await client.generateObjectUrl(filename, EXTERNAL_END_POINT) };
     }
 }
