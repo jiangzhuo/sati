@@ -85,9 +85,11 @@ export class AuthService implements OnModuleInit {
                 Sentry.captureException(error);
                 if (error instanceof jwt.JsonWebTokenError) {
                     throw new AuthenticationError('The authorization code is incorrect');
+                    // return;
                 }
                 if (error instanceof jwt.TokenExpiredError) {
                     throw new AuthenticationError('The authorization code has expired');
+                    // return;
                 }
                 if (error instanceof Errors.MoleculerError) {
                     // moleculer base error

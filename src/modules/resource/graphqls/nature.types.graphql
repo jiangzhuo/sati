@@ -1,0 +1,329 @@
+type Query {
+    "获取自然列表"
+    getNature(first: Int, after: Int, before: Int): getManyNatureResponse
+    "根据id获取自然"
+    getNatureById(id: String!): getNatureResponse
+    "根据一组id获取自然"
+    getNatureByIds(ids: [String]): getManyNatureResponse
+    "搜索自然"
+    searchNature(keyword: String, from: Int, size: Int): searchNatureResponse
+    "根据自然的id获取这个自然的相关记录"
+    getNatureRecordByNatureId(natureId: String!): getNatureRecordResponse
+    "根据条件获取自然的相关记录"
+    searchNatureRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyNatureRecordResponse
+
+    "根据专辑id获取自然"
+    getNatureByNatureAlbumId(id: String!): getManyNatureResponse
+
+    "获取自然专辑列表"
+    getNatureAlbum(first: Int, after: Int, before: Int): getManyNatureAlbumResponse
+    "根据id获取自然专辑"
+    getNatureAlbumById(id: String!): getNatureAlbumResponse
+    "根据一组id获取自然专辑"
+    getNatureAlbumByIds(ids: [String]): getManyNatureAlbumResponse
+    "搜索自然专辑"
+    searchNatureAlbum(keyword: String, from: Int, size: Int): searchNatureAlbumResponse
+    "根据自然专辑的id获取这个自然专辑的相关记录"
+    getNatureAlbumRecordByNatureAlbumId(natureAlbumId: String!): getNatureAlbumRecordResponse
+    "根据条件获取自然专辑的相关记录"
+    searchNatureAlbumRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyNatureAlbumRecordResponse
+}
+
+type Mutation{
+    "创建自然"
+    createNature(data: createNatureRequest!): getNatureResponse
+    "更新自然"
+    updateNature(id: String!, data: updateNatureRequest!): getNatureResponse
+    "删除自然"
+    deleteNature(id: String!): getNatureResponse
+    "恢复删除的自然"
+    revertDeletedNature(id: String!): getNatureResponse
+    "收藏自然"
+    favoriteNature(id: String!): getNatureRecordResponse
+    "购买自然"
+    buyNature(id: String!): getNatureRecordResponse
+    "开始自然"
+    startNature(id: String!): getNatureRecordResponse
+    "结束自然"
+    finishNature(id: String!, duration: Int!): getNatureRecordResponse
+
+    "创建自然列表"
+    createNatureAlbum(data: createNatureAlbumRequest!): getNatureAlbumResponse
+    "更新自然列表"
+    updateNatureAlbum(id: String!, data: updateNatureAlbumRequest!): getNatureAlbumResponse
+    "删除自然列表"
+    deleteNatureAlbum(id: String!): getNatureAlbumResponse
+    "恢复删除的自然列表"
+    revertDeletedNatureAlbum(id: String!): getNatureAlbumResponse
+    "收藏自然专辑"
+    favoriteNatureAlbum(id: String!): getNatureAlbumRecordResponse
+    "购买自然专辑"
+    buyNatureAlbum(id: String!): getNatureAlbumRecordResponse
+    "开始自然专辑"
+    startNatureAlbum(id: String!): getNatureAlbumRecordResponse
+    "结束自然专辑"
+    finishNatureAlbum(id: String!, duration: Int!): getNatureAlbumRecordResponse
+}
+
+#searchNature
+type searchNatureData{
+    total: Int
+    data: [Nature]
+}
+type searchNatureResponse{
+    code: Int
+    message: String
+    data: searchNatureData
+}
+#searchAlbum
+type searchNatureAlbumData{
+    total: Int
+    data: [NatureAlbum]
+}
+type searchNatureAlbumResponse{
+    code: Int
+    message: String
+    data: searchNatureAlbumData
+}
+
+input createNatureRequest{
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "文案"
+    copy : String
+    "专辑id"
+    natureAlbums : [String]
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
+}
+
+input updateNatureRequest{
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "文案"
+    copy : String
+    "专辑id"
+    natureAlbums : [String]
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
+}
+
+input createNatureAlbumRequest{
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "作者id"
+    author : String
+    "文案"
+    copy : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
+}
+
+input updateNatureAlbumRequest{
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "作者id"
+    author : String
+    "文案"
+    copy : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
+}
+#nature
+type getNatureResponse{
+    code: Int
+    message: String
+    data: Nature
+}
+type getManyNatureResponse{
+    code: Int
+    message: String
+    data: [Nature]
+}
+type getNatureRecordResponse{
+    code: Int
+    message: String
+    data: NatureRecord
+}
+type getManyNatureRecordResponse{
+    code: Int
+    message: String
+    data: [NatureRecord]
+}
+#natureAlbum
+type getNatureAlbumResponse{
+    code: Int
+    message: String
+    data: NatureAlbum
+}
+type getManyNatureAlbumResponse{
+    code: Int
+    message: String
+    data: [NatureAlbum]
+}
+type getNatureAlbumRecordResponse{
+    code: Int
+    message: String
+    data: NatureAlbumRecord
+}
+type getManyNatureAlbumRecordResponse{
+    code: Int
+    message: String
+    data: [NatureAlbumRecord]
+}
+
+type Nature {
+    "唯一id"
+    id : String
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "创建日期"
+    createTime : Int
+    "更新时间"
+    updateTime : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "文案"
+    copy : String
+    "所属自然专辑的id"
+    natureAlbums: [String]
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效时间"
+    validTime: Int
+}
+
+type NatureRecord {
+    "唯一id"
+    id : String
+    "用户的id"
+    userId : String
+    "自然的id"
+    natureId : String
+    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
+    favorite : Int
+    "累计时长"
+    totalDuration: Int
+    "最长单词时长"
+    longestDuration: Int
+    "总共开始次数"
+    startCount: Int
+    "总完成次数"
+    finishCount: Int
+    "上次开始时间"
+    lastStartTime: Int
+    "上次结束时间"
+    lastFinishTime: Int
+    "购买时间，0表示没有购买"
+    boughtTime: Int
+}
+
+type NatureAlbum {
+    "唯一id"
+    id : String
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "创建日期"
+    createTime : Int
+    "更新时间"
+    updateTime : Int
+    "作者id"
+    author : String
+    "文案"
+    copy : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效时间"
+    validTime: Int
+}
+
+type NatureAlbumRecord {
+    "唯一id"
+    id : String
+    "用户的id"
+    userId : String
+    "自然专辑的id"
+    natureAlbumId : String
+    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
+    favorite : Int
+    "累计时长"
+    totalDuration: Int
+    "最长单词时长"
+    longestDuration: Int
+    "总共开始次数"
+    startCount: Int
+    "总完成次数"
+    finishCount: Int
+    "上次开始时间"
+    lastStartTime: Int
+    "上次结束时间"
+    lastFinishTime: Int
+    "购买时间，0表示没有购买"
+    boughtTime: Int
+}

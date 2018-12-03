@@ -1,0 +1,329 @@
+type Query {
+    "获取漫步列表"
+    getWander(first: Int, after: Int, before: Int): getManyWanderResponse
+    "根据id获取漫步"
+    getWanderById(id: String!): getWanderResponse
+    "根据一组id获取漫步"
+    getWanderByIds(ids: [String]): getManyWanderResponse
+    "搜索漫步"
+    searchWander(keyword: String, from: Int, size: Int): searchWanderResponse
+    "根据漫步的id获取这个漫步的相关记录"
+    getWanderRecordByWanderId(wanderId: String!): getWanderRecordResponse
+    "根据条件获取漫步的相关记录"
+    searchWanderRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyWanderRecordResponse
+
+    "根据专辑id获取漫步"
+    getWanderByWanderAlbumId(id: String!): getManyWanderResponse
+
+    "获取漫步专辑列表"
+    getWanderAlbum(first: Int, after: Int, before: Int): getManyWanderAlbumResponse
+    "根据id获取漫步专辑"
+    getWanderAlbumById(id: String!): getWanderAlbumResponse
+    "根据一组id获取漫步专辑"
+    getWanderAlbumByIds(ids: [String]): getManyWanderAlbumResponse
+    "搜索漫步专辑"
+    searchWanderAlbum(keyword: String, from: Int, size: Int): searchMindfulnessAlbumResponse
+    "根据漫步专辑的id获取这个漫步专辑的相关记录"
+    getWanderAlbumRecordByWanderAlbumId(wanderAlbumId: String!): getWanderAlbumRecordResponse
+    "根据条件获取漫步专辑的相关记录"
+    searchWanderAlbumRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyWanderAlbumRecordResponse
+}
+
+type Mutation{
+    "创建漫步"
+    createWander(data: createWanderRequest!): getWanderResponse
+    "更新漫步"
+    updateWander(id: String!, data: updateWanderRequest!): getWanderResponse
+    "删除漫步"
+    deleteWander(id: String!): getWanderResponse
+    "恢复删除的漫步"
+    revertDeletedWander(id: String!): getWanderResponse
+    "收藏漫步"
+    favoriteWander(id: String!): getWanderRecordResponse
+    "购买漫步"
+    buyWander(id: String!): getWanderRecordResponse
+    "开始漫步"
+    startWander(id: String!): getWanderRecordResponse
+    "结束漫步"
+    finishWander(id: String!, duration: Int!): getWanderRecordResponse
+
+    "创建漫步列表"
+    createWanderAlbum(data: createWanderAlbumRequest!): getWanderAlbumResponse
+    "更新漫步列表"
+    updateWanderAlbum(id: String!, data: updateWanderAlbumRequest!): getWanderAlbumResponse
+    "删除漫步列表"
+    deleteWanderAlbum(id: String!): getWanderAlbumResponse
+    "恢复删除的漫步列表"
+    revertDeletedWanderAlbum(id: String!): getWanderAlbumResponse
+    "收藏漫步专辑"
+    favoriteWanderAlbum(id: String!): getWanderAlbumRecordResponse
+    "购买漫步专辑"
+    buyWanderAlbum(id: String!): getWanderAlbumRecordResponse
+    "开始漫步专辑"
+    startWanderAlbum(id: String!): getWanderAlbumRecordResponse
+    "结束漫步专辑"
+    finishWanderAlbum(id: String!, duration: Int!): getWanderAlbumRecordResponse
+}
+
+#searchWander
+type searchWanderData{
+    total: Int
+    data: [Wander]
+}
+type searchWanderResponse{
+    code: Int
+    message: String
+    data: searchWanderData
+}
+#searchAlbum
+type searchWanderAlbumData{
+    total: Int
+    data: [WanderAlbum]
+}
+type searchWanderAlbumResponse{
+    code: Int
+    message: String
+    data: searchWanderAlbumData
+}
+
+input createWanderRequest{
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "文案"
+    copy : String
+    "专辑id"
+    wanderAlbums : [String]
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
+}
+
+input updateWanderRequest{
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "文案"
+    copy : String
+    "专辑id"
+    wanderAlbums : [String]
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
+}
+
+input createWanderAlbumRequest{
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "作者id"
+    author : String
+    "文案"
+    copy : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
+}
+
+input updateWanderAlbumRequest{
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "作者id"
+    author : String
+    "文案"
+    copy : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效日期，从什么时候开始生效"
+    validTime: Int
+}
+#wander
+type getWanderResponse{
+    code: Int
+    message: String
+    data: Wander
+}
+type getManyWanderResponse{
+    code: Int
+    message: String
+    data: [Wander]
+}
+type getWanderRecordResponse{
+    code: Int
+    message: String
+    data: WanderRecord
+}
+type getManyWanderRecordResponse{
+    code: Int
+    message: String
+    data: [WanderRecord]
+}
+#wanderAlbum
+type getWanderAlbumResponse{
+    code: Int
+    message: String
+    data: WanderAlbum
+}
+type getManyWanderAlbumResponse{
+    code: Int
+    message: String
+    data: [WanderAlbum]
+}
+type getWanderAlbumRecordResponse{
+    code: Int
+    message: String
+    data: WanderAlbumRecord
+}
+type getManyWanderAlbumRecordResponse{
+    code: Int
+    message: String
+    data: [WanderAlbumRecord]
+}
+
+type Wander {
+    "唯一id"
+    id : String
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "创建日期"
+    createTime : Int
+    "更新时间"
+    updateTime : Int
+    "作者id"
+    author : String
+    "声音文件地址"
+    audio : String
+    "文案"
+    copy : String
+    "所属漫步专辑的id"
+    wanderAlbums: [String]
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效时间"
+    validTime: Int
+}
+
+type WanderRecord {
+    "唯一id"
+    id : String
+    "用户的id"
+    userId : String
+    "漫步的id"
+    wanderId : String
+    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
+    favorite : Int
+    "累计时长"
+    totalDuration: Int
+    "最长单词时长"
+    longestDuration: Int
+    "总共开始次数"
+    startCount: Int
+    "总完成次数"
+    finishCount: Int
+    "上次开始时间"
+    lastStartTime: Int
+    "上次结束时间"
+    lastFinishTime: Int
+    "购买时间，0表示没有购买"
+    boughtTime: Int
+}
+
+type WanderAlbum {
+    "唯一id"
+    id : String
+    "背景图片地址"
+    background : [String]
+    "名称"
+    name : String
+    "描述"
+    description : String
+    "适用场景的id"
+    scenes : [String]
+    "价格"
+    price : Int
+    "创建日期"
+    createTime : Int
+    "更新时间"
+    updateTime : Int
+    "作者id"
+    author : String
+    "文案"
+    copy : String
+    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
+    status: Int
+    "生效时间"
+    validTime: Int
+}
+
+type WanderAlbumRecord {
+    "唯一id"
+    id : String
+    "用户的id"
+    userId : String
+    "漫步专辑的id"
+    wanderAlbumId : String
+    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
+    favorite : Int
+    "累计时长"
+    totalDuration: Int
+    "最长单词时长"
+    longestDuration: Int
+    "总共开始次数"
+    startCount: Int
+    "总完成次数"
+    finishCount: Int
+    "上次开始时间"
+    lastStartTime: Int
+    "上次结束时间"
+    lastFinishTime: Int
+    "购买时间，0表示没有购买"
+    boughtTime: Int
+}

@@ -1,19 +1,20 @@
-// import 'reflect-metadata';
-
-import { DynamicModule, Global, UseGuards, Inject, Module, OnModuleInit, CacheModule } from '@nestjs/common';
+import { CacheModule, DynamicModule, Module, OnModuleInit } from '@nestjs/common';
 // import { PATH_METADATA } from '@nestjs/common/constants';
-import { APP_GUARD } from '@nestjs/core';
-import { ModulesContainer } from '@nestjs/core/injector/modules-container';
-import { MetadataScanner } from '@nestjs/core/metadata-scanner';
-// import { RESOLVER_TYPE_METADATA } from '@nestjs/graphql/dist/graphql.constants';
-// import { __ as t, configure as i18nConfigure } from 'i18n';
-
 // import { PERMISSION_DEFINITION, RESOURCE_DEFINITION } from '../../common/decorators';
 // import { Permission, Resource } from '../../common/interfaces';
 // import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
-import { ResourceResolver } from './resolvers/resource.resolver';
-import { ResourceCache } from './cache/resource.cache';
+// import { ResourceResolver } from './resolvers/resource.resolver';
 import { MoleculerModule } from 'nestjs-moleculer';
+import { MindfulnessResolver } from './resolvers/mindfulness.resolver';
+import { NatureResolver } from './resolvers/nature.resolver';
+import { WanderResolver } from './resolvers/wander.resolver';
+import { HomeResolver } from './resolvers/home.resolver';
+import { SceneResolver } from './resolvers/scene.resolver';
+import { MindfulnessAlbumResolver } from './resolvers/mindfulnessAlbum.resolver';
+import { NatureAlbumResolver } from './resolvers/natureAlbum.resolver';
+import { WanderAlbumResolver } from './resolvers/wanderAlbum.resolver';
+// import { RESOLVER_TYPE_METADATA } from '@nestjs/graphql/dist/graphql.constants';
+// import { __ as t, configure as i18nConfigure } from 'i18n';
 
 // @Global()
 @Module({
@@ -26,9 +27,16 @@ import { MoleculerModule } from 'nestjs-moleculer';
         })],
     providers: [
         // NotaddGrpcClientFactory,
-        ResourceResolver,
-        ResourceCache
-    ]
+        // ResourceResolver,
+        MindfulnessResolver,
+        MindfulnessAlbumResolver,
+        NatureResolver,
+        NatureAlbumResolver,
+        WanderResolver,
+        WanderAlbumResolver,
+        HomeResolver,
+        SceneResolver,
+    ],
 })
 export class ResourceModule implements OnModuleInit {
     constructor(
@@ -37,7 +45,7 @@ export class ResourceModule implements OnModuleInit {
 
     static forRoot(): DynamicModule {
         return {
-            module: ResourceModule
+            module: ResourceModule,
         };
     }
 

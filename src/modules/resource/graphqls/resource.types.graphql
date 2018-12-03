@@ -5,70 +5,24 @@ type Query {
     sayNatureHello(name: String!): SayHelloResponse
     "Wander测试接口"
     sayWanderHello(name: String!): SayHelloResponse
+
     "Scene测试接口"
     saySceneHello(name: String!): SayHelloResponse
     "Home测试接口"
     sayHomeHello(name: String!): SayHelloResponse
-    "获取正态列表"
-    getMindfulness(first: Int, after: Int, before: Int): getManyMindfulnessResponse
-    "根据id获取正态"
-    getMindfulnessById(id: String!): getMindfulnessResponse
-    "根据一组id获取正态"
-    getMindfulnessByIds(ids: [String]): getManyMindfulnessResponse
-    "搜索mindfulness"
-    searchMindfulness(keyword: String, from: Int, size: Int): searchMindfulnessResponse
-    "根据正态的id获取这个正态的相关记录"
-    getMindfulnessRecordByMindfulnessId(mindfulnessId: String!): getMindfulnessRecordResponse
-    "根据条件获取正态的相关记录"
-    searchMindfulnessRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyMindfulnessRecordResponse
-    "获取自然列表"
-    getNature(first: Int, after: Int, before: Int): getManyNatureResponse
-    "根据id获取自然"
-    getNatureById(id: String!): getNatureResponse
-    "根据一组id获取自然"
-    getNatureByIds(ids: [String]): getManyNatureResponse
-    "搜索自然"
-    searchNature(keyword: String, from: Int, size: Int): searchNatureResponse
-    "根据自然的id获取这个自然的相关记录"
-    getNatureRecordByNatureId(natureId: String!): getNatureRecordResponse
-    "根据条件获取自然的相关记录"
-    searchNatureRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyNatureRecordResponse
-    "获取漫步列表"
-    getWander(first: Int, after: Int, before: Int): getManyWanderResponse
-    "根据id获取漫步"
-    getWanderById(id: String!): getWanderResponse
-    "根据一组id获取漫步"
-    getWanderByIds(ids: [String]): getManyWanderResponse
-    "搜索漫步"
-    searchWander(keyword: String, from: Int, size: Int): searchWanderResponse
-    "根据漫步的id获取这个漫步的相关记录"
-    getWanderRecordByWanderId(wanderId: String!): getWanderRecordResponse
-    "根据条件获取漫步的相关记录"
-    searchWanderRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyWanderRecordResponse
-    "获取漫步专辑列表"
-    getWanderAlbum(first: Int, after: Int, before: Int): getManyWanderAlbumResponse
-    "根据id获取漫步专辑"
-    getWanderAlbumById(id: String!): getWanderAlbumResponse
-    "根据一组id获取漫步专辑"
-    getWanderAlbumByIds(ids: [String]): getManyWanderAlbumResponse
-    "搜索漫步专辑"
-    searchWanderAlbum(keyword: String, from: Int, size: Int): searchWanderAlbumResponse
-    "根据漫步专辑的id获取这个漫步专辑的相关记录"
-    getWanderAlbumRecordByWanderAlbumId(wanderAlbumId: String!): getWanderAlbumRecordResponse
-    "根据条件获取漫步专辑的相关记录"
-    searchWanderAlbumRecord( page: Int!, limit: Int!, sort: String!, favorite: Boolean, boughtTime:[Int]): getManyWanderAlbumRecordResponse
-    "根据专辑id获取漫步"
-    getWanderByWanderAlbumId(id: String!): getManyWanderResponse
+
     "获取使用场景列表"
     getScene(first: Int, after: String): getManySceneResponse
     "根据id获取使用场景"
     getSceneById(id: String!): getSceneResponse
     "根据一组id获取使用场景"
     getSceneByIds(ids: [String]): getManySceneResponse
+
     "获取首页列表"
     getHome(first: Int, after: Int, before: Int, position: Int): getManyHomeResponse
     "根据id获取首页"
     getHomeById(id: String!): getHomeResponse
+
     "获取最新"
     getNew(first: Int!, after: Int, before:Int): getManyNewResponse
 }
@@ -80,70 +34,7 @@ type Mutation{
     updateScene(id: String!, name: String!): getSceneResponse
     "删除场景"
     deleteScene(id: String!): getSceneResponse
-    "创建正态"
-    createMindfulness(data: createMindfulnessRequest!): getMindfulnessResponse
-    "更新正态"
-    updateMindfulness(id: String!, data: updateMindfulnessRequest!): getMindfulnessResponse
-    "删除正态"
-    deleteMindfulness(id: String!): getMindfulnessResponse
-    "恢复删除的正态"
-    revertDeletedMindfulness(id: String!): getMindfulnessResponse
-    "收藏正态"
-    favoriteMindfulness(id: String!): getMindfulnessRecordResponse
-    "购买正态"
-    buyMindfulness(id: String!): getMindfulnessRecordResponse
-    "开始正态"
-    startMindfulness(id: String!): getMindfulnessRecordResponse
-    "结束正态"
-    finishMindfulness(id: String!, duration: Int!): getMindfulnessRecordResponse
-    "创建自然"
-    createNature(data: createNatureRequest!): getNatureResponse
-    "更新自然"
-    updateNature(id: String!, data: updateNatureRequest!): getNatureResponse
-    "删除自然"
-    deleteNature(id: String!): getNatureResponse
-    "恢复删除的自然"
-    revertDeletedNature(id: String!): getNatureResponse
-    "收藏自然"
-    favoriteNature(id: String!): getNatureRecordResponse
-    "购买自然"
-    buyNature(id: String!): getNatureRecordResponse
-    "开始自然"
-    startNature(id: String!): getNatureRecordResponse
-    "结束自然"
-    finishNature(id: String!, duration: Int!): getNatureRecordResponse
-    "创建漫步"
-    createWander(data: createWanderRequest!): getWanderResponse
-    "更新漫步"
-    updateWander(id: String!, data: updateWanderRequest!): getWanderResponse
-    "删除漫步"
-    deleteWander(id: String!): getWanderResponse
-    "恢复删除的漫步"
-    revertDeletedWander(id: String!): getWanderResponse
-    "收藏漫步"
-    favoriteWander(id: String!): getWanderRecordResponse
-    "购买漫步"
-    buyWander(id: String!): getWanderRecordResponse
-    "开始漫步"
-    startWander(id: String!): getWanderRecordResponse
-    "结束漫步"
-    finishWander(id: String!, duration: Int!): getWanderRecordResponse
-    "创建漫步列表"
-    createWanderAlbum(data: createWanderAlbumRequest!): getWanderAlbumResponse
-    "更新漫步列表"
-    updateWanderAlbum(id: String!, data: updateWanderAlbumRequest!): getWanderAlbumResponse
-    "删除漫步列表"
-    deleteWanderAlbum(id: String!): getWanderAlbumResponse
-    "恢复删除的漫步列表"
-    revertDeletedWanderAlbum(id: String!): getWanderAlbumResponse
-    "收藏漫步专辑"
-    favoriteWanderAlbum(id: String!): getWanderAlbumRecordResponse
-    "购买漫步专辑"
-    buyWanderAlbum(id: String!): getWanderAlbumRecordResponse
-    "开始正态专辑"
-    startWanderAlbum(id: String!): getWanderAlbumRecordResponse
-    "结束正态专辑"
-    finishWanderAlbum(id: String!, duration: Int!): getWanderAlbumRecordResponse
+
     "创建首页"
     createHome(data: createHomeRequest!): getHomeResponse
     "更新首页"
@@ -152,342 +43,54 @@ type Mutation{
     deleteHome(id: String!): getHomeResponse
 }
 
-input createMindfulnessRequest{
-    "背景图片地址"
+input createHomeRequest {
+    "类型 mindfulness/nature/wander/wanderAlbum/shop"
+    type :String
+    "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
+    resourceId :String
+    "首页这一项显示的背景图片"
     background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
+    "名称 上面短的那行字"
+    name :String
+    "描述 下面长的那行字"
+    description :String
+    "作者的id"
+    author :String
+    "顺序id"
+    position :Int
     "生效日期，从什么时候开始生效"
     validTime: Int
 }
 
-input updateMindfulnessRequest{
-    "背景图片地址"
+input updateHomeRequest {
+    "类型 mindfulness/nature/wander/wanderAlbum/shop"
+    type :String
+    "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
+    resourceId :String
+    "首页这一项显示的背景图片"
     background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
+    "名称 上面短的那行字"
+    name :String
+    "描述 下面长的那行字"
+    description :String
+    "作者的id"
+    author :String
+    "顺序id"
+    position :Int
     "生效日期，从什么时候开始生效"
     validTime: Int
-}
-
-type getManyMindfulnessResponse{
-    code: Int
-    message: String
-    data: [Mindfulness]
-}
-
-type searchMindfulnessData{
-    "搜索结果有多少"
-    total: Int
-    "搜索结果数据"
-    data: [Mindfulness]
-}
-
-type searchMindfulnessResponse{
-    code: Int
-    message: String
-    data: searchMindfulnessData
-}
-
-type getManyNatureResponse{
-    code: Int
-    message: String
-    data: [Nature]
-}
-
-type searchNatureData{
-    total: Int
-    data: [Nature]
-}
-
-type searchNatureResponse{
-    code: Int
-    message: String
-    data: searchNatureData
-}
-
-type getManyWanderResponse{
-    code: Int
-    message: String
-    data: [Wander]
-}
-
-type searchWanderData{
-    total: Int
-    data: [Wander]
-}
-
-type searchWanderResponse{
-    code: Int
-    message: String
-    data: searchWanderData
-}
-
-input createWanderRequest{
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "专辑id"
-    wanderAlbums : [String]
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效日期，从什么时候开始生效"
-    validTime: Int
-}
-
-input updateWanderRequest{
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "专辑id"
-    wanderAlbums : [String]
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效日期，从什么时候开始生效"
-    validTime: Int
-}
-
-input createWanderAlbumRequest{
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "作者id"
-    author : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效日期，从什么时候开始生效"
-    validTime: Int
-}
-
-input updateWanderAlbumRequest{
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "作者id"
-    author : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效日期，从什么时候开始生效"
-    validTime: Int
-}
-
-input createNatureRequest{
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效日期，从什么时候开始生效"
-    validTime: Int
-}
-
-input updateNatureRequest{
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效日期，从什么时候开始生效"
-    validTime: Int
-}
-
-type getManyWanderAlbumResponse{
-    code: Int
-    message: String
-    data: [WanderAlbum]
-}
-
-type searchWanderAlbumData{
-    total: Int
-    data: [WanderAlbum]
-}
-
-type searchWanderAlbumResponse{
-    code: Int
-    message: String
-    data: searchWanderAlbumData
-}
-
-type getManySceneResponse{
-    code: Int
-    message: String
-    data: [Scene]
-}
-
-type getMindfulnessResponse{
-    code: Int
-    message: String
-    data: Mindfulness
-}
-
-type getMindfulnessRecordResponse{
-    code: Int
-    message: String
-    data: MindfulnessRecord
-}
-
-type getManyMindfulnessRecordResponse{
-    code: Int
-    message: String
-    data: [MindfulnessRecord]
-}
-
-type getNatureResponse{
-    code: Int
-    message: String
-    data: Nature
-}
-
-type getNatureRecordResponse{
-    code: Int
-    message: String
-    data: NatureRecord
-}
-
-type getManyNatureRecordResponse{
-    code: Int
-    message: String
-    data: [NatureRecord]
-}
-
-type getWanderResponse{
-    code: Int
-    message: String
-    data: Wander
-}
-
-type getWanderRecordResponse{
-    code: Int
-    message: String
-    data: WanderRecord
-}
-
-type getManyWanderRecordResponse{
-    code: Int
-    message: String
-    data: [WanderRecord]
-}
-
-type getWanderAlbumResponse{
-    code: Int
-    message: String
-    data: WanderAlbum
-}
-
-type getWanderAlbumRecordResponse{
-    code: Int
-    message: String
-    data: WanderAlbumRecord
-}
-
-type getManyWanderAlbumRecordResponse{
-    code: Int
-    message: String
-    data: [WanderAlbumRecord]
 }
 
 type getSceneResponse{
     code: Int
     message: String
     data: Scene
+}
+
+type getManySceneResponse{
+    code: Int
+    message: String
+    data: [Scene]
 }
 
 type getHomeResponse{
@@ -506,261 +109,6 @@ type getManyNewResponse{
     code: Int
     message: String
     data: [New]
-}
-
-input createHomeRequest{
-    "类型 mindfulness/nature/wander/wanderAlbum/shop"
-    type :String
-    "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
-    resourceId :String
-    "首页这一项显示的背景图片"
-    background : [String]
-    "名称 上面短的那行字"
-    name :String
-    "描述 下面长的那行字"
-    description :String
-    "作者的id"
-    author :String
-    "顺序id"
-    position :Int
-    "生效日期，从什么时候开始生效"
-    validTime: Int
-}
-
-input updateHomeRequest{
-    "类型 mindfulness/nature/wander/wanderAlbum/shop"
-    type :String
-    "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
-    resourceId :String
-    "首页这一项显示的背景图片"
-    background : [String]
-    "名称 上面短的那行字"
-    name :String
-    "描述 下面长的那行字"
-    description :String
-    "作者的id"
-    author :String
-    "顺序id"
-    position :Int
-    "生效日期，从什么时候开始生效"
-    validTime: Int
-}
-
-
-type Mindfulness {
-    "唯一id"
-    id : String
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "创建日期"
-    createTime : Int
-    "更新时间"
-    updateTime : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效时间"
-    validTime: Int
-}
-
-type MindfulnessRecord {
-    "唯一id"
-    id : String
-    "用户的id"
-    userId : String
-    "正态的id"
-    mindfulnessId : String
-    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
-    favorite : Int
-    "累计时长"
-    totalDuration: Int
-    "最长单词时长"
-    longestDuration: Int
-    "总共开始次数"
-    startCount: Int
-    "总完成次数"
-    finishCount: Int
-    "上次开始时间"
-    lastStartTime: Int
-    "上次结束时间"
-    lastFinishTime: Int
-    "购买时间，0表示没有购买"
-    boughtTime: Int
-}
-
-type Nature {
-    "唯一id"
-    id : String
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "创建日期"
-    createTime : Int
-    "更新时间"
-    updateTime : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效时间"
-    validTime: Int
-}
-
-type NatureRecord {
-    "唯一id"
-    id : String
-    "用户的id"
-    userId : String
-    "自然的id"
-    natureId : String
-    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
-    favorite : Int
-    "累计时长"
-    totalDuration: Int
-    "最长单词时长"
-    longestDuration: Int
-    "总共开始次数"
-    startCount: Int
-    "总完成次数"
-    finishCount: Int
-    "上次开始时间"
-    lastStartTime: Int
-    "上次结束时间"
-    lastFinishTime: Int
-    "购买时间，0表示没有购买"
-    boughtTime: Int
-}
-
-type Wander {
-    "唯一id"
-    id : String
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "创建日期"
-    createTime : Int
-    "更新时间"
-    updateTime : Int
-    "作者id"
-    author : String
-    "声音文件地址"
-    audio : String
-    "文案"
-    copy : String
-    "所属漫步专辑的id"
-    wanderAlbums: [String]
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效时间"
-    validTime: Int
-}
-
-type WanderRecord {
-    "唯一id"
-    id : String
-    "用户的id"
-    userId : String
-    "漫步的id"
-    wanderId : String
-    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
-    favorite : Int
-    "累计时长"
-    totalDuration: Int
-    "最长单词时长"
-    longestDuration: Int
-    "总共开始次数"
-    startCount: Int
-    "总完成次数"
-    finishCount: Int
-    "上次开始时间"
-    lastStartTime: Int
-    "上次结束时间"
-    lastFinishTime: Int
-    "购买时间，0表示没有购买"
-    boughtTime: Int
-}
-
-type WanderAlbum {
-    "唯一id"
-    id : String
-    "背景图片地址"
-    background : [String]
-    "名称"
-    name : String
-    "描述"
-    description : String
-    "适用场景的id"
-    scenes : [String]
-    "价格"
-    price : Int
-    "创建日期"
-    createTime : Int
-    "更新时间"
-    updateTime : Int
-    "作者id"
-    author : String
-    "文案"
-    copy : String
-    "状态，采用掩码可能同时出于多种状态叠加。1显示2更新完成"
-    status: Int
-    "生效时间"
-    validTime: Int
-}
-
-type WanderAlbumRecord {
-    "唯一id"
-    id : String
-    "用户的id"
-    userId : String
-    "漫步专辑的id"
-    wanderAlbumId : String
-    "是否收藏 偶数代表已经收藏 奇数代表没有收藏"
-    favorite : Int
-    "累计时长"
-    totalDuration: Int
-    "最长单词时长"
-    longestDuration: Int
-    "总共开始次数"
-    startCount: Int
-    "总完成次数"
-    finishCount: Int
-    "上次开始时间"
-    lastStartTime: Int
-    "上次结束时间"
-    lastFinishTime: Int
-    "购买时间，0表示没有购买"
-    boughtTime: Int
 }
 
 type Scene {
