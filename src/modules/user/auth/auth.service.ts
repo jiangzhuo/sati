@@ -38,12 +38,12 @@ export class AuthService implements OnModuleInit {
         })) {
             req.body.operationName = query.definitions[0].name.value;
         }
-        if (req.body.operationName === 'IntrospectionQuery') {
-            return;
-        }
-        // if (whiteList.includes(req.body.operationName)) {
+        // if (req.body.operationName === 'IntrospectionQuery') {
         //     return;
         // }
+        if (whiteList.includes(req.body.operationName)) {
+            return;
+        }
         // fix operationName
         if (req.body && req.body.operationName) {
             // if (whiteList.includes(req.body.operationName)) {
