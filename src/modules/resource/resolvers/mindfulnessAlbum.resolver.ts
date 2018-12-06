@@ -86,8 +86,8 @@ export class MindfulnessAlbumResolver {
 
     @Query('searchMindfulnessAlbum')
     @Permission('editor')
-    async searchMindfulnessAlbum(req, body: { keyword: string }) {
-        const { total, data } = await this.resourceBroker.call('mindfulnessAlbum.searchMindfulnessAlbum', { keyword: body.keyword });
+    async searchMindfulnessAlbum(req, body) {
+        const { total, data } = await this.resourceBroker.call('mindfulnessAlbum.searchMindfulnessAlbum', body);
         // this.resourceCache.updateResourceCache(data, 'mindfulnessAlbum');
         return { code: 200, message: 'success', data: { total, data } };
     }

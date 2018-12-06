@@ -6,7 +6,7 @@ type Query {
     "根据一组id获取正态"
     getMindfulnessByIds(ids: [String]): getManyMindfulnessResponse
     "搜索正态"
-    searchMindfulness(keyword: String, from: Int, size: Int): searchMindfulnessResponse
+    searchMindfulness(keyword: String, page: Int, limit: Int): searchMindfulnessResponse
     "根据正态的id获取这个正态的相关记录"
     getMindfulnessRecordByMindfulnessId(mindfulnessId: String!): getMindfulnessRecordResponse
     "根据条件获取正态的相关记录"
@@ -22,7 +22,7 @@ type Query {
     "根据一组id获取正态专辑"
     getMindfulnessAlbumByIds(ids: [String]): getManyMindfulnessAlbumResponse
     "搜索正态专辑"
-    searchMindfulnessAlbum(keyword: String, from: Int, size: Int): searchMindfulnessAlbumResponse
+    searchMindfulnessAlbum(keyword: String, page: Int, limit: Int): searchMindfulnessAlbumResponse
     "根据正态专辑的id获取这个正态专辑的相关记录"
     getMindfulnessAlbumRecordByMindfulnessAlbumId(mindfulnessAlbumId: String!): getMindfulnessAlbumRecordResponse
     "根据条件获取正态专辑的相关记录"

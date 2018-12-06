@@ -86,8 +86,8 @@ export class WanderAlbumResolver {
 
     @Query('searchWanderAlbum')
     @Permission('editor')
-    async searchWanderAlbum(req, body: { keyword: string }) {
-        const { total, data } = await this.resourceBroker.call('wanderAlbum.searchWanderAlbum', { keyword: body.keyword });
+    async searchWanderAlbum(req, body) {
+        const { total, data } = await this.resourceBroker.call('wanderAlbum.searchWanderAlbum', body);
         // this.resourceCache.updateResourceCache(data, 'wanderAlbum');
         return { code: 200, message: 'success', data: { total, data } };
     }

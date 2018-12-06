@@ -6,7 +6,7 @@ type Query {
     "根据一组id获取自然"
     getNatureByIds(ids: [String]): getManyNatureResponse
     "搜索自然"
-    searchNature(keyword: String, from: Int, size: Int): searchNatureResponse
+    searchNature(keyword: String, page: Int, limit: Int): searchNatureResponse
     "根据自然的id获取这个自然的相关记录"
     getNatureRecordByNatureId(natureId: String!): getNatureRecordResponse
     "根据条件获取自然的相关记录"
@@ -22,7 +22,7 @@ type Query {
     "根据一组id获取自然专辑"
     getNatureAlbumByIds(ids: [String]): getManyNatureAlbumResponse
     "搜索自然专辑"
-    searchNatureAlbum(keyword: String, from: Int, size: Int): searchNatureAlbumResponse
+    searchNatureAlbum(keyword: String, page: Int, limit: Int): searchNatureAlbumResponse
     "根据自然专辑的id获取这个自然专辑的相关记录"
     getNatureAlbumRecordByNatureAlbumId(natureAlbumId: String!): getNatureAlbumRecordResponse
     "根据条件获取自然专辑的相关记录"

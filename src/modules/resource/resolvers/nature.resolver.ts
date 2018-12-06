@@ -116,8 +116,8 @@ export class NatureResolver {
 
     @Query('searchNature')
     @Permission('editor')
-    async searchNature(req, body: { keyword: string }) {
-        const { total, data } = await this.resourceBroker.call('nature.searchNature', { keyword: body.keyword });
+    async searchNature(req, body) {
+        const { total, data } = await this.resourceBroker.call('nature.searchNature', body);
         // this.resourceCache.updateResourceCache(data, 'nature');
         return { code: 200, message: 'success', data: { total, data } };
     }

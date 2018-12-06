@@ -83,8 +83,8 @@ export class WanderResolver {
 
     @Query('searchWander')
     @Permission('editor')
-    async searchWander(req, body: { keyword: string }) {
-        const { total, data } = await this.resourceBroker.call('wander.searchWander', { keyword: body.keyword });
+    async searchWander(req, body) {
+        const { total, data } = await this.resourceBroker.call('wander.searchWander', body);
         // this.resourceCache.updateResourceCache(data, 'wander');
         return { code: 200, message: 'success', data: { total, data } };
     }

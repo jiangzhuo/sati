@@ -86,8 +86,8 @@ export class NatureAlbumResolver {
 
     @Query('searchNatureAlbum')
     @Permission('editor')
-    async searchNatureAlbum(req, body: { keyword: string }) {
-        const { total, data } = await this.resourceBroker.call('natureAlbum.searchNatureAlbum', { keyword: body.keyword });
+    async searchNatureAlbum(req, body) {
+        const { total, data } = await this.resourceBroker.call('natureAlbum.searchNatureAlbum', body);
         // this.resourceCache.updateResourceCache(data, 'natureAlbum');
         return { code: 200, message: 'success', data: { total, data } };
     }

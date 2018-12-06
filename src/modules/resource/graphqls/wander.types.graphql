@@ -6,7 +6,7 @@ type Query {
     "根据一组id获取漫步"
     getWanderByIds(ids: [String]): getManyWanderResponse
     "搜索漫步"
-    searchWander(keyword: String, from: Int, size: Int): searchWanderResponse
+    searchWander(keyword: String, page: Int, limit: Int): searchWanderResponse
     "根据漫步的id获取这个漫步的相关记录"
     getWanderRecordByWanderId(wanderId: String!): getWanderRecordResponse
     "根据条件获取漫步的相关记录"
@@ -22,7 +22,7 @@ type Query {
     "根据一组id获取漫步专辑"
     getWanderAlbumByIds(ids: [String]): getManyWanderAlbumResponse
     "搜索漫步专辑"
-    searchWanderAlbum(keyword: String, from: Int, size: Int): searchMindfulnessAlbumResponse
+    searchWanderAlbum(keyword: String, page: Int, limit: Int): searchMindfulnessAlbumResponse
     "根据漫步专辑的id获取这个漫步专辑的相关记录"
     getWanderAlbumRecordByWanderAlbumId(wanderAlbumId: String!): getWanderAlbumRecordResponse
     "根据条件获取漫步专辑的相关记录"
