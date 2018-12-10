@@ -35,6 +35,20 @@ export class HomeResolver {
         return { code: 200, message: 'success', data };
     }
 
+    @Query('getHomeByPageAndLimit')
+    @Permission('editor')
+    async getHomeByPageAndLimit(req, body) {
+        const { data } = await this.resourceBroker.call('home.getHome', body);
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('countHome')
+    @Permission('editor')
+    async countHome(req, body) {
+        const { data } = await this.resourceBroker.call('home.countHome', body);
+        return { code: 200, message: 'success', data };
+    }
+
     @Query('getHomeById')
     @Permission('anony')
     async getHomeById(req, body: { id: string }) {

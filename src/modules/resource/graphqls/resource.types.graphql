@@ -20,6 +20,10 @@ type Query {
 
     "获取首页列表"
     getHome(first: Int, after: Int, before: Int, position: Int): getManyHomeResponse
+    "获取首页列表"
+    getHomeByPageAndLimit(page: Int, limit: Int, position: Int): getManyHomeResponse
+    "计算首页列表的条数"
+    countHome(position: Int): getHomeCountResponse
     "根据id获取首页"
     getHomeById(id: String!): getHomeResponse
 
@@ -103,6 +107,12 @@ type getManyHomeResponse{
     code: Int
     message: String
     data: [Home]
+}
+
+type getHomeCountResponse{
+    code: Int
+    message: String
+    data: Int
 }
 
 type getManyNewResponse{
