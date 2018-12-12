@@ -1,4 +1,4 @@
-import { CacheModule, DynamicModule, Module, OnModuleInit } from '@nestjs/common';
+import { CacheModule, DynamicModule, Global, Module, OnModuleInit } from '@nestjs/common';
 // import { PATH_METADATA } from '@nestjs/common/constants';
 // import { PERMISSION_DEFINITION, RESOURCE_DEFINITION } from '../../common/decorators';
 // import { Permission, Resource } from '../../common/interfaces';
@@ -23,7 +23,7 @@ import { WanderAlbumResolver } from './resolvers/wanderAlbum.resolver';
             namespace: 'sati',
             // logger: bindings => new Logger(),
             transporter: 'TCP',
-            logLevel: 'debug',
+            logLevel: process.env.LOG_LEVEL,
         })],
     providers: [
         // NotaddGrpcClientFactory,

@@ -1,71 +1,74 @@
-import { Controller, FileInterceptor, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-// import * as UUID from 'uuid/v1';
+import { Controller, FileInterceptor, Post, UploadedFile, UseInterceptors, Get } from '@nestjs/common';
 import * as OSS from 'ali-oss';
 import * as hasha from 'hasha';
 import * as mime from 'mime';
 
-import {
-    ACCESS_KEY_ID,
-    ACCESS_KEY_SECRET,
-    AVATAR_BUCKET,
-    BASE_URL,
-    REGION,
-} from '../../configurations/oss.config';
 import { ErrorsInterceptor } from '../../common/interceptors/errors.interceptor';
+// import { Configurable, ConfigParam, ConfigService } from 'nestjs-config';
 
 @Controller()
 @UseInterceptors(ErrorsInterceptor)
 export class UploadController {
-    constructor() { }
+    constructor() {
+        // setTimeout(() => {
+        //     this.config.set('my.parameter', 'jiangzhuo');
+        // }, 10000);
+    }
+
+    // @Get('hello')
+    // // @Configurable()
+    // async hello() {
+    //     return { data: this.config.get('my.parameter', 'default value') };
+    // }
 
     @Post('uploadAvatar')
     @UseInterceptors(FileInterceptor('file'))
     async uploadAvatar(@UploadedFile() file) {
         const client = new OSS({
-            region: REGION,
-            accessKeyId: ACCESS_KEY_ID,
-            accessKeySecret: ACCESS_KEY_SECRET,
-            bucket: AVATAR_BUCKET,
-            internal: true
+            region: process.env.OSS_REGION,
+            accessKeyId: process.env.OSS_ACCESS_KEY_ID,
+            accessKeySecret: process.env.OSS_ACCESS_KEY_SECRET,
+            bucket: process.env.OSS_BUCKET,
+            internal: true,
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
         const filename = `avatar/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
         await client.put(filename, file.buffer);
-        return { code: 200, message: 'upload avatar success', data: await client.generateObjectUrl(filename, BASE_URL) };
+        return { code: 200, message: 'upload avatar success', data: await client.generateObjectUrl(filename, process.env.OSS_BASE_URL) };
     }
 
     @Post('uploadBackground')
     @UseInterceptors(FileInterceptor('file'))
     async uploadBackground(@UploadedFile() file) {
         const client = new OSS({
-            region: REGION,
-            accessKeyId: ACCESS_KEY_ID,
-            accessKeySecret: ACCESS_KEY_SECRET,
-            bucket: AVATAR_BUCKET,
-            internal: true
+            region: process.env.OSS_REGION,
+            accessKeyId: process.env.OSS_ACCESS_KEY_ID,
+            accessKeySecret: process.env.OSS_ACCESS_KEY_SECRET,
+            bucket: process.env.OSS_BUCKET,
+            internal: true,
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
         const filename = `background/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
         await client.put(filename, file.buffer);
-        return { code: 200, message: 'upload background success', data: await client.generateObjectUrl(filename, BASE_URL) };
+        return { code: 200, message: 'upload background success', data: await client.generateObjectUrl(filename, process.env.OSS_BASE_URL) };
     }
 
     @Post('uploadAudio')
     @UseInterceptors(FileInterceptor('file'))
     async uploadAudio(@UploadedFile() file) {
         const client = new OSS({
-            region: REGION,
-            accessKeyId: ACCESS_KEY_ID,
-            accessKeySecret: ACCESS_KEY_SECRET,
-            bucket: AVATAR_BUCKET,
-            internal: true
+            region: process.env.OSS_REGION,
+            accessKeyId: process.env.OSS_ACCESS_KEY_ID,
+            accessKeySecret: process.env.OSS_ACCESS_KEY_SECRET,
+            bucket: process.env.OSS_BUCKET,
+            internal: true,
         });
         // let hash = hasha(file.buffer, { algorithm: 'md5' });
         // console.log(hash);
         const filename = `audio/${hasha(file.buffer, { algorithm: 'md5' })}.${mime.getExtension(file.mimetype)}`;
         await client.put(filename, file.buffer);
-        return { code: 200, message: 'upload audio success', data: await client.generateObjectUrl(filename, BASE_URL) };
+        return { code: 200, message: 'upload audio success', data: await client.generateObjectUrl(filename, process.env.BASE_URL) };
     }
 }

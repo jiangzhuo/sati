@@ -26,12 +26,7 @@ export class AuthService implements OnModuleInit {
         /**
          * whitelist
          */
-        const whiteList = ['IntrospectionQuery',
-            'sayHello', 'test', 'adminTest', 'home',
-            'getHome', 'getHomeById', 'getNew',
-            'loginBySMSCode', 'loginByMobileAndPassword',
-            'sendRegisterVerificationCode', 'sendLoginVerificationCode',
-            'registerBySMSCode'];
+        const whiteList = JSON.parse(process.env.WHITELIST_OPERATION_NAME);
         const query = gql(req.body.query);
         if (query.definitions.every((definition) => {
             return definition.name.value !== req.body.operationName;
@@ -70,7 +65,7 @@ export class AuthService implements OnModuleInit {
             }
 
             try {
-                const decodedToken = <{ userId: string }>jwt.verify(token, 'secretKey');
+                const decodedToken = <{ userId: string }>jwt.verify(token, process.env.AUTH_TOKEN_SECRET_KEY);
                 const { data } = await this.userBroker.call('user.getUserById', { id: decodedToken.userId },
                     {
                         meta: {

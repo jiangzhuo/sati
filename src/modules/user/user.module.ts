@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import { DynamicModule, Global, UseGuards, Inject, Module, OnModuleInit } from '@nestjs/common';
 // import { PATH_METADATA } from '@nestjs/common/constants';
-import { APP_GUARD } from '@nestjs/core';
+// import { APP_GUARD } from '@nestjs/core';
 import { ModulesContainer } from '@nestjs/core/injector/modules-container';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 // import { RESOLVER_TYPE_METADATA } from '@nestjs/graphql/dist/graphql.constants';
@@ -22,7 +22,7 @@ import { MoleculerModule } from 'nestjs-moleculer';
             namespace: 'sati',
             // logger: bindings => new Logger(),
             transporter: 'TCP',
-            logLevel: 'debug',
+            logLevel: process.env.LOG_LEVEL,
         })],
     providers: [
         AuthService,

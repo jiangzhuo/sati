@@ -10,6 +10,7 @@ import { UserModule } from './modules/user/user.module';
 import { ResourceModule } from './modules/resource/resource.module';
 import { UploadModule } from './modules/upload/upload.module';
 
+
 @Global()
 @Module({
     imports: [
