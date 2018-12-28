@@ -1,0 +1,47 @@
+type Query {
+    "获取coupon列表"
+    getCoupon(first: Int,after:Int,before:Int,status:Int): getManyCouponResponse
+}
+
+type Mutation {
+    "生成coupon"
+    generateCoupon(count: Int, value: Int, status: Int, userId: String, validTime: Int, expireTime: Int): getManyCouponResponse
+    "使用coupon"
+    useCoupon(couponCode: String!): getCouponResponse
+    "设置第二个标志位为1使coupon失效"
+    disableCoupon(couponId: String): getCouponResponse
+    "设置第二个标志位为0使coupon生效"
+    enableCoupon(couponId: String): getCouponResponse
+}
+
+type getCouponResponse{
+    code: Int
+    message: String
+    data: Coupon
+}
+type getManyCouponResponse{
+    code: Int
+    message: String
+    data: [Coupon]
+}
+
+type Coupon {
+    "唯一id"
+    id : String
+    "状态"
+    status: Int
+    "兑换码"
+    couponCode: String
+    "价值可以换多少"
+    value : Int
+    "专属某人可以用，默认全0表示谁都可以用"
+    userId : String
+    "创建时间"
+    createTime : Int
+    "生效时间"
+    validTime : Int
+    "过期时间"
+    expireTime : Int
+    "被使用时间"
+    usedTime : Int
+}

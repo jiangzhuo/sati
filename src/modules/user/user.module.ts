@@ -14,6 +14,7 @@ import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { AuthService } from './auth/auth.service';
 import { UserResolver } from './resolvers/user.resolver';
 import { MoleculerModule } from 'nestjs-moleculer';
+import { CouponResolver } from './resolvers/coupon.resolver';
 
 // @Global()
 @Module({
@@ -27,6 +28,7 @@ import { MoleculerModule } from 'nestjs-moleculer';
     providers: [
         AuthService,
         UserResolver,
+        CouponResolver,
     ],
     exports: [AuthService],
 })
