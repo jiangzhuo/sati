@@ -16,7 +16,7 @@ export class GraphQLConfigService implements GqlOptionsFactory {
             resolvers: { JSON: GraphQLJSON },
             context: async ({ req }) => {
                 const udid = req.headers.udid;
-                const clientIp = req.headers['X-Forwarded-For'] || req.connection.remoteAddress;
+                const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
                 const operationName = req.body.operationName;
                 const user = await this.authService.validateUser(req);
                 return { user, udid, operationName, clientIp };

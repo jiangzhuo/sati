@@ -72,7 +72,7 @@ export class AuthService implements OnModuleInit {
                             userId: decodedToken.userId,
                             operationName: req.body.operationName,
                             udid: req.headers.udid,
-                            clientIp: req.headers['X-Forwarded-For'] || req.connection.remoteAddress,
+                            clientIp: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
                         },
                     });
                 return data;
