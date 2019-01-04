@@ -1,0 +1,35 @@
+version: '2'
+services:
+  sati:
+    image: 'registry.cn-hongkong.aliyuncs.com/sati/sati:latest'
+    ports:
+      - '5000'
+    restart: always
+    environment:
+      - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+    labels:
+      aliyun.log_store_sati: stdout
+      aliyun.log.timestamp: 'false'
+      aliyun.log_ttl_sati: '30'
+      aliyun.scale: '1'
+      aliyun.routing.port_5000: 'https://sati.danmaku.cn'
+  sati-user:
+    image: 'registry.cn-hongkong.aliyuncs.com/sati/sati-user:latest'
+    restart: always
+    environment:
+      - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+    labels:
+      aliyun.log_ttl_user: '30'
+      aliyun.log.timestamp: 'false'
+      aliyun.log_store_user: stdout
+      aliyun.scale: '1'
+  sati-resource:
+    image: 'registry.cn-hongkong.aliyuncs.com/sati/sati-resource:latest'
+    restart: always
+    environment:
+      - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+    labels:
+      aliyun.log_ttl_resource: '30'
+      aliyun.log.timestamp: 'false'
+      aliyun.log_store_resource: stdout
+      aliyun.scale: '1'
