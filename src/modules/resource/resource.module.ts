@@ -1,9 +1,4 @@
 import { CacheModule, DynamicModule, Global, Module, OnModuleInit } from '@nestjs/common';
-// import { PATH_METADATA } from '@nestjs/common/constants';
-// import { PERMISSION_DEFINITION, RESOURCE_DEFINITION } from '../../common/decorators';
-// import { Permission, Resource } from '../../common/interfaces';
-// import { NotaddGrpcClientFactory } from '../../grpc/grpc.client-factory';
-// import { ResourceResolver } from './resolvers/resource.resolver';
 import { MoleculerModule } from 'nestjs-moleculer';
 import { MindfulnessResolver } from './resolvers/mindfulness.resolver';
 import { NatureResolver } from './resolvers/nature.resolver';
@@ -13,8 +8,7 @@ import { SceneResolver } from './resolvers/scene.resolver';
 import { MindfulnessAlbumResolver } from './resolvers/mindfulnessAlbum.resolver';
 import { NatureAlbumResolver } from './resolvers/natureAlbum.resolver';
 import { WanderAlbumResolver } from './resolvers/wanderAlbum.resolver';
-// import { RESOLVER_TYPE_METADATA } from '@nestjs/graphql/dist/graphql.constants';
-// import { __ as t, configure as i18nConfigure } from 'i18n';
+import { DiscountResolver } from './resolvers/discount.resolver';
 
 // @Global()
 @Module({
@@ -36,6 +30,7 @@ import { WanderAlbumResolver } from './resolvers/wanderAlbum.resolver';
         WanderAlbumResolver,
         HomeResolver,
         SceneResolver,
+        DiscountResolver,
     ],
 })
 export class ResourceModule implements OnModuleInit {

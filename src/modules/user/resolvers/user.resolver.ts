@@ -214,7 +214,6 @@ export class UserResolver {
             type: 'changeByAdmin',
             extraInfo: JSON.stringify({ operatorId: context.user.id, operatorExtraInfo: body.extraInfo }),
         });
-        console.log(data);
         return { code: 200, message: 'success', data };
     }
 }

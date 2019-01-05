@@ -20,8 +20,10 @@ export class AuthGuard implements CanActivate {
         if (handlerPerm) {
             if (handlerPerm === 'anony') {
                 return true;
-            }if (handlerPerm === 'user') {
+            } else if (handlerPerm === 'user') {
                 return !!user;
+            } else if (!user) {
+                return false;
             } else {
                 return !!(user.role & ROLE_MAP[handlerPerm]);
             }

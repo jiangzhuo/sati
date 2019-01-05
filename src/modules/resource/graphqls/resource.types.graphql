@@ -10,6 +10,8 @@ type Query {
     saySceneHello(name: String!): SayHelloResponse
     "Home测试接口"
     sayHomeHello(name: String!): SayHelloResponse
+    "Discount测试接口"
+    sayDiscountHello(name: String!): SayHelloResponse
 
     "获取使用场景列表"
     getScene(first: Int, after: String): getManySceneResponse
@@ -29,6 +31,17 @@ type Query {
 
     "获取最新"
     getNew(first: Int!, after: Int, before:Int, status: Int): getManyNewResponse
+
+    "获取折扣列表"
+    getDiscount(first: Int, after: Int, before: Int, discount: Int): getManyDiscountResponse
+    "获取免费列表"
+    getFree(first: Int, after: Int, before: Int): getManyDiscountResponse
+    "获取折扣列表"
+    getDiscountByPageAndLimit(page: Int, limit: Int): getManyDiscountResponse
+    "计算折扣列表的条数"
+    countDiscount(position: Int): getDiscountCountResponse
+    "根据一组id获取折扣"
+    getDiscountByIds(ids: [String]): getManyDiscountResponse
 }
 
 type Mutation{
@@ -45,6 +58,13 @@ type Mutation{
     updateHome(id: String!, data: updateHomeRequest!): getHomeResponse
     "删除首页"
     deleteHome(id: String!): getHomeResponse
+
+    "创建折扣"
+    createDiscount(data: createDiscountRequest!): getDiscountResponse
+    "更新折扣"
+    updateDiscount(id: String!, data: updateDiscountRequest!): getDiscountResponse
+    "删除折扣"
+    deleteDiscount(id: String!): getDiscountResponse
 }
 
 input createHomeRequest {
@@ -85,6 +105,40 @@ input updateHomeRequest {
     validTime: Int
 }
 
+input createDiscountRequest {
+    "类型 mindfulness/nature/wander"
+    type :String
+    "类型对应的资源的id mindfulnessId/natureId/wanderId"
+    resourceId :String
+    "首页这一项显示的背景图片"
+    background : [String]
+    "名称"
+    name :String
+    "折扣原来的百分之多少"
+    discount: Int
+    "折扣开始时间"
+    beginTime: Int
+    "折扣结束时间"
+    endTime: Int
+}
+
+input updateDiscountRequest {
+    "类型 mindfulness/nature/wander"
+    type :String
+    "类型对应的资源的id mindfulnessId/natureId/wanderId"
+    resourceId :String
+    "首页这一项显示的背景图片"
+    background : [String]
+    "名称 上面短的那行字"
+    name :String
+    "折扣原来的百分之多少"
+    discount: Int
+    "折扣开始时间"
+    beginTime: Int
+    "折扣结束时间"
+    endTime: Int
+}
+
 type getSceneResponse{
     code: Int
     message: String
@@ -110,6 +164,24 @@ type getManyHomeResponse{
 }
 
 type getHomeCountResponse{
+    code: Int
+    message: String
+    data: Int
+}
+
+type getDiscountResponse{
+    code: Int
+    message: String
+    data: Discount
+}
+
+type getManyDiscountResponse{
+    code: Int
+    message: String
+    data: [Discount]
+}
+
+type getDiscountCountResponse{
     code: Int
     message: String
     data: Int
@@ -176,6 +248,29 @@ type New {
     validTime: Int
     "状态"
     status: Int
+}
+
+type Discount {
+    "唯一id"
+    id :String
+    "类型 mindfulness/nature/wander/wanderAlbum/shop"
+    type :String
+    "类型对应的资源的id mindfulnessId/natureId/wanderId/wanderAlbumId/shopId"
+    resourceId :String
+    "首页折扣这一项显示的背景图片"
+    background : [String]
+    "名称可以与对应的正态自然漫步不同"
+    name :String
+    "折扣整数0表示免费x表示价格是原价的x%"
+    discount: Int
+    "创建时间"
+    createTime: Int
+    "更新时间"
+    updateTime: Int
+    "折扣开始时间"
+    beginTime: Int
+    "折扣结束时间"
+    endTime: Int
 }
 
 type SayHelloResponse {

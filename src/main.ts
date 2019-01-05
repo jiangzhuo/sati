@@ -69,34 +69,23 @@ async function bootstrap() {
     // 初始化sentry
     Sentry.init({ dsn: process.env.SENTRY_DSN, serverName: hostname() });
 
-    // setInterval(() => {
-    //     console.log(process.env.acm_test, process.env.acm_test_JSON);
-    // }, 1000);
+    // const privateKey = process.env.SSL_PRIVATE_KEY;
+    // const certificate = process.env.SSL_CERTIFICATE;
+    // const ca = process.env.SSL_CA;
 
-    const privateKey = process.env.SSL_PRIVATE_KEY;
-    const certificate = process.env.SSL_CERTIFICATE;
-    const ca = process.env.SSL_CA;
-
-    const credentials = {
-        key: privateKey,
-        cert: certificate,
-        ca,
-    };
+    // const credentials = {
+    //     key: privateKey,
+    //     cert: certificate,
+    //     ca,
+    // };
 
     const server = express();
-    const app = await NestFactory.create(AppModule, server, { cors: true, httpsOptions: credentials });
+    // const app = await NestFactory.create(AppModule, server, { cors: true, httpsOptions: credentials });
+    const app = await NestFactory.create(AppModule, server, { cors: true});
     await app.init();
 
     http.createServer(server).listen(parseInt(process.env.HTTP_PORT, 10));
-    https.createServer(credentials, server).listen(parseInt(process.env.HTTPS_PORT, 10));
-    // const app = await NestFactory.create(AppModule, { cors: true, httpsOptions: credentials });
-    // await app.listen(5000, '0.0.0.0', () => {
-    //     logger.log('Notadd GraphQL IDE Server started on: http://localhost:5000/graphql');
-    // });
-    // const app = await NestFactory.create(AppModule, { cors: true });
-    // await app.listen(5000, '0.0.0.0', () => {
-    //     logger.log('Notadd GraphQL IDE Server started on: http://localhost:5000/graphql');
-    // });
+    // https.createServer(credentials, server).listen(parseInt(process.env.HTTPS_PORT, 10));
 }
 
 bootstrap();
