@@ -95,32 +95,11 @@ export class NatureAlbumResolver {
     @Mutation('buyNatureAlbum')
     @Permission('user')
     async buyNatureAlbum(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('natureAlbum.getNatureAlbumById', { id: body.id });
-        try {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: -1 * data.price,
-                type: 'natureAlbum',
-                extraInfo: JSON.stringify(data),
-            });
-        } catch (e) {
-            return { code: e.code, message: e.details };
-        }
-        try {
-            const { data } = await this.resourceBroker.call('natureAlbum.buyNatureAlbum', {
-                userId: context.user.id,
-                natureAlbumId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'natureAlbumRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        const { data } = await this.resourceBroker.call('natureAlbum.buyNatureAlbum', {
+            userId: context.user.id,
+            natureAlbumId: body.id,
+        });
+        return { code: 200, message: 'success', data };
     }
 
     @Mutation('startNatureAlbum')

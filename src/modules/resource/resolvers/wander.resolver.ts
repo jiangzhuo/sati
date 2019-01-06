@@ -109,32 +109,11 @@ export class WanderResolver {
     @Mutation('buyWander')
     @Permission('user')
     async buyWander(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('wander.getWanderById', { id: body.id });
-        try {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: -1 * data.price,
-                type: 'wander',
-                extraInfo: JSON.stringify(data),
-            });
-        } catch (e) {
-            return { code: e.code, message: e.details };
-        }
-        try {
-            const { data } = await this.resourceBroker.call('wander.buyWander', {
-                userId: context.user.id,
-                wanderId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'wanderRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        const { data } = await this.resourceBroker.call('wander.buyWander', {
+            userId: context.user.id,
+            wanderId: body.id,
+        });
+        return { code: 200, message: 'success', data };
     }
 
     @Mutation('startWander')

@@ -95,32 +95,11 @@ export class MindfulnessAlbumResolver {
     @Mutation('buyMindfulnessAlbum')
     @Permission('user')
     async buyMindfulnessAlbum(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('mindfulnessAlbum.getMindfulnessAlbumById', { id: body.id });
-        try {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: -1 * data.price,
-                type: 'mindfulnessAlbum',
-                extraInfo: JSON.stringify(data),
-            });
-        } catch (e) {
-            return { code: e.code, message: e.details };
-        }
-        try {
-            const { data } = await this.resourceBroker.call('mindfulnessAlbum.buyMindfulnessAlbum', {
-                userId: context.user.id,
-                mindfulnessAlbumId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'mindfulnessAlbumRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        const { data } = await this.resourceBroker.call('mindfulnessAlbum.buyMindfulnessAlbum', {
+            userId: context.user.id,
+            mindfulnessAlbumId: body.id,
+        });
+        return { code: 200, message: 'success', data };
     }
 
     @Mutation('startMindfulnessAlbum')

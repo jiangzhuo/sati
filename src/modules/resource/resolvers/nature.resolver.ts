@@ -125,32 +125,11 @@ export class NatureResolver {
     @Mutation('buyNature')
     @Permission('user')
     async buyNature(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('nature.getNatureById', { id: body.id });
-        try {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: -1 * data.price,
-                type: 'nature',
-                extraInfo: JSON.stringify(data),
-            });
-        } catch (e) {
-            return { code: e.code, message: e.details };
-        }
-        try {
-            const { data } = await this.resourceBroker.call('nature.buyNature', {
-                userId: context.user.id,
-                natureId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'natureRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        const { data } = await this.resourceBroker.call('nature.buyNature', {
+            userId: context.user.id,
+            natureId: body.id,
+        });
+        return { code: 200, message: 'success', data };
     }
 
     @Mutation('startNature')

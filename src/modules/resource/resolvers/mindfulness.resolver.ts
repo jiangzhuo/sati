@@ -95,28 +95,11 @@ export class MindfulnessResolver {
     @Mutation('buyMindfulness')
     @Permission('user')
     async buyMindfulness(req, body: { id: string }, context) {
-        const { data } = await this.resourceBroker.call('mindfulness.getMindfulnessById', { id: body.id });
-        await this.userBroker.call('user.changeBalance', {
-            id: context.user.id,
-            changeValue: -1 * data.price,
-            type: 'mindfulness',
-            extraInfo: JSON.stringify(data),
+        const { data } = await this.resourceBroker.call('mindfulness.buyMindfulness', {
+            userId: context.user.id,
+            mindfulnessId: body.id,
         });
-        try {
-            const { data } = await this.resourceBroker.call('mindfulness.buyMindfulness', {
-                userId: context.user.id,
-                mindfulnessId: body.id,
-            });
-            return { code: 200, message: 'success', data };
-        } catch (e) {
-            await this.userBroker.call('user.changeBalance', {
-                id: context.user.id,
-                changeValue: data.price,
-                type: 'mindfulnessRollback',
-                extraInfo: JSON.stringify(data),
-            });
-            return { code: e.code, message: e.details };
-        }
+        return { code: 200, message: 'success', data };
     }
 
     @Mutation('startMindfulness')
