@@ -9,16 +9,23 @@ import { MindfulnessAlbumResolver } from './resolvers/mindfulnessAlbum.resolver'
 import { NatureAlbumResolver } from './resolvers/natureAlbum.resolver';
 import { WanderAlbumResolver } from './resolvers/wanderAlbum.resolver';
 import { DiscountResolver } from './resolvers/discount.resolver';
+import * as jaeger from 'moleculer-jaeger';
 
 // @Global()
 @Module({
-    imports: [CacheModule.register({ ttl: 60 }),
+    imports: [
         MoleculerModule.forRoot({
             namespace: 'sati',
+            metrics: true,
             // logger: bindings => new Logger(),
             transporter: 'TCP',
             logLevel: process.env.LOG_LEVEL,
-        })],
+        }),
+        MoleculerModule.forFeature([{
+            name: 'jaeger',
+            schema: jaeger,
+        }]),
+    ],
     providers: [
         // NotaddGrpcClientFactory,
         // ResourceResolver,

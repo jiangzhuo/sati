@@ -15,16 +15,23 @@ import { AuthService } from './auth/auth.service';
 import { UserResolver } from './resolvers/user.resolver';
 import { MoleculerModule } from 'nestjs-moleculer';
 import { CouponResolver } from './resolvers/coupon.resolver';
+import * as jaeger from 'moleculer-jaeger';
 
 // @Global()
 @Module({
     imports: [
         MoleculerModule.forRoot({
             namespace: 'sati',
+            metrics: true,
             // logger: bindings => new Logger(),
             transporter: 'TCP',
             logLevel: process.env.LOG_LEVEL,
-        })],
+        }),
+        MoleculerModule.forFeature([{
+            name: 'jaeger',
+            schema: jaeger,
+        }]),
+    ],
     providers: [
         AuthService,
         UserResolver,
