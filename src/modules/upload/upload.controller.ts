@@ -3,7 +3,7 @@ import * as OSS from 'ali-oss';
 import * as hasha from 'hasha';
 import * as mime from 'mime';
 
-import { ErrorsInterceptor } from '../../common/interceptors/errors.interceptor';
+import { ErrorsInterceptor } from '../../common/interceptors';
 // import { Configurable, ConfigParam, ConfigService } from 'nestjs-config';
 
 @Controller()

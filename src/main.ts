@@ -1,11 +1,10 @@
-import './hackNestLogger';
 import * as Sentry from '@sentry/node';
 import { hostname } from 'os';
+import './hackLogger';
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import { AppModule } from './app.module';
 // import * as fs from 'fs';
 import express = require('express');
 import * as http from 'http';
@@ -79,13 +78,19 @@ async function bootstrap() {
     //     ca,
     // };
 
-    const server = express();
-    // const app = await NestFactory.create(AppModule, server, { cors: true, httpsOptions: credentials });
-    const app = await NestFactory.create(AppModule, server, { cors: true});
-    await app.init();
+    try {
+        const server = express();
+        // const app = await NestFactory.create(AppModule, server, { cors: true, httpsOptions: credentials });
+        const { AppModule } = require('./app.module');
+        const app = await NestFactory.create(AppModule, server, { cors: true });
+        await app.init();
 
-    http.createServer(server).listen(parseInt(process.env.HTTP_PORT, 10));
-    // https.createServer(credentials, server).listen(parseInt(process.env.HTTPS_PORT, 10));
+        http.createServer(server).listen(parseInt(process.env.HTTP_PORT, 10));
+        // https.createServer(credentials, server).listen(parseInt(process.env.HTTPS_PORT, 10));
+    } catch (e) {
+        logger.error(e);
+        throw e;
+    }
 }
 
 bootstrap();
