@@ -1,4 +1,4 @@
-import { UseGuards, UseInterceptors } from '@nestjs/common';
+import { Logger, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
 import { AuthGuard } from '../auth/auth.guard';
@@ -19,6 +19,8 @@ export class DiscountResolver {
         @InjectBroker() private readonly userBroker: ServiceBroker,
     ) {
     }
+
+    private logger = new Logger('discount');
 
     @Query('sayDiscountHello')
     async sayDiscountHello(req, body: { name: string }) {
@@ -64,22 +66,28 @@ export class DiscountResolver {
 
     @Mutation('createDiscount')
     @Permission('editor')
-    async createDiscount(req, body) {
+    async createDiscount(req, body, context, resolveInfo) {
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(body.data)}`);
         const { data } = await this.resourceBroker.call('discount.createDiscount', body.data);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('updateDiscount')
     @Permission('editor')
-    async updateDiscount(req, body) {
+    async updateDiscount(req, body, context, resolveInfo) {
         body.data.id = body.id;
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(body.data)}`);
         const { data } = await this.resourceBroker.call('discount.updateDiscount', body.data);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('deleteDiscount')
     @Permission('editor')
-    async deleteDiscount(req, body: { id: string }) {
+    async deleteDiscount(req, body, context, resolveInfo) {
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(body)}`);
         const { data } = await this.resourceBroker.call('discount.deleteDiscount', body);
         return { code: 200, message: 'success', data };
     }

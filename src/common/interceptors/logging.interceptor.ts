@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-    private logger = new Logger('sati.gate');
+    private logger = new Logger('Interceptor');
 
     intercept(
         context: ExecutionContext,
@@ -14,9 +14,10 @@ export class LoggingInterceptor implements NestInterceptor {
         // console.log(context.getArgByIndex(2));
         const graphqlCtx = context.getArgByIndex(2);
         const now = Date.now();
+        this.logger.log(`${graphqlCtx.user && graphqlCtx.user.id}\t${graphqlCtx.udid}\t${graphqlCtx.clientIp}\t${graphqlCtx.operationName}`);
         return call$.pipe(tap(() => {
             // tslint:disable-next-line:max-line-length
-            this.logger.log(`${graphqlCtx.user && graphqlCtx.user.id} ${graphqlCtx.udid} ${graphqlCtx.operationName} ${graphqlCtx.clientIp} ${Date.now() - now}`);
+            this.logger.log(`${graphqlCtx.user && graphqlCtx.user.id}\t${graphqlCtx.udid}\t${graphqlCtx.clientIp}\t${graphqlCtx.operationName}\t${Date.now() - now}`);
             // console.log(`After... ${Date.now() - now}ms`);
         }));
     }

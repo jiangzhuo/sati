@@ -17,7 +17,7 @@ export class ResourceCache {
             this.initResourceCache().then(() => {
 
             }).catch((e) => {
-                console.log(e);
+                console.error(e);
             });
         }, 60000);
     }
