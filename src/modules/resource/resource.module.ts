@@ -18,7 +18,7 @@ import * as jaeger from 'moleculer-jaeger';
             namespace: 'sati',
             metrics: true,
             // logger: bindings => new Logger(),
-            transporter: 'TCP',
+            transporter: process.env.TRANSPORTER,
             logLevel: process.env.LOG_LEVEL,
         }),
         MoleculerModule.forFeature([{

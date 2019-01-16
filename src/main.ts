@@ -48,6 +48,7 @@ async function bootstrap() {
         { dataId: 'BASE_URL', group: 'sati' },
         { dataId: 'WHITELIST_OPERATION_NAME', group: 'sati' },
         { dataId: 'AUTH_TOKEN_SECRET_KEY', group: 'sati' },
+        { dataId: 'TRANSPORTER', group: 'sati' },
     ];
     const getAllConfigPromise = [];
     allConfigs.forEach((config) => {

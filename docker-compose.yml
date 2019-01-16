@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   sati:
     image: 'registry.cn-hongkong.aliyuncs.com/sati/sati:latest'
@@ -7,6 +7,10 @@ services:
     restart: always
     environment:
       - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+    links:
+      - nats
+    depends_on:
+      - nats
     labels:
       aliyun.log_store_sati: stdout
       aliyun.log.timestamp: 'false'
@@ -18,6 +22,10 @@ services:
     restart: always
     environment:
       - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+    links:
+      - nats
+    depends_on:
+      - nats
     labels:
       aliyun.log_ttl_user: '30'
       aliyun.log.timestamp: 'false'
@@ -28,8 +36,14 @@ services:
     restart: always
     environment:
       - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+    links:
+      - nats
+    depends_on:
+      - nats
     labels:
       aliyun.log_ttl_resource: '30'
       aliyun.log.timestamp: 'false'
       aliyun.log_store_resource: stdout
       aliyun.scale: '1'
+  nats:
+    image: nats
