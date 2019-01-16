@@ -8,7 +8,8 @@
         "debug": "node --inspect-brk -r ts-node/register src/main.ts",
         "debug:watch": "nodemon --config nodemon-debug.json",
         "check": "tslint -p tsconfig.json -c tslint.json",
-        "fix": "tslint -p tsconfig.json -c tslint.json --fix"
+        "fix": "tslint -p tsconfig.json -c tslint.json --fix",
+        "build": "tsc;cp -fr src/* dist/*"
     },
     "author": "jiangzhuo",
     "private": true,

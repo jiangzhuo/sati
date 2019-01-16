@@ -1,6 +1,6 @@
 import { Controller, FileInterceptor, Post, UploadedFile, UseInterceptors, Get } from '@nestjs/common';
 import * as OSS from 'ali-oss';
-import * as hasha from 'hasha';
+import hasha from 'hasha';
 import * as mime from 'mime';
 
 import { ErrorsInterceptor } from '../../common/interceptors';
