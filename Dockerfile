@@ -13,8 +13,8 @@ RUN npm install
 # RUN npm install --only=production
 
 # Bundle app source
-COPY . .
+COPY ./dist/ .
 
 EXPOSE 442
 EXPOSE 5000
-CMD [ "npm", "start" ]
+CMD [ "node", "main.js" ]

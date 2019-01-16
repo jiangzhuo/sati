@@ -38,6 +38,7 @@
         "moleculer": "^0.13.4",
         "moleculer-jaeger": "^0.2.0",
         "nacos": "^1.0.2",
+        "nats": "^1.2.2",
         "nestjs-config": "^1.2.8",
         "nestjs-moleculer": "^1.0.5",
         "reflect-metadata": "^0.1.12",

@@ -5,7 +5,7 @@ import { Permission } from '../../../common/decorators';
 import { AuthGuard } from '../auth/auth.guard';
 import { InjectBroker } from 'nestjs-moleculer';
 import { ServiceBroker } from 'moleculer';
-import { ErrorsInterceptor, LoggingInterceptor } from 'src/common/interceptors';
+import { ErrorsInterceptor, LoggingInterceptor } from '../../../common/interceptors';
 
 @Resolver()
 @UseGuards(AuthGuard)
