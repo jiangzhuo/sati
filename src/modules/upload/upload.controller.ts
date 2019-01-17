@@ -1,7 +1,7 @@
 import { Controller, FileInterceptor, Post, UploadedFile, UseInterceptors, Get } from '@nestjs/common';
-import * as OSS from 'ali-oss';
+import OSS from 'ali-oss';
 import hasha from 'hasha';
-import * as mime from 'mime';
+import mime from 'mime';
 
 import { ErrorsInterceptor } from '../../common/interceptors';
 // import { Configurable, ConfigParam, ConfigService } from 'nestjs-config';

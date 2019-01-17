@@ -109,6 +109,8 @@ input createMindfulnessRequest{
     status: Int
     "生效日期，从什么时候开始生效"
     validTime: Int
+    "背景自然音对应的nature"
+    natureId: String
 }
 
 input updateMindfulnessRequest{
@@ -134,6 +136,8 @@ input updateMindfulnessRequest{
     status: Int
     "生效日期，从什么时候开始生效"
     validTime: Int
+    "背景自然音对应的nature"
+    natureId: String
 }
 
 input createMindfulnessAlbumRequest{
@@ -249,6 +253,8 @@ type Mindfulness {
     status: Int
     "生效时间"
     validTime: Int
+    "背景自然音对应的nature"
+    natureId: String
 }
 
 type MindfulnessRecord {
