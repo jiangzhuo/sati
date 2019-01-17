@@ -46,7 +46,7 @@ shimmer.wrap(NestLogger, 'warn', (original) => {
 });
 
 // Hack Moleculer Logger
-import * as MoleculerLogger from 'moleculer/src/logger';
+import MoleculerLogger from 'moleculer/src/logger';
 
 shimmer.wrap(MoleculerLogger, 'createDefaultLogger', (original) => {
     return (baseLogger, bindings, logLevel, logFormatter, logObjectPrinter) => {
