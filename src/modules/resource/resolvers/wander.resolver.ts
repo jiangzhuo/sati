@@ -1,4 +1,4 @@
-import { Inject, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Inject, Logger, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
 // import { GraphqlCacheInterceptor } from '../../../common/interceptors/graphqlCache.interceptor';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
@@ -21,6 +21,8 @@ export class WanderResolver {
     ) {
     }
 
+    private logger = new Logger('wander');
+
     @Query('sayWanderHello')
     async sayWanderHello(req, body: { name: string }) {
         const { msg } = await this.resourceBroker.call('wander.sayHello', { name: body.name });
@@ -29,31 +31,38 @@ export class WanderResolver {
 
     @Mutation('createWander')
     @Permission('editor')
-    async createWander(req, body) {
+    async createWander(req, body, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('wander.createWander', body.data);
-        // this.resourceCache.updateResourceCache(data, 'wander');
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('updateWander')
     @Permission('editor')
-    async updateWander(req, body) {
+    async updateWander(req, body, context, resolveInfo) {
         body.data.id = body.id;
         const { data } = await this.resourceBroker.call('wander.updateWander', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('deleteWander')
     @Permission('editor')
-    async deleteWander(req, body: { id: string }) {
+    async deleteWander(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('wander.deleteWander', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('revertDeletedWander')
     @Permission('editor')
-    async revertDeletedWander(req, body: { id: string }) {
+    async revertDeletedWander(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('wander.revertDeletedWander', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 

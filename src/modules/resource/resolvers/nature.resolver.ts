@@ -1,4 +1,4 @@
-import { UseGuards, UseInterceptors } from '@nestjs/common';
+import { Logger, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
 import { AuthGuard } from '../auth/auth.guard';
@@ -19,6 +19,8 @@ export class NatureResolver {
         @InjectBroker() private readonly userBroker: ServiceBroker,
     ) {
     }
+
+    private logger = new Logger('nature');
 
     @Query('sayNatureHello')
     async sayNatureHello(req, body: { name: string }) {
@@ -62,31 +64,38 @@ export class NatureResolver {
 
     @Mutation('createNature')
     @Permission('editor')
-    async createNature(req, body) {
+    async createNature(req, body, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('nature.createNature', body.data);
-        // this.resourceCache.updateResourceCache(data, 'nature');
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('updateNature')
     @Permission('editor')
-    async updateNature(req, body) {
+    async updateNature(req, body, context, resolveInfo) {
         body.data.id = body.id;
         const { data } = await this.resourceBroker.call('nature.updateNature', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('deleteNature')
     @Permission('editor')
-    async deleteNature(req, body: { id: string }) {
+    async deleteNature(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('nature.deleteNature', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('revertDeletedNature')
     @Permission('editor')
-    async revertDeletedNature(req, body: { id: string }) {
+    async revertDeletedNature(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('nature.revertDeletedNature', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 

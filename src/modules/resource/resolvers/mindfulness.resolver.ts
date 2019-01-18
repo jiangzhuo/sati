@@ -1,4 +1,4 @@
-import { Inject, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Inject, Logger, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
 import { AuthGuard } from '../auth/auth.guard';
@@ -19,6 +19,8 @@ export class MindfulnessResolver {
         @InjectBroker() private readonly userBroker: ServiceBroker,
     ) {
     }
+
+    private logger = new Logger('mindfulness');
 
     @Query('sayMindfulnessHello')
     async sayMindfulnessHello(req, body: { name: string }) {
@@ -125,31 +127,38 @@ export class MindfulnessResolver {
 
     @Mutation('createMindfulness')
     @Permission('editor')
-    async createMindfulness(req, body) {
+    async createMindfulness(req, body, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('mindfulness.createMindfulness', body.data);
-        // this.resourceCache.updateResourceCache(data, 'mindfulness');
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('updateMindfulness')
     @Permission('editor')
-    async updateMindfulness(req, body) {
+    async updateMindfulness(req, body, context, resolveInfo) {
         body.data.id = body.id;
         const { data } = await this.resourceBroker.call('mindfulness.updateMindfulness', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('deleteMindfulness')
     @Permission('editor')
-    async deleteMindfulness(req, body: { id: string }) {
+    async deleteMindfulness(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('mindfulness.deleteMindfulness', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('revertDeletedMindfulness')
     @Permission('editor')
-    async revertDeletedMindfulness(req, body: { id: string }) {
+    async revertDeletedMindfulness(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('mindfulness.revertDeletedMindfulness', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 }

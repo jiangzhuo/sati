@@ -1,4 +1,4 @@
-import { Inject, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Inject, Logger, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
 import { AuthGuard } from '../auth/auth.guard';
@@ -19,6 +19,8 @@ export class HomeResolver {
         @InjectBroker() private readonly userBroker: ServiceBroker,
     ) {
     }
+
+    private logger = new Logger('home');
 
     @Query('sayHomeHello')
     async sayHomeHello(req, body: { name: string }) {
@@ -58,23 +60,29 @@ export class HomeResolver {
 
     @Mutation('createHome')
     @Permission('editor')
-    async createHome(req, body) {
+    async createHome(req, body, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('home.createHome', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('updateHome')
     @Permission('editor')
-    async updateHome(req, body) {
+    async updateHome(req, body, context, resolveInfo) {
         body.data.id = body.id;
         const { data } = await this.resourceBroker.call('home.updateHome', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('deleteHome')
     @Permission('editor')
-    async deleteHome(req, body: { id: string }) {
+    async deleteHome(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('home.deleteHome', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 

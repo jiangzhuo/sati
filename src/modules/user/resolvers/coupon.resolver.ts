@@ -1,4 +1,4 @@
-import { UseGuards, UseInterceptors } from '@nestjs/common';
+import { Logger, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { Permission, Resource } from '../../../common/decorators';
@@ -23,85 +23,45 @@ export class CouponResolver {
     ) {
     }
 
+    private logger = new Logger('coupon');
+
     @Query('getCoupon')
     async getCoupon(req, body, context) {
-        const { data } = await this.userBroker.call('coupon.getCoupon', body,
-            {
-                meta: {
-                    userId: context.user.id,
-                    udid: context.udid,
-                    operationName: context.operationName,
-                    clientIp: context.clientIp,
-                },
-            });
+        const { data } = await this.userBroker.call('coupon.getCoupon', body);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('generateCoupon')
     @Permission('admin')
-    async generateCoupon(req, body, context) {
-        const { data } = await this.userBroker.call('coupon.generateCoupon',
-            body,
-            {
-                meta: {
-                    userId: context.user.id,
-                    udid: context.udid,
-                    operationName: context.operationName,
-                    clientIp: context.clientIp,
-                },
-            },
-        );
+    async generateCoupon(req, body, context, resolveInfo) {
+        const { data } = await this.userBroker.call('coupon.generateCoupon', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('useCoupon')
     @Permission('user')
     async useCoupon(req, body, context) {
-        const { data } = await this.userBroker.call('coupon.useCoupon',
-            body,
-            {
-                meta: {
-                    userId: context.user.id,
-                    udid: context.udid,
-                    operationName: context.operationName,
-                    clientIp: context.clientIp,
-                },
-            },
-        );
+        const { data } = await this.userBroker.call('coupon.useCoupon', body);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('disableCoupon')
     @Permission('admin')
-    async disableCoupon(req, body, context) {
-        const { data } = await this.userBroker.call('coupon.disableCoupon',
-            body,
-            {
-                meta: {
-                    userId: context.user.id,
-                    udid: context.udid,
-                    operationName: context.operationName,
-                    clientIp: context.clientIp,
-                },
-            },
-        );
+    async disableCoupon(req, body, context, resolveInfo) {
+        const { data } = await this.userBroker.call('coupon.disableCoupon', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('enableCoupon')
     @Permission('admin')
-    async enableCoupon(req, body, context) {
-        const { data } = await this.userBroker.call('coupon.enableCoupon',
-            body,
-            {
-                meta: {
-                    userId: context.user.id,
-                    udid: context.udid,
-                    operationName: context.operationName,
-                    clientIp: context.clientIp,
-                },
-            },
-        );
+    async enableCoupon(req, body, context, resolveInfo) {
+        const { data } = await this.userBroker.call('coupon.enableCoupon', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 }

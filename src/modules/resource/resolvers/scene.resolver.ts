@@ -1,4 +1,4 @@
-import { UseGuards, UseInterceptors } from '@nestjs/common';
+import { Logger, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
 import { AuthGuard } from '../auth/auth.guard';
@@ -19,6 +19,8 @@ export class SceneResolver {
         @InjectBroker() private readonly userBroker: ServiceBroker,
     ) {
     }
+
+    private logger = new Logger('scene');
 
     @Query('saySceneHello')
     async saySceneHello(req, body: { name: string }) {
@@ -49,22 +51,28 @@ export class SceneResolver {
 
     @Mutation('createScene')
     @Permission('editor')
-    async createScene(req, body: { name: string }) {
+    async createScene(req, body: { name: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('scene.createScene', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('updateScene')
     @Permission('editor')
-    async updateScene(req, body: { id: string, name: string }) {
+    async updateScene(req, body: { id: string, name: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('scene.updateScene', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('deleteScene')
     @Permission('editor')
-    async deleteScene(req, body: { id: string }) {
+    async deleteScene(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('scene.deleteScene', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 }

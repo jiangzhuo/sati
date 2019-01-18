@@ -1,4 +1,4 @@
-import { Inject, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Inject, Logger, Optional, UseGuards, UseInterceptors } from '@nestjs/common';
 // import { GraphqlCacheInterceptor } from '../../../common/interceptors/graphqlCache.interceptor';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
@@ -20,6 +20,8 @@ export class WanderAlbumResolver {
         @InjectBroker() private readonly userBroker: ServiceBroker,
     ) {
     }
+
+    private logger = new Logger('wanderAlbum');
 
     @Query('getWanderAlbum')
     @Permission('anony')
@@ -47,30 +49,38 @@ export class WanderAlbumResolver {
 
     @Mutation('createWanderAlbum')
     @Permission('editor')
-    async createWanderAlbum(req, body) {
+    async createWanderAlbum(req, body, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('wanderAlbum.createWanderAlbum', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('updateWanderAlbum')
     @Permission('editor')
-    async updateWanderAlbum(req, body) {
+    async updateWanderAlbum(req, body, context, resolveInfo) {
         body.data.id = body.id;
         const { data } = await this.resourceBroker.call('wanderAlbum.updateWanderAlbum', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('deleteWanderAlbum')
     @Permission('editor')
-    async deleteWanderAlbum(req, body: { id: string }) {
+    async deleteWanderAlbum(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('wanderAlbum.deleteWanderAlbum', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('revertDeletedWanderAlbum')
     @Permission('editor')
-    async revertDeletedWanderAlbum(req, body: { id: string }) {
+    async revertDeletedWanderAlbum(req, body: { id: string }, context, resolveInfo) {
         const { data } = await this.resourceBroker.call('wanderAlbum.revertDeletedWanderAlbum', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 

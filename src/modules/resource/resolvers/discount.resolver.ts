@@ -67,9 +67,9 @@ export class DiscountResolver {
     @Mutation('createDiscount')
     @Permission('editor')
     async createDiscount(req, body, context, resolveInfo) {
-        // tslint:disable-next-line:max-line-length
-        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(body.data)}`);
         const { data } = await this.resourceBroker.call('discount.createDiscount', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
@@ -77,18 +77,18 @@ export class DiscountResolver {
     @Permission('editor')
     async updateDiscount(req, body, context, resolveInfo) {
         body.data.id = body.id;
-        // tslint:disable-next-line:max-line-length
-        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(body.data)}`);
         const { data } = await this.resourceBroker.call('discount.updateDiscount', body.data);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Mutation('deleteDiscount')
     @Permission('editor')
     async deleteDiscount(req, body, context, resolveInfo) {
-        // tslint:disable-next-line:max-line-length
-        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(body)}`);
         const { data } = await this.resourceBroker.call('discount.deleteDiscount', body);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 }

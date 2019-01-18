@@ -1,4 +1,4 @@
-import { UseGuards, UseInterceptors } from '@nestjs/common';
+import { Logger, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 // import { __ as t } from 'i18n';
 
@@ -25,6 +25,8 @@ export class UserResolver {
         // @Inject(NotaddGrpcClientFactory) private readonly notaddGrpcClientFactory: NotaddGrpcClientFactory,
     ) {
     }
+
+    private logger = new Logger('user');
 
     // private userServiceInterface;
 
@@ -140,8 +142,10 @@ export class UserResolver {
 
     @Mutation('updateUserById')
     @Permission('editor')
-    async updateUserById(req, body, context): Promise<CommonResult> {
+    async updateUserById(req, body, context, resolveInfo): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.updateUserById', body.updateUserInput);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
@@ -165,7 +169,7 @@ export class UserResolver {
 
     @Query('getUserByMobile')
     @Permission('editor')
-    async getUserByMobile(req, body, context): Promise<CommonResult> {
+    async getUserByMobile(req, body): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.getUserByMobile', body);
         return { code: 200, message: 'success', data };
     }
@@ -207,13 +211,15 @@ export class UserResolver {
 
     @Mutation('changeBalanceByAdmin')
     @Permission('admin')
-    async changeBalanceByAdmin(req, body: { userId: string, changeValue: number, extraInfo: string }, context) {
+    async changeBalanceByAdmin(req, body: { userId: string, changeValue: number, extraInfo: string }, context, resolveInfo) {
         const { data } = await this.userBroker.call('user.changeBalance', {
             id: body.userId,
             changeValue: body.changeValue,
             type: 'changeByAdmin',
             extraInfo: JSON.stringify({ operatorId: context.user.id, operatorExtraInfo: body.extraInfo }),
         });
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 }
