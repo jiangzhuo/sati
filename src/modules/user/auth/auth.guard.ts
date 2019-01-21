@@ -22,6 +22,8 @@ export class AuthGuard implements CanActivate {
                 return true;
             } else if (handlerPerm === 'user') {
                 return !!user;
+            } else if (!user) {
+                return false;
             } else {
                 return !!(user.role & ROLE_MAP[handlerPerm]);
             }

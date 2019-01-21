@@ -1,7 +1,7 @@
 import { Logger, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../../user/auth/auth.guard';
 import { InjectBroker } from 'nestjs-moleculer';
 import { ServiceBroker } from 'moleculer';
 import { ErrorsInterceptor, LoggingInterceptor } from '../../../common/interceptors';

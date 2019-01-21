@@ -2,7 +2,7 @@ import { Inject, Logger, Optional, UseGuards, UseInterceptors } from '@nestjs/co
 // import { GraphqlCacheInterceptor } from '../../../common/interceptors/graphqlCache.interceptor';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Permission } from '../../../common/decorators';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../../user/auth/auth.guard';
 import { InjectBroker } from 'nestjs-moleculer';
 import { ServiceBroker } from 'moleculer';
 import { ErrorsInterceptor, LoggingInterceptor } from '../../../common/interceptors';
