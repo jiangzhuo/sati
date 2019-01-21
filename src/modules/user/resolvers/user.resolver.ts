@@ -31,7 +31,7 @@ export class UserResolver {
     // private userServiceInterface;
 
     @Query('loginBySMSCode')
-    async loginBySMSCode(req, body: { mobile: string, verificationCode: string }, context): Promise<CommonResult> {
+    async loginBySMSCode(req, body: { mobile: string, verificationCode: string }, context, resolveInfo): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.loginBySMSCode', body,
             {
                 meta: {
@@ -40,11 +40,13 @@ export class UserResolver {
                     clientIp: context.clientIp,
                 },
             });
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${body && body.mobile}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
     @Query('loginByMobileAndPassword')
-    async loginByMobileAndPassword(req, body: { mobile: string, password: string }, context): Promise<CommonResult> {
+    async loginByMobileAndPassword(req, body: { mobile: string, password: string }, context, resolveInfo): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.loginByMobileAndPassword', body,
             {
                 meta: {
@@ -53,11 +55,14 @@ export class UserResolver {
                     clientIp: context.clientIp,
                 },
             });
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${body && body.mobile}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
     @Query('renewToken')
-    async renewToken(req, body, context) {
+    @Permission('user')
+    async renewToken(req, body, context, resolveInfo) {
         const { data } = await this.userBroker.call('user.renewToken', { userId: context.user.id },
             {
                 meta: {
@@ -66,6 +71,8 @@ export class UserResolver {
                     clientIp: context.clientIp,
                 },
             });
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data: data.tokenInfo };
     }
 
@@ -80,7 +87,7 @@ export class UserResolver {
     // }
 
     @Mutation('registerBySMSCode')
-    async registerBySMSCode(req, { registerUserInput, verificationCode }, context): Promise<CommonResult> {
+    async registerBySMSCode(req, { registerUserInput, verificationCode }, context, resolveInfo): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.registerBySMSCode',
             { registerUserInput, verificationCode },
             {
@@ -91,11 +98,13 @@ export class UserResolver {
                 },
             },
         );
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${registerUserInput && registerUserInput.mobile}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
     @Query('sendLoginVerificationCode')
-    async sendLoginVerificationCode(req, body, context): Promise<CommonResult> {
+    async sendLoginVerificationCode(req, body, context, resolveInfo): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.getLoginVerificationCode', body,
             {
                 meta: {
@@ -104,12 +113,13 @@ export class UserResolver {
                     clientIp: context.clientIp,
                 },
             });
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${body && body.mobile}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success' };
     }
 
-    // Its%queOress2
     @Query('sendRegisterVerificationCode')
-    async sendRegisterVerificationCode(req, body, context): Promise<CommonResult> {
+    async sendRegisterVerificationCode(req, body, context, resolveInfo): Promise<CommonResult> {
         const { data } = await this.userBroker.call('user.getRegisterVerificationCode', body,
             {
                 meta: {
@@ -118,6 +128,8 @@ export class UserResolver {
                     clientIp: context.clientIp,
                 },
             });
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${body && body.mobile}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success' };
     }
 
@@ -134,9 +146,11 @@ export class UserResolver {
 
     @Mutation('updateCurrentUser')
     @Permission('user')
-    async updateCurrentUser(req, body, context): Promise<CommonResult> {
+    async updateCurrentUser(req, body, context, resolveInfo): Promise<CommonResult> {
         body.updateCurrentUserInput.id = context.user.id;
         const { data } = await this.userBroker.call('user.updateUserById', body.updateCurrentUserInput);
+        // tslint:disable-next-line:max-line-length
+        this.logger.log(`${context.user && context.user.id}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
         return { code: 200, message: 'success', data };
     }
 
