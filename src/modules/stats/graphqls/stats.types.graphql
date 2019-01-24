@@ -1,0 +1,36 @@
+type Query {
+    "用户量"
+    userCount(from:Int,to:Int): StatsNumberResponse
+    "登录量"
+    loginCount(from:Int,to:Int): StatsAggregationResponse
+    "注册量"
+    registerCount(from:Int,to:Int): StatsAggregationResponse
+    "验证码发送量"
+    verificationCodeCount(from:Int,to:Int): StatsAggregationResponse
+    "续订更新token数量"
+    renewTokenCount(from:Int,to:Int): StatsAggregationResponse
+}
+
+type StatsNumberResponse {
+    code: Int
+    message: String
+    data: Int
+}
+
+type StatsAggregationResponse {
+    code: Int
+    message: String
+    data: [StatsAggregation]
+}
+
+type StatsAggregation{
+    _id: AggregationId
+    count: Int
+}
+
+type AggregationId{
+    namespace: String
+    module: String
+    operationName: String
+    fieldName: String
+}

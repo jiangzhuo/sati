@@ -1,11 +1,11 @@
 import { Logger, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { CommonResult } from '../../../common/interfaces';
 import { AuthGuard } from '../../user/auth/auth.guard';
 import { ServiceBroker } from 'moleculer';
 import { InjectBroker } from 'nestjs-moleculer';
 import { ErrorsInterceptor, LoggingInterceptor } from '../../../common/interceptors';
+import { Permission } from '../../../common/decorators';
 
 @Resolver()
 @UseGuards(AuthGuard)
@@ -20,20 +20,40 @@ export class StatsResolver {
     ) {
     }
 
-    private logger = new Logger('stat');
+    private logger = new Logger('stats');
 
-    @Query('loginBySMSCode')
-    async loginBySMSCode(req, body: { mobile: string, verificationCode: string }, context, resolveInfo): Promise<CommonResult> {
-        const { data } = await this.userBroker.call('stat.loginBySMSCode', body,
-            {
-                meta: {
-                    udid: context.udid,
-                    operationName: context.operationName,
-                    clientIp: context.clientIp,
-                },
-            });
-        // tslint:disable-next-line:max-line-length
-        this.logger.log(`${body && body.mobile}\t${context.udid}\t${context.clientIp}\t${context.operationName}\t${resolveInfo.fieldName}\t${JSON.stringify(data)}`);
-        return { code: 200, message: 'success', data: data.tokenInfo };
+    @Query('loginCount')
+    @Permission('admin')
+    async loginCount(req, body, context, resolveInfo) {
+        const { data } = await this.userBroker.call('userStats.loginCount', body);
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('registerCount')
+    @Permission('admin')
+    async registerCount(req, body, context, resolveInfo) {
+        const { data } = await this.userBroker.call('userStats.registerCount', body);
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('verificationCodeCount')
+    @Permission('admin')
+    async verificationCodeCount(req, body, context, resolveInfo) {
+        const { data } = await this.userBroker.call('userStats.verificationCodeCount', body);
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('renewTokenCount')
+    @Permission('admin')
+    async renewTokenCount(req, body, context, resolveInfo) {
+        const { data } = await this.userBroker.call('userStats.renewTokenCount', body);
+        return { code: 200, message: 'success', data };
+    }
+
+    @Query('userCount')
+    @Permission('admin')
+    async userCount(req, body, context, resolveInfo) {
+        const { data } = await this.userBroker.call('userStats.userCount', body);
+        return { code: 200, message: 'success', data };
     }
 }

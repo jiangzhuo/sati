@@ -8,6 +8,7 @@ import { GraphQLConfigService } from './graphql-config.service';
 // import { NotaddGrpcClientFactory } from './grpc/grpc.client-factory';
 import { UserModule } from './modules/user/user.module';
 import { ResourceModule } from './modules/resource/resource.module';
+import { StatsModule } from './modules/stats/stats.module';
 import { UploadModule } from './modules/upload/upload.module';
 
 
@@ -19,6 +20,7 @@ import { UploadModule } from './modules/upload/upload.module';
         }),
         UploadModule,
         ResourceModule,
+        StatsModule,
         UserModule.forRoot(),
     ],
     providers: [
