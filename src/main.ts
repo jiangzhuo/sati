@@ -11,14 +11,16 @@ import * as http from 'http';
 import * as https from 'https';
 // import * as path from 'path';
 // import { ACMClient } from 'acm-client';
-import { NacosConfigClient } from 'nacos';
+// import { NacosConfigClient } from 'nacos';
+const ACMClient = require('@alicloud/acm-sdk');
 
 async function bootstrap() {
     // 初始化Logger
     const logger = new Logger('sati');
 
     // 初始化ACM或者配置
-    const acm = new NacosConfigClient({
+    // const acm = new NacosConfigClient({
+    const acm = new ACMClient({
     // const acm = new ACMClient({
         endpoint: process.env.ACM_ENDPOINT || 'acm.aliyun.com', // acm 控制台查看
         namespace: process.env.ACM_NAMESPACE || '7d2026a8-72a8-4e56-893f-91dfa8ffc207', // acm 控制台查看
@@ -26,7 +28,7 @@ async function bootstrap() {
         secretKey: process.env.ACM_ACCESS_KEY_SECRET || '9FNpKB1WZpEwxWJbiWSMiCfuy3E3TL', // acm 控制台查看
         requestTimeout: parseInt(process.env.ACM_TIMEOUT) || 6000, // 请求超时时间，默认6s
     });
-    await acm.ready();
+    // await acm.ready();
     // const allConfigs = await acm.getConfigs();
     const allConfigs = [
         { dataId: 'ACM_NAMESPACE', group: 'sati' },

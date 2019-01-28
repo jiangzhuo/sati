@@ -6,7 +6,8 @@ services:
       - '5000'
     restart: always
     environment:
-      - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+      - ACM_NAMESPACE=52dc622e-c602-4141-b2ed-307375ebf563
+      - ACM_ENDPOINT=addr-hk-internal.edas.aliyuncs.com
     links:
       - nats
     depends_on:
@@ -21,7 +22,8 @@ services:
     image: 'registry.cn-hongkong.aliyuncs.com/sati/sati-user:latest'
     restart: always
     environment:
-      - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+      - ACM_NAMESPACE=52dc622e-c602-4141-b2ed-307375ebf563
+      - ACM_ENDPOINT=addr-hk-internal.edas.aliyuncs.com
     links:
       - nats
     depends_on:
@@ -35,7 +37,8 @@ services:
     image: 'registry.cn-hongkong.aliyuncs.com/sati/sati-resource:latest'
     restart: always
     environment:
-      - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+      - ACM_NAMESPACE=52dc622e-c602-4141-b2ed-307375ebf563
+      - ACM_ENDPOINT=addr-hk-internal.edas.aliyuncs.com
     links:
       - nats
     depends_on:
@@ -49,7 +52,8 @@ services:
     image: 'registry.cn-hongkong.aliyuncs.com/sati/sati-stats:latest'
     restart: always
     environment:
-      - ACM_NAMESPACE=bf24cec5-8e5e-40fa-bbcd-896bc4bb51fb
+      - ACM_NAMESPACE=52dc622e-c602-4141-b2ed-307375ebf563
+      - ACM_ENDPOINT=addr-hk-internal.edas.aliyuncs.com
     links:
       - nats
     depends_on:
