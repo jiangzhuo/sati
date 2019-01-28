@@ -9,6 +9,8 @@ type Query {
     verificationCodeCount(from:Int,to:Int): StatsAggregationResponse
     "续订更新token数量"
     renewTokenCount(from:Int,to:Int): StatsAggregationResponse
+    "获取操作记录"
+    getOperation(page:Int,limit:Int,namespace:String,module:String,operationName:String,fieldName:String):GetOperationResponse
 }
 
 type StatsNumberResponse {
@@ -33,4 +35,28 @@ type AggregationId{
     module: String
     operationName: String
     fieldName: String
+}
+
+type GetOperationResponse {
+    code: Int
+    message: String
+    data: GetOperationData
+}
+
+type GetOperationData {
+    data: [OperationResult]
+    total: Int
+}
+
+type OperationResult {
+    timestamp: String,
+    server: String,
+    namespace: String,
+    module: String,
+    userId: String,
+    uuid: String,
+    clientIp: String,
+    operationName: String,
+    fieldName: String,
+    other: String
 }

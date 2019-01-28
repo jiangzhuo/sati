@@ -56,4 +56,11 @@ export class StatsResolver {
         const { data } = await this.userBroker.call('userStats.userCount', body);
         return { code: 200, message: 'success', data };
     }
+
+    @Query('getOperation')
+    @Permission('admin')
+    async getOperation(req, body, context, resolveInfo) {
+        const { data, total } = await this.userBroker.call('operation.getOperation', body);
+        return { code: 200, message: 'success', data: { data, total } };
+    }
 }
