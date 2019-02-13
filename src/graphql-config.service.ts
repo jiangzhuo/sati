@@ -12,7 +12,7 @@ export class GraphQLConfigService implements GqlOptionsFactory {
 
     createGqlOptions(): GqlModuleOptions {
         return {
-            typePaths: ['./**/*.types.graphql'],
+            typePaths: ['./**/*.types.graphqls'],
             resolvers: { JSON: GraphQLJSON },
             context: async ({ req }) => {
                 const udid = req.headers.udid;

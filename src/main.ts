@@ -31,10 +31,6 @@ async function bootstrap() {
     // await acm.ready();
     // const allConfigs = await acm.getConfigs();
     const allConfigs = [
-        { dataId: 'ACM_NAMESPACE', group: 'sati' },
-        { dataId: 'ACM_ACCESS_KEY_ID', group: 'sati' },
-        { dataId: 'ACM_ACCESS_KEY_SECRET', group: 'sati' },
-        { dataId: 'ACM_TIMEOUT', group: 'sati' },
         { dataId: 'SENTRY_DSN', group: 'sati' },
         { dataId: 'SSL_PRIVATE_KEY', group: 'sati' },
         { dataId: 'SSL_CERTIFICATE', group: 'sati' },

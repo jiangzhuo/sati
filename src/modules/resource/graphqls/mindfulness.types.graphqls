@@ -48,13 +48,13 @@ type Mutation{
     finishMindfulness(id: String!, duration: Int!): getMindfulnessRecordResponse
 
     "创建正态列表"
-    createMindfulnessAlbum(data: createMindfulnessAlbumRequest!): getNatureAlbumResponse
+    createMindfulnessAlbum(data: createMindfulnessAlbumRequest!): getMindfulnessAlbumResponse
     "更新正态列表"
-    updateMindfulnessAlbum(id: String!, data: updateMindfulnessAlbumRequest!): getNatureAlbumResponse
+    updateMindfulnessAlbum(id: String!, data: updateMindfulnessAlbumRequest!): getMindfulnessAlbumResponse
     "删除正态列表"
-    deleteMindfulnessAlbum(id: String!): getNatureAlbumResponse
+    deleteMindfulnessAlbum(id: String!): getMindfulnessAlbumResponse
     "恢复删除的正态列表"
-    revertDeletedMindfulnessAlbum(id: String!): getNatureAlbumResponse
+    revertDeletedMindfulnessAlbum(id: String!): getMindfulnessAlbumResponse
     "收藏正态专辑"
     favoriteMindfulnessAlbum(id: String!): getMindfulnessAlbumRecordResponse
     "购买正态专辑"
