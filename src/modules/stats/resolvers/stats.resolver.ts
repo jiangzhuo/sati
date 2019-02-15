@@ -22,6 +22,11 @@ export class StatsResolver {
 
     private logger = new Logger('stats');
 
+    @Query('helloStat')
+    async helloStat() {
+        return { code: 200, message: 'success' };
+    }
+
     @Query('loginCount')
     @Permission('admin')
     async loginCount(req, body, context, resolveInfo) {

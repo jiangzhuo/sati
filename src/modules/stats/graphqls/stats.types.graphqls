@@ -1,4 +1,5 @@
 type Query {
+    helloStat: HelloStatResponse
     "用户量"
     userCount(from:Int,to:Int): StatsNumberResponse
     "登录量"
@@ -11,6 +12,11 @@ type Query {
     renewTokenCount(from:Int,to:Int): StatsAggregationResponse
     "获取操作记录"
     getOperation(page:Int,limit:Int,namespace:String,module:String,operationName:String,fieldName:String):GetOperationResponse
+}
+
+type HelloStatResponse {
+    code: Int
+    message: String
 }
 
 type StatsNumberResponse {

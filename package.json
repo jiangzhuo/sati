@@ -9,7 +9,12 @@
         "debug:watch": "nodemon --config nodemon-debug.json",
         "check": "tslint -p tsconfig.json -c tslint.json",
         "fix": "tslint -p tsconfig.json -c tslint.json --fix",
-        "build": "tsc;cp -fr src/* dist/*"
+        "build": "tsc;cp -fr src/* dist/*",
+        "test": "jest --config=jest.json",
+        "test:watch": "jest --watch --config=jest.json",
+        "test:coverage": "jest --config=jest.json --coverage --coverageDirectory=coverage",
+        "e2e": "jest --config=e2e/jest-e2e.json --detectOpenHandles",
+        "e2e:watch": "jest --watch --config=e2e/jest-e2e.json"
     },
     "author": "jiangzhuo",
     "private": true,
@@ -21,6 +26,7 @@
         "@nestjs/graphql": "^5.3.0",
         "@nestjs/microservices": "^5.3.7",
         "@sentry/node": "^4.3.0",
+        "@types/supertest": "^2.0.7",
         "@types/uuid": "^3.4.4",
         "acm-client": "^3.1.0",
         "ali-oss": "^6.0.1",
@@ -50,15 +56,21 @@
         "uuid": "^3.3.2"
     },
     "devDependencies": {
+        "@nestjs/testing": "^5.7.2",
         "@types/cache-manager": "^1.2.6",
         "@types/collections": "^5.0.0",
         "@types/graphql": "^14.0.0",
         "@types/graphql-type-json": "^0.1.2",
         "@types/hasha": "^3.0.0",
         "@types/i18n": "^0.8.3",
+        "@types/jest": "^24.0.4",
         "@types/jsonwebtoken": "^7.2.8",
         "@types/mime": "^2.0.0",
         "@types/node": "^10.5.2",
+        "jest": "^24.1.0",
+        "mongo-unit": "^1.4.4",
+        "supertest": "^3.4.2",
+        "ts-jest": "^23.10.5",
         "ts-node": "^7.0.0",
         "tsconfig-paths": "^3.6.0",
         "tslint": "^5.11.0"
